@@ -12,12 +12,21 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { BooksComponent } from '../../books/books.component';
+//Library to do request to the server
+import { HttpHeaders, HttpClientModule } from '@angular/common/http';
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': 'my-auth-token'
+  })
+};
 import {
   MatButtonModule,
   MatInputModule,
   MatRippleModule,
   MatTooltipModule,
 } from '@angular/material';
+import { BrowserModule } from '../../../../node_modules/@angular/platform-browser';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,6 +36,8 @@ import {
     MatRippleModule,
     MatInputModule,
     MatTooltipModule,
+    BrowserModule,
+    HttpClientModule
   ],
   declarations: [
     DashboardComponent,

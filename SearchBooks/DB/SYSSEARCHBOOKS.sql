@@ -1,28 +1,26 @@
 CREATE TABLE Usuarios 
   ( 
      id int IDENTITY(1,1) PRIMARY KEY,
-	 cedula      VARCHAR(50) NOT NULL, 
-     nombre      VARCHAR(20) NOT NULL, 
-     apellido1   VARCHAR(20) NOT NULL, 
-     apellido2   VARCHAR(20) NOT NULL, 
-     contraseña VARCHAR(50) NOT NULL
+	 cedula      VARCHAR(50) , 
+     nombre      VARCHAR(20) , 
+     apellido1   VARCHAR(20) , 
+     apellido2   VARCHAR(20) , 
+     contraseña VARCHAR(50) 
   );
-
   CREATE TABLE Libros(
-	titulo VARCHAR(200) PRIMARY KEY,
-	autor VARCHAR(200) NOT NULL,
-	ano INTEGER NOT NULL,
-	numeroInscripcion VARCHAR(50) NOT NULL,
-	numeroClasificacion VARCHAR(50) NOT NULL,
+	id int IDENTITY(1,1),
+	titulo VARCHAR(200) ,
+	autor VARCHAR(200) ,
+	ano INTEGER ,
+	numeroInscripcion VARCHAR(50) ,
+	numeroClasificacion VARCHAR(50) ,
 	orden VARCHAR(50) ,
-	bib INTEGER NOT NULL,
-	precio INTEGER NOT NULL,
-	procedencia VARCHAR(50) NOT NULL,
-	observaciones VARCHAR(200) NOT NULL
+	bib INTEGER ,
+	precio INTEGER ,
+	procedencia VARCHAR(50) ,
+	observaciones VARCHAR(200),
+	CONSTRAINT pk_identlibro PRIMARY KEY(id,titulo) 
   );
-
-
-EXEC AgregarLibro 'a','a','2','12','12','21','9','11','12','awda','1'
 CREATE PROCEDURE AgregarLibro @titulo AS VARCHAR(200), 
                               @autor AS VARCHAR(200), 
                               @ano  AS INTEGER, 
@@ -67,3 +65,21 @@ AS
       END Catch 
   END 
 GO
+
+CREATE PROCEDURE selectUltimo AS 
+BEGIN 
+	SELECT TOP 1 id FROM Libros
+	ORDER BY id DESC;
+END
+
+
+EXEC selectUltimo
+SELECT * FROM Libros
+
+EXEC AgregarLibro 'a','a','2','12','12','21','9','11','12','awda','1'
+
+SELECT TOP 1 id FROM Libros
+ORDER BY id DESC;
+
+DBCC CHECKIDENT ('Libros', RESEED, 1)  
+

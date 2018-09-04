@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 type AOA = any[][];
+import {BooksService} from './books.service';
+import { Book } from './Book';
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
   styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit {
-  constructor() { }
+  constructor(private service:BooksService){
+		
+	 }
   ngOnInit() {
 	}
+	books:Book[]=[];
 	data: AOA = [ [1, 2], [3, 4] ];
 	wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
 	fileName: string = 'SheetJS.xlsx';
@@ -36,13 +41,26 @@ export class BooksComponent implements OnInit {
 	export(): void {
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
-
 		/* generate workbook and add the worksheet */
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
 		XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 		/* save to file */
 		XLSX.writeFile(wb, this.fileName);
-  }
+	}
+	//Funcion que se encarga de agregar todos los registros
+	addRegistersbooks(){
+			
+	}
+	addBook(newBook){
+		this.service.addBook(newBook).subscribe(response=>this.books.push(newBook));
+	}
+	getLast(){
+		this.service.devuelveUltimo().then((data:Book)=>{
+				if(data.success){
 
+				}
+				else{
 
-}
+				}});
+		};
+	}

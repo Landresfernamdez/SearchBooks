@@ -5,8 +5,7 @@
 */
 
 var consultsPreparer = require('../ConsultsPreparer/consultsPreparer');
-
-exports.insertarLibros= function(datos, callback) {
+exports.insertarLibros= function(datos, callback){
     consultsPreparer.insertarLibro(datos, function(response) {
         msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
         if (response.success) {
@@ -15,6 +14,29 @@ exports.insertarLibros= function(datos, callback) {
                 error: response.error,
                 title: "Se inserto con exito",
                 message: "Se inserto en la base de datos con exito",
+                data: response.data,
+                type: "success"
+            })
+        } else{
+            callback({
+                success: false,
+                message: msg,
+                title: "Error",
+                error: response.error,
+                type: "error"
+            })
+        }
+    });
+};
+exports.devuelveUltimo = function(datos, callback) {
+    consultsPreparer.ultimo(datos, function(response) {
+        msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
+        if (response.success){
+            callback({
+                success: true,
+                error: response.error,
+                title: "Se obtuvo el ultimo con exito",
+                message: "Se obtuvo el ultimo elemento con exito",
                 data: response.data,
                 type: "success"
             })
@@ -54,7 +76,7 @@ exports.login = function(datos, callback) {
         }
     });
 };
-exports.validaCorreo = function(datos, callback) {
+exports.validaCorreo = function(datos, callback){
     consultsPreparerPartida.validaCorreo(datos, function(response) {
         msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
         if (response.success) {

@@ -38,10 +38,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Eliomar-Rodriguez/AcreditacionTEC.git"
+    "url": "git+https://github.com/Landresfernamdez/searchBooks"
   },
   "bugs": {
-    "url": "https://github.com/Eliomar-Rodriguez/AcreditacionTEC/issues"
+    "url": "https://github.com/Landresfernamdez/searchBooks/issues"
   },
-  "homepage": "https://github.com/Eliomar-Rodriguez/AcreditacionTEC#README"
+  "homepage": "https://github.com/Landresfernamdez/searchBooks#README"
 }

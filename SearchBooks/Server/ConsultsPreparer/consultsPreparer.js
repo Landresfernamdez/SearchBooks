@@ -1,7 +1,6 @@
 var Request = require('tedious').Request;
 var TYPES = require('tedious').TYPES;
 var sqlConection = require('../ConexionDBs/sqlConection.js');
-
 /*
 ===========================
 >  CRUD's de Componentes  <
@@ -13,7 +12,7 @@ var sqlConection = require('../ConexionDBs/sqlConection.js');
 */
 exports.insertarLibro = function insertarLibro(datos, callback) {
     var request = new Request('AgregarLibro', function(err) { // nombre de procedimiento en la base de datos
-        if (err) {
+        if (err){
             callback({
                 success: false,
                 error: request.error,
@@ -38,6 +37,23 @@ exports.insertarLibro = function insertarLibro(datos, callback) {
     sqlConection.callProcedure(request, function(res) {
         console.log("prueba");
         console.log(res);
+        callback(res);
+    });
+}
+exports.ultimo = function ultimo(datos, callback){
+    var request = new Request('selectUltimo', function(err) { // nombre de procedimiento en la base de datos
+        if(err){
+            callback({
+                success: false,
+                error: request.error,
+                title: "Error",
+                message: "Sucedio un error obteniendo el utimo",
+                type: "error"
+            })
+        }
+    });
+    console.log(datos);
+    sqlConection.callProcedure(request, function(res) {
         callback(res);
     });
 }

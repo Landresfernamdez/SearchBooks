@@ -3,11 +3,21 @@
 >  Controlador de los Componentes del sistema  <
 ================================================
 */
-var logicaFunciones = require('../Logica Juego/funciones_principales');
-
 var controlador = require('../Logica/logicaComponentes');
 
-exports.realizarMovimiento = function(rRequest, rResponse){
+exports.agregarLibros = function(rRequest, rResponse){
+    controlador.insertaLibros(rRequest.body, function(data){
+        console.log(data);
+        rResponse.send(data);
+    });
+};
+exports.obtenerUltimo = function(rRequest, rResponse){
+    controlador.devuelveUltimo(rRequest.body, function(data){
+        console.log(data);
+        rResponse.send(data);
+    });
+};
+/*exports.realizarMovimiento = function(rRequest, rResponse){
     //console.log(rRequest.body);
     logicaFunciones.validarMovimiento(rRequest.body, function(data){
         //console.log(data)
@@ -84,4 +94,4 @@ exports.deleteComponente = function(rRequest, rResponse){
     logicaComponente.eliminarComponente(rRequest.body, function(data){
         rResponse.send(data);
     });
-};
+};*/

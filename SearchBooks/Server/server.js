@@ -51,19 +51,21 @@ app.use(function(req, res, next) {
 >  EndPoints de los Componentes  < // bien todos
 ==================================
 */
-
-app.post('/movimiento', componenteCtrl.realizarMovimiento);
-app.get('/selectComponentes', componenteCtrl.selectComponente);
+app.post('/agregarLibros',componenteCtrl.agregarLibros);
+app.get('/devuelveUltimo',componenteCtrl.obtenerUltimo);
+/*
+//app.post('/movimiento', componenteCtrl.realizarMovimiento);
+//app.get('/selectComponentes', componenteCtrl.selectComponente);
 //app.post('/deleteComponente', componenteCtrl.deleteComponente);
-app.post('/Login',componenteCtrl.login);
-app.post('/validaCorreo',componenteCtrl.validaCorreo);
-app.post('/insertarUsuario',componenteCtrl.insertarUsuario);
-app.post('/agregarSesion',componenteCtrl.insertarSesion);
-app.get('/selectSesionesJuegoDisponibles', componenteCtrl.selectSesionesJuegoDisponibles);
-app.post('/putUsuarioasesiondeJuego',componenteCtrl.insertarUsuarioSesion);
-app.post('/misSesiones',componenteCtrl.misSesiones);
-app.post('/detallesSesion',componenteCtrl.detalles);
-app.post('/partidaActual',componenteCtrl.partidaActual);
+//app.post('/Login',componenteCtrl.login);
+//app.post('/validaCorreo',componenteCtrl.validaCorreo);
+//app.post('/insertarUsuario',componenteCtrl.insertarUsuario);
+//app.post('/agregarSesion',componenteCtrl.insertarSesion);
+//app.get('/selectSesionesJuegoDisponibles', componenteCtrl.selectSesionesJuegoDisponibles);
+//app.post('/putUsuarioasesiondeJuego',componenteCtrl.insertarUsuarioSesion);
+//app.post('/misSesiones',componenteCtrl.misSesiones);
+//app.post('/detallesSesion',componenteCtrl.detalles);
+//app.post('/partidaActual',componenteCtrl.partidaActual);
 /*
 ======================================================================================
 >  Pone el servidor en escucha de peticiones, lo levanta en el puerto especificado.  <
