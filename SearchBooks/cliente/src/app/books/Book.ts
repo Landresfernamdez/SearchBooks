@@ -9,5 +9,5 @@ export class Book{
     public precio:Int32Array;
     public procedencia:string;
     public observaciones:string;
-    public success:BinaryType
+    public success:Int32Array
 }

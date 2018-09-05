@@ -12,6 +12,7 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { BooksComponent } from '../../books/books.component';
+import { BooksService } from '../../books/books.service';
 //Library to do request to the server
 import { HttpHeaders, HttpClientModule } from '@angular/common/http';
 const httpOptions = {
@@ -26,7 +27,6 @@ import {
   MatRippleModule,
   MatTooltipModule,
 } from '@angular/material';
-import { BrowserModule } from '../../../../node_modules/@angular/platform-browser';
 @NgModule({
   imports: [
     CommonModule,
@@ -36,7 +36,6 @@ import { BrowserModule } from '../../../../node_modules/@angular/platform-browse
     MatRippleModule,
     MatInputModule,
     MatTooltipModule,
-    BrowserModule,
     HttpClientModule
   ],
   declarations: [
@@ -49,7 +48,8 @@ import { BrowserModule } from '../../../../node_modules/@angular/platform-browse
     NotificationsComponent,
     UpgradeComponent,
     BooksComponent
-  ]
+  ],
+  providers:[BooksService]
 })
 
 export class AdminLayoutModule {}

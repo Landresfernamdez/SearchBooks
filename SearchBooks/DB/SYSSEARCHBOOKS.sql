@@ -75,7 +75,6 @@ END
 
 EXEC selectUltimo
 SELECT * FROM Libros
-
 EXEC AgregarLibro 'a','a','2','12','12','21','9','11','12','awda','1'
 
 SELECT TOP 1 id FROM Libros

@@ -55,7 +55,7 @@ export class AdminLayoutComponent implements OnInit {
           ps = new PerfectScrollbar(elemSidebar);
       }
   }
-  ngAfterViewInit() {
+  ngAfterViewInit(){
       this.runOnRouteChange();
   }
   isMaps(path){

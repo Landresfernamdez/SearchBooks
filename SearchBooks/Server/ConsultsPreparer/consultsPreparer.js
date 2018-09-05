@@ -26,9 +26,9 @@ exports.insertarLibro = function insertarLibro(datos, callback) {
     request.addParameter('titulo', TYPES.VarChar, datos.titulo);
     request.addParameter('autor', TYPES.VarChar, datos.autor);
     request.addParameter('ano', TYPES.Int, datos.ano);
-    request.addParameter('numeroInscripcion',TYPES.VarChar);
-    request.addParameter('numeroClasificacion',TYPES.VarChar);
-    request.addParameter('orden',TYPES.VarChar);
+    request.addParameter('numeroInscripcion',TYPES.VarChar,datos.numeroInscripcion);
+    request.addParameter('numeroClasificacion',TYPES.VarChar,datos.numeroClasificacion);
+    request.addParameter('orden',TYPES.VarChar,datos.orden);
     request.addParameter('bib', TYPES.Int, datos.bib);
     request.addParameter('precio', TYPES.Int, datos.precio);
     request.addParameter('procedencia',TYPES.VarChar);

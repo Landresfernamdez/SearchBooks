@@ -15,7 +15,7 @@ export class BooksComponent implements OnInit {
   ngOnInit() {
 	}
 	books:Book[]=[];
-	data: AOA = [ [1, 2], [3, 4] ];
+	data: AOA = [];
 	wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
 	fileName: string = 'SheetJS.xlsx';
 	onFileChange(evt: any) {
@@ -49,17 +49,42 @@ export class BooksComponent implements OnInit {
 	}
 	//Funcion que se encarga de agregar todos los registros
 	addRegistersbooks(){
+		    if(this.data.length>0){
+				for(var x=0;x<this.data.length;x++){
+					if(x>1){
+						var listaParametros=this.data[x];
+						var libro={
+							titulo:listaParametros[0],
+							autor:listaParametros[1],
+							ano:listaParametros[2],
+							numeroInscripcion:listaParametros[3],
+							numeroClasificacion:listaParametros[4],
+							orden:listaParametros[5],
+							bib:listaParametros[6],
+							precio:listaParametros[8],
+							procedencia:listaParametros[7],
+							observaciones:listaParametros[9],
+							succcess:1
+						}
+						this.addBook(libro);
+					}
+				}
+			}else{
+				console.log("Debe importar el excel primero");
+			}
+			
 			
 	}
-	addBook(newBook){
+	addBook=(newBook)=>{
 		this.service.addBook(newBook).subscribe(response=>this.books.push(newBook));
 	}
 	getLast(){
 		this.service.devuelveUltimo().then((data:Book)=>{
 				if(data.success){
-
+					console.log("exito");
 				}
 				else{
+					console.log("error");
 
 				}});
 		};

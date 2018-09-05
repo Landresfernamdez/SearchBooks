@@ -6,7 +6,7 @@
 var controlador = require('../Logica/logicaComponentes');
 
 exports.agregarLibros = function(rRequest, rResponse){
-    controlador.insertaLibros(rRequest.body, function(data){
+    controlador.insertarLibros(rRequest.body, function(data){
         console.log(data);
         rResponse.send(data);
     });
