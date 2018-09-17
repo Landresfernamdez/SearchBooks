@@ -17,6 +17,14 @@ exports.obtenerUltimo = function(rRequest, rResponse){
         rResponse.send(data);
     });
 };
+exports.todosLibros = function(rRequest, rResponse){
+    controlador.todosLibros(function(data){
+        rResponse.send(data.data);
+    });
+};
+
+
+
 /*exports.realizarMovimiento = function(rRequest, rResponse){
     //console.log(rRequest.body);
     logicaFunciones.validarMovimiento(rRequest.body, function(data){

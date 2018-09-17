@@ -22,17 +22,16 @@ exports.insertarLibro = function insertarLibro(datos, callback) {
             })
         }
     });
-    console.log(datos);
     request.addParameter('titulo', TYPES.VarChar, datos.titulo);
     request.addParameter('autor', TYPES.VarChar, datos.autor);
-    request.addParameter('ano', TYPES.Int, datos.ano);
+    request.addParameter('ano', TYPES.VarChar, datos.ano);
     request.addParameter('numeroInscripcion',TYPES.VarChar,datos.numeroInscripcion);
     request.addParameter('numeroClasificacion',TYPES.VarChar,datos.numeroClasificacion);
     request.addParameter('orden',TYPES.VarChar,datos.orden);
-    request.addParameter('bib', TYPES.Int, datos.bib);
-    request.addParameter('precio', TYPES.Int, datos.precio);
-    request.addParameter('procedencia',TYPES.VarChar);
-    request.addParameter('observaciones',TYPES.VarChar);
+    request.addParameter('bib', TYPES.VarChar, datos.bib);
+    request.addParameter('precio', TYPES.VarChar, datos.precio);
+    request.addParameter('procedencia',TYPES.VarChar,datos.procedencia);
+    request.addParameter('observaciones',TYPES.VarChar,datos.observaciones);
     request.addOutputParameter('success', TYPES.Bit);
     sqlConection.callProcedure(request, function(res) {
         console.log("prueba");
@@ -56,6 +55,24 @@ exports.ultimo = function ultimo(datos, callback){
     sqlConection.callProcedure(request, function(res) {
         callback(res);
     });
+}
+
+exports.todosLibros = function(callback){
+    var query = "SELECT * FROM Libros where titulo!='NULL'";
+    var request = new Request(query, function(err) {
+        if (err){
+            callback({
+                success: false,
+                data: err,
+                error: request.error,
+                title: "Error",
+                message: "Error obteniendo los datos. Revise su conexión",
+                type: "error"
+            });
+        }
+
+    });
+    sqlConection.executeRequest(request,callback); 
 }
 /*
 //Valida si existe el usuario con su correo y contraseña

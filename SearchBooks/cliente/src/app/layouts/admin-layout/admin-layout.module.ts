@@ -21,6 +21,8 @@ const httpOptions = {
     'Authorization': 'my-auth-token'
   })
 };
+
+import {NgbModule, NgbPaginationModule,NgbAlertModule,} from '@ng-bootstrap/ng-bootstrap';
 import {
   MatButtonModule,
   MatInputModule,
@@ -36,7 +38,10 @@ import {
     MatRippleModule,
     MatInputModule,
     MatTooltipModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule,
+    NgbPaginationModule,
+     NgbAlertModule,
   ],
   declarations: [
     DashboardComponent,

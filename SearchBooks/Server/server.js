@@ -53,6 +53,7 @@ app.use(function(req, res, next) {
 */
 app.post('/agregarLibros',componenteCtrl.agregarLibros);
 app.get('/devuelveUltimo',componenteCtrl.obtenerUltimo);
+app.get('/todosLibros',componenteCtrl.todosLibros);
 /*
 //app.post('/movimiento', componenteCtrl.realizarMovimiento);
 //app.get('/selectComponentes', componenteCtrl.selectComponente);

@@ -9,12 +9,14 @@ import { Book } from './Book';
   styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit {
-  constructor(private service:BooksService){
-		
-	 }
+	public books;
+	public page=1;
+	constructor(private service:BooksService){
+	this.service.devuelveTodoslibros().subscribe(response=>
+		this.books=response)
+     }
   ngOnInit() {
 	}
-	books:Book[]=[];
 	data: AOA = [];
 	wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
 	fileName: string = 'SheetJS.xlsx';
@@ -38,6 +40,7 @@ export class BooksComponent implements OnInit {
 		};
 		reader.readAsBinaryString(target.files[0]);
 	}
+	
 	export(): void {
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
@@ -67,8 +70,9 @@ export class BooksComponent implements OnInit {
 							succcess:1
 						}
 						this.addBook(libro);
-					}
+						}
 				}
+				alert("Se insertaron los registros con exito")
 			}else{
 				console.log("Debe importar el excel primero");
 			}
@@ -88,4 +92,5 @@ export class BooksComponent implements OnInit {
 
 				}});
 		};
+	
 	}

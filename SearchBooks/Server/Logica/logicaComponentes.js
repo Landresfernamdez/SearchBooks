@@ -51,6 +51,28 @@ exports.devuelveUltimo = function(datos, callback) {
         }
     });
 };
+exports.todosLibros = function(datos, callback) {
+    consultsPreparer.todosLibros(datos, function(response) {
+        msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
+        if (response.success){
+            callback({
+                success: true,
+                title: "Se obtuvo el ultimo con exito",
+                message: "Se obtuvo el ultimo elemento con exito",
+                data: response.data,
+                type: "success"
+            })
+        } else {
+            callback({
+                success: false,
+                message: msg,
+                title: "Error",
+                error: response.error,
+                type: "error"
+            })
+        }
+    });
+};
 /*
 // inserta componentes
 exports.login = function(datos, callback) {

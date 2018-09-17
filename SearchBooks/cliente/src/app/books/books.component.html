@@ -2,15 +2,69 @@
   <div class="container-fluid">
       <div class="row">
       <input type="file" (change)="onFileChange($event)" multiple="false" />
-        <!--<table class="sjs-table">
-          <tr *ngFor="let row of data">
-            <td *ngFor="let val of row">
-              {{val}}
-            </td>
-          </tr>
-        </table>-->
-        <button (click)="export()">Export!</button>
-        <button (click)="addRegistersbooks()">AddBook</button>
+      <button (click)="addRegistersbooks()">Agregar libros cargados en excel</button>
+
+
+      <!--  
+      <ngb-pagination class="d-flex justify-content-end" [collectionSize]="70" [(page)]="page"></ngb-pagination>
+      -->
+      <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                  <td>
+                    <b>Titulo</b>
+                  </td>
+                  <td>
+                    <b>Autor</b>
+                  </td>
+                  <td>
+                    <b>Año</b>
+                  </td>
+                  <td>
+                    <b>Numero  de Clasificacion</b>
+                  </td>
+                  <td>
+                    <b>Numero de Inscripcion</b>
+                  </td>
+                  <td>
+                    <b>Precio</b>
+                  </td>
+                  <td>
+                    <b>Procedencia</b>
+                  </td>
+                  <td>
+                    <b>Bib</b>
+                  </td>
+            </thead> 
+            <tbody>
+                <tr *ngFor="let book of books">
+                    <td>
+                      {{book.titulo}}
+                    </td>
+                    <td>
+                      {{book.autor}}
+                    </td>
+                    <td>
+                      {{book.ano}}
+                    </td>
+                    <td>
+                      {{book.numeroClasificacion}}
+                    </td>
+                    <td>
+                      {{book.numeroInscripcion}}
+                    </td>
+                    <td>
+                      {{book.precio}}
+                    </td>
+                    <td>
+                      {{book.procedencia}}
+                    </td>
+                    <td>
+                      {{book.bib}}
+                    </td>
+                  </tr>
+            </tbody>
+        </table>
       </div>
     </div>
   </div>
