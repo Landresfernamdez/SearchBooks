@@ -5,9 +5,7 @@
       <button (click)="addRegistersbooks()">Agregar libros cargados en excel</button>
 
 
-      <!--  
-      <ngb-pagination class="d-flex justify-content-end" [collectionSize]="70" [(page)]="page"></ngb-pagination>
-      -->
+    
       <div class="table-responsive">
         <table class="table table-hover">
             <thead>
@@ -37,7 +35,7 @@
                   </td>
             </thead> 
             <tbody>
-                <tr *ngFor="let book of books">
+                <tr *ngFor="let book of books | paginate: { itemsPerPage: 10, currentPage: p }">
                     <td>
                       {{book.titulo}}
                     </td>
@@ -63,6 +61,7 @@
                       {{book.bib}}
                     </td>
                   </tr>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </tbody>
         </table>
       </div>

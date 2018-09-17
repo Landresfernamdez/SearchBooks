@@ -15,14 +15,13 @@ import { BooksComponent } from '../../books/books.component';
 import { BooksService } from '../../books/books.service';
 //Library to do request to the server
 import { HttpHeaders, HttpClientModule } from '@angular/common/http';
+import {NgxPaginationModule} from 'ngx-pagination';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
     'Authorization': 'my-auth-token'
   })
 };
-
-import {NgbModule, NgbPaginationModule,NgbAlertModule,} from '@ng-bootstrap/ng-bootstrap';
 import {
   MatButtonModule,
   MatInputModule,
@@ -39,9 +38,7 @@ import {
     MatInputModule,
     MatTooltipModule,
     HttpClientModule,
-    NgbModule,
-    NgbPaginationModule,
-     NgbAlertModule,
+    NgxPaginationModule
   ],
   declarations: [
     DashboardComponent,

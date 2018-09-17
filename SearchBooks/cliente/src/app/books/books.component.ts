@@ -10,7 +10,7 @@ import { Book } from './Book';
 })
 export class BooksComponent implements OnInit {
 	public books;
-	public page=1;
+	public p:number=1;
 	constructor(private service:BooksService){
 	this.service.devuelveTodoslibros().subscribe(response=>
 		this.books=response)
