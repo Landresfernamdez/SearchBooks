@@ -1,7 +1,7 @@
 export class Book{
     public titulo:string;
     public autor:string;
-    public ano:Int32Array;
+    public ano:string;
     public numeroInscripcion:string;
     public numeroClasificacion:string;
     public orden:string;

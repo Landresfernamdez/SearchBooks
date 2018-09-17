@@ -11,6 +11,10 @@ import { Book } from './Book';
 export class BooksComponent implements OnInit {
 	public books;
 	public p:number=1;
+	public minYear:number=1900;
+	year = new Date();
+	public maxYear:number=this.year.getFullYear();
+	filter: Book = new Book();
 	constructor(private service:BooksService){
 	this.service.devuelveTodoslibros().subscribe(response=>
 		this.books=response)

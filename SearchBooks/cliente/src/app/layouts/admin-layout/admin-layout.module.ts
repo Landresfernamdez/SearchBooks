@@ -16,6 +16,7 @@ import { BooksService } from '../../books/books.service';
 //Library to do request to the server
 import { HttpHeaders, HttpClientModule } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { BookFilterPipe } from '../../books/book-filter';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
@@ -49,7 +50,8 @@ import {
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
-    BooksComponent
+    BooksComponent,
+    BookFilterPipe
   ],
   providers:[BooksService]
 })
