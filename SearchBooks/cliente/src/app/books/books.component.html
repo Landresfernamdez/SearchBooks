@@ -3,9 +3,7 @@
       <div class="row">
       <input type="file" (change)="onFileChange($event)" multiple="false" />
       <button (click)="addRegistersbooks()">Agregar libros cargados en excel</button>
-
-
-    
+      <button (click)="ngxSmartModalService.getModal('myModal').open()">Agregar libro</button>
       <div class="table-responsive">
         <table class="table table-hover">
             <thead>
@@ -74,5 +72,28 @@
         </table>
         <pagination-controls (pageChange)="p = $event" responsive="true"></pagination-controls>
       </div>
+
+      
+
+
     </div>
   </div>
+
+  <ngx-smart-modal #popupOne [identifier]="'myModal'">
+    <h1>Llenar campos de libro a agregar</h1>
+    <input type="text" name="titulo" [(ngModel)]="book.titulo" placeholder="Titulo">
+    <input type="text" name="titulo" [(ngModel)]="book.autor" placeholder="Autor">
+    <input type="text" name="titulo" [(ngModel)]="book.ano" placeholder="Año">
+    <input type="text" name="titulo" [(ngModel)]="book.numeroInscripcion" placeholder="Numero de inscripcion">
+    <input type="text" name="titulo" [(ngModel)]="book.numeroClasificacion" placeholder="Numero de clasificacion">
+    <input type="text" name="titulo" [(ngModel)]="book.orden" placeholder="Orden">
+    <input type="text" name="titulo" [(ngModel)]="book.bib" placeholder="Bib">
+    <input type="text" name="titulo" [(ngModel)]="book.precio" placeholder="precio">
+    <input type="text" name="titulo" [(ngModel)]="book.procedencia" placeholder="procedencia">
+    <input type="text" name="titulo" [(ngModel)]="book.observaciones" placeholder="observaciones">
+    <!--<button (click)="popupOne.close()">Close</button>-->
+    <button (click)="AgregarLibro()">Agregar libro</button>
+  </ngx-smart-modal>
+
+ 
+   

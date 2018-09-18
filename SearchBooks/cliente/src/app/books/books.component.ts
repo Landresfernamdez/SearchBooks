@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 import * as XLSX from 'xlsx';
 type AOA = any[][];
 import {BooksService} from './books.service';
 import { Book } from './Book';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
@@ -15,10 +17,13 @@ export class BooksComponent implements OnInit {
 	year = new Date();
 	public maxYear:number=this.year.getFullYear();
 	filter: Book = new Book();
-	constructor(private service:BooksService){
+	book: Book = new Book();
+	closeResult: string;
+	constructor(private service:BooksService,public ngxSmartModalService: NgxSmartModalService){
 	this.service.devuelveTodoslibros().subscribe(response=>
 		this.books=response)
-     }
+	 }
+  
   ngOnInit() {
 	}
 	data: AOA = [];
@@ -44,7 +49,10 @@ export class BooksComponent implements OnInit {
 		};
 		reader.readAsBinaryString(target.files[0]);
 	}
-	
+	AgregarLibro():void{
+		console.log(this.book);
+		this.addBook(this.book);
+	}
 	export(): void {
 		/* generate worksheet */
 		const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
