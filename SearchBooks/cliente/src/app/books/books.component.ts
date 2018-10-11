@@ -13,9 +13,6 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class BooksComponent implements OnInit {
 	public books;
 	public p:number=1;
-	public minYear:number=1900;
-	year = new Date();
-	public maxYear:number=this.year.getFullYear();
 	filter: Book = new Book();
 	book: Book = new Book();
 	closeResult: string;
@@ -23,14 +20,12 @@ export class BooksComponent implements OnInit {
 	this.service.devuelveTodoslibros().subscribe(response=>
 		this.books=response)
 	 }
-  
-  ngOnInit() {
-	}
+  	ngOnInit(){}
 	data: AOA = [];
 	wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
 	fileName: string = 'SheetJS.xlsx';
-	onFileChange(evt: any) {
-		/* wire up file reader */
+	onFileChange(evt: any){
+		/*wire up file reader*/
 		const target: DataTransfer = <DataTransfer>(evt.target);
 		if (target.files.length !== 1) throw new Error('Cannot use multiple files');
 		const reader: FileReader = new FileReader();

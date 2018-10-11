@@ -18,8 +18,7 @@ import {OneModalComponent} from '../../components/modal/modal.component';
 import { HttpHeaders, HttpClientModule } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { BookFilterPipe } from '../../books/book-filter';
-import { NgxSmartModalModule , NgxSmartModalService} from 'ngx-smart-modal'
-import { NgbModule,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSmartModalModule , NgxSmartModalService} from 'ngx-smart-modal';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
@@ -43,8 +42,7 @@ import {
     MatTooltipModule,
     HttpClientModule,
     NgxPaginationModule,
-    NgxSmartModalModule,
-    NgbModule.forRoot()
+    NgxSmartModalModule
   ],
   declarations: [
     DashboardComponent,

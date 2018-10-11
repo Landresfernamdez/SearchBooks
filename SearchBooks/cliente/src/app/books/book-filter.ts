@@ -1,7 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
 import { Book } from './book';
-
 @Pipe({
     name: 'bookfilter',
     pure: false
@@ -14,7 +12,6 @@ export class BookFilterPipe implements PipeTransform {
     // filter items array, items which match and return true will be kept, false will be filtered out
     return items.filter((item: Book) => this.applyFilter(item, filter));
   }
-  
   /**
    * Perform the filtering.
    * 
@@ -26,11 +23,16 @@ export class BookFilterPipe implements PipeTransform {
     for (let field in filter) {
       if (filter[field]) {
         if (typeof filter[field] === 'string') {
-          if (book[field].toLowerCase().indexOf(filter[field].toLowerCase()) === -1) {
+          if(book[field]!=undefined){
+            if (book[field].toLowerCase().indexOf(filter[field].toLowerCase()) === -1) {
+              return false;
+            }
+          }else if(book[field]==undefined){
             return false;
           }
+          
         } else if (typeof filter[field] === 'number') {
-          if (book[field] !== filter[field]) {
+          if (book[field] !== filter[field]){
             return false;
           }
         }
