@@ -10,9 +10,14 @@ var sqlConection = require('../ConexionDBs/sqlConection.js');
 >   - delete              <
 ===========================
 */
+/**
+ *    Función de insertar libro en la base de datos
+ * @param {Recibe un json con atributos de las tablas} datos 
+ * @param {*Recibe una funcion por parametro para devolver el resultado del request a la base de datos} callback 
+ */
 exports.insertarLibro = function insertarLibro(datos, callback) {
-    var request = new Request('AgregarLibro', function(err) { // nombre de procedimiento en la base de datos
-        if (err){
+    var request = new Request('AgregarLibro', function (err) { // nombre de procedimiento en la base de datos
+        if (err) {
             callback({
                 success: false,
                 error: request.error,
@@ -25,23 +30,60 @@ exports.insertarLibro = function insertarLibro(datos, callback) {
     request.addParameter('titulo', TYPES.VarChar, datos.titulo);
     request.addParameter('autor', TYPES.VarChar, datos.autor);
     request.addParameter('ano', TYPES.VarChar, datos.ano);
-    request.addParameter('numeroInscripcion',TYPES.VarChar,datos.numeroInscripcion);
-    request.addParameter('numeroClasificacion',TYPES.VarChar,datos.numeroClasificacion);
-    request.addParameter('orden',TYPES.VarChar,datos.orden);
+    request.addParameter('numeroInscripcion', TYPES.VarChar, datos.numeroInscripcion);
+    request.addParameter('numeroClasificacion', TYPES.VarChar, datos.numeroClasificacion);
+    request.addParameter('orden', TYPES.VarChar, datos.orden);
     request.addParameter('bib', TYPES.VarChar, datos.bib);
     request.addParameter('precio', TYPES.VarChar, datos.precio);
-    request.addParameter('procedencia',TYPES.VarChar,datos.procedencia);
-    request.addParameter('observaciones',TYPES.VarChar,datos.observaciones);
+    request.addParameter('procedencia', TYPES.VarChar, datos.procedencia);
+    request.addParameter('observaciones', TYPES.VarChar, datos.observaciones);
     request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function(res) {
-        console.log("prueba");
-        console.log(res);
+    sqlConection.callProcedure(request, function (res) {
         callback(res);
     });
 }
-exports.ultimo = function ultimo(datos, callback){
-    var request = new Request('selectUltimo', function(err) { // nombre de procedimiento en la base de datos
-        if(err){
+/**
+ * Función de modificar libro en la base de datos
+ * @param {Recibe un json con atributos de las tablas} datos 
+ * @param {*Recibe una funcion por parametro para devolver el resultado del request a la base de datos} callback 
+ */
+exports.modificarLibro = function modificarLibro(datos, callback) {
+    exports.modificarLibro = function modificarLibro(datos, callback) {
+        var request = new Request('ModificarLibro', function (err) { // nombre de procedimiento en la base de datos
+            if (err) {
+                callback({
+                    success: false,
+                    error: request.error,
+                    title: "Error",
+                    message: "Sucedio un error en la inserción de los datos",
+                    type: "error"
+                })
+            }
+        });
+        request.addParameter('titulo', TYPES.VarChar, datos.titulo);
+        request.addParameter('autor', TYPES.VarChar, datos.autor);
+        request.addParameter('ano', TYPES.VarChar, datos.ano);
+        request.addParameter('numeroInscripcion', TYPES.VarChar, datos.numeroInscripcion);
+        request.addParameter('numeroClasificacion', TYPES.VarChar, datos.numeroClasificacion);
+        request.addParameter('orden', TYPES.VarChar, datos.orden);
+        request.addParameter('bib', TYPES.VarChar, datos.bib);
+        request.addParameter('precio', TYPES.VarChar, datos.precio);
+        request.addParameter('procedencia', TYPES.VarChar, datos.procedencia);
+        request.addParameter('observaciones', TYPES.VarChar, datos.observaciones);
+        request.addOutputParameter('success', TYPES.Bit);
+        sqlConection.callProcedure(request, function (res) {
+            callback(res);
+        });
+    }
+}
+/**
+ * Retorna el ultimo elemento de la tabla de libros
+ * @param {Recibe un json con atributos de las tablas} datos 
+ * @param {*Recibe una funcion por parametro para devolver el resultado del request a la base de datos} callback 
+ */
+exports.ultimo = function ultimo(datos, callback) {
+    var request = new Request('selectUltimo', function (err) { // nombre de procedimiento en la base de datos
+        if (err) {
             callback({
                 success: false,
                 error: request.error,
@@ -52,148 +94,17 @@ exports.ultimo = function ultimo(datos, callback){
         }
     });
     console.log(datos);
-    sqlConection.callProcedure(request, function(res) {
+    sqlConection.callProcedure(request, function (res) {
         callback(res);
     });
 }
-
-exports.todosLibros = function(callback){
+/**
+ * Retorna todos los libros 
+ * @param {Retorna el resultado de la peticion} callback 
+ */
+exports.todosLibros = function (callback) {
     var query = "SELECT * FROM Libros where titulo!='NULL'";
-    var request = new Request(query, function(err) {
-        if (err){
-            callback({
-                success: false,
-                data: err,
-                error: request.error,
-                title: "Error",
-                message: "Error obteniendo los datos. Revise su conexión",
-                type: "error"
-            });
-        }
-
-    });
-    sqlConection.executeRequest(request,callback); 
-}
-/*
-//Valida si existe el usuario con su correo y contraseña
-exports.login = function login(datos, callback) {
-    var request = new Request('selectUsuario', function(err) { // nombre de procedimiento en la base de datos
-        if (err){
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    console.log(datos);
-    request.addParameter('Correo', TYPES.VarChar, datos.correo);
-    request.addParameter('Contrasenia', TYPES.VarChar, datos.clave);
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function(res) {
-        callback(res);
-    });
-}
-//Valida si existe el usuario con su correo
-exports.validaCorreo = function validaCorreo(datos, callback) {
-    var request = new Request('existeUsuario', function(err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    console.log(datos);
-    request.addParameter('Correo', TYPES.VarChar, datos.correo);
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function(res) {
-        callback(res);
-    });
-}
-exports.insertarUsuario = function insertarUsuario(datos, callback) {
-    var request = new Request('insertUsuario', function(err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    console.log(datos);
-    request.addParameter('Correo', TYPES.VarChar, datos.correo);
-    request.addParameter('Nickname', TYPES.VarChar, datos.nickname);
-    request.addParameter('Contrasena', TYPES.VarChar, datos.clave);
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function(res) {
-        console.log("prueba");
-        console.log(res);
-        callback(res);
-    });
-}
-
-exports.insertarSesion = function insertarSesion(datos, callback) {
-    var request = new Request('insertSesionJuego', function(err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    console.log(datos);
-    request.addParameter('NumPartidas', TYPES.Int, datos.partidas);
-    request.addParameter('N_Tablero', TYPES.Int, datos.n);
-    request.addParameter('NivelDificultad', TYPES.Int, datos.nivel);
-    request.addParameter('TipoPartida', TYPES.Int, datos.tipo);
-    request.addParameter('IdUsuario', TYPES.VarChar, datos.correo);
-    request.addParameter('colorFicha', TYPES.VarChar, datos.color);
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function(res) {
-        console.log("prueba");
-        console.log(res);
-        callback(res);
-    });
-}
-exports.insertarUsuarioSesion = function insertarUsuarioSesion(datos, callback) {
-    var request = new Request('insertUsuario_SesionJuego', function(err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    console.log(datos);
-    request.addParameter('ID_SesionJuego', TYPES.Int, datos.idsesion);
-    request.addParameter('Correo', TYPES.VarChar, datos.correo);
-    request.addParameter('colorFicha', TYPES.VarChar, datos.color);
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function(res) {
-        console.log("prueba");
-        console.log(res);
-        callback(res);
-    });
-}
-exports.selectSesionesJuegoDisponibles = function(callback) {
-    var query = "SELECT us.ID,us.Correo,us.Nickname,temp.ID_SJ,temp.N_Tablero,temp.NivelDificultad,temp.TipoPartida,temp.NumPartidas FROM Usuarios as us inner join "+
-    "(SELECT * FROM SesionesJuego  as sj inner join Usuarios_SesionJuego as u on  sj.Estado = 0 and u.ID_SJ=sj.ID) as temp"+
-    " on us.ID=temp.ID";
-    var request = new Request(query, function(err) {
+    var request = new Request(query, function (err) {
         if (err) {
             callback({
                 success: false,
@@ -204,130 +115,7 @@ exports.selectSesionesJuegoDisponibles = function(callback) {
                 type: "error"
             });
         }
+
     });
-    // se usa executeRequest porque es el destinado para escribir consultas desde aca en vez de llamar procedimientos almacenados
-    sqlConection.executeRequest(request, callback); 
+    sqlConection.executeRequest(request, callback);
 }
-
-exports.misSesiones = function misSesiones(datos, callback) {
-    var request = new Request('misSesiones', function(err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    console.log(datos);
-    request.addParameter('correo', TYPES.VarChar, datos.correo);
-    request.addParameter('filtro', TYPES.Char, datos.filtro);
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function(res) {
-        console.log("prueba");
-        console.log(res);
-        callback(res);
-    });
-}
-
-exports.detalles = function detalles(datos, callback) {
-    var request = new Request('devuelvePartidas', function(err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    console.log(datos);
-    request.addParameter('ID_S', TYPES.Int, datos.id_sesion);
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function(res) {
-        console.log("prueba");
-        console.log(res);
-        callback(res);
-    });
-}
-
-exports.partidaActual = function partidaActual(datos, callback) {
-    var request = new Request('partidaActual', function(err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Error en la recuperacion de la partida",
-                type: "error"
-            })
-        }
-    });
-    console.log(datos);
-    request.addParameter('ID_S', TYPES.Int, datos.id_sesion);
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function(res) {
-        console.log("prueba");
-        console.log(res);
-        callback(res);
-    });
-}
-exports.selectComponente = function(callback) {
-    var request = new Request("SELECT * FROM Componentes", function(err) {
-        if (err) {
-            callback({
-                success: false,
-                data: err,
-                error: request.error,
-                title: "Error",
-                message: "Error obteniendo los datos. Revise su conexión",
-                type: "error"
-            });
-        }
-    });
-    // se usa executeRequest porque es el destinado para escribir consultas desde aca en vez de llamar procedimientos almacenados
-    sqlConection.executeRequest(request, callback); 
-}
-exports.editComponente = function editComponente(datos, callback) {
-    var request = new Request('realizarMovimiento', function(err) {
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la modificación de los datos",
-                type: "error"
-            })
-        }
-    });
-    //request.addParameter('ID_Partida', TYPES.Int, datos.ID);
-    //request.addParameter('Matriz', TYPES.VarChar, datos.ID_Dimension);
-
-   // request.addOutputParameter('success', TYPES.Bit);
-
-   // sqlConection.callProcedure(request, callback);
-};
-// DELETE 
-exports.deleteComponente = function deleteComponente(datos, callback) {
-    var request = new Request('deleteComponente', function(err) {
-        if (err) {
-            msg = (request.error == 1) ? "Error de conexión" : "No se puede eliminar el componente";
-            callback({
-                success: false,
-                data: err,
-                error: request.error,
-                title: "Error",
-                message: msg,
-                type: "error"
-            })
-        }
-    });
-    request.addParameter('ID_Componente', TYPES.Int, datos.ID);
-    
-    request.addOutputParameter('success', TYPES.Bit);
-
-    sqlConection.callProcedure(request, callback);
-}*/

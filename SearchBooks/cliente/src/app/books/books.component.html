@@ -1,96 +1,253 @@
 <div class="main-content">
   <div class="container-fluid">
-      <div class="row">
+    <div class="row">
       <input type="file" (change)="onFileChange($event)" multiple="false" />
       <button (click)="addRegistersbooks()">Agregar libros cargados en excel</button>
       <button (click)="ngxSmartModalService.getModal('myModal').open()">Agregar libro</button>
       <ngx-smart-modal #myModal [identifier]="'myModal'">
         <h1>Llenar campos de libro a agregar</h1>
-        <input type="text" name="ititulo" [(ngModel)]="book.titulo" placeholder="Titulo">
-        <input type="text" name="iautor" [(ngModel)]="book.autor" placeholder="Autor">
-        <input type="text" name="iano" [(ngModel)]="book.ano" placeholder="Año">
-        <input type="text" name="inInscripcion" [(ngModel)]="book.numeroInscripcion" placeholder="Numero de inscripcion">
-        <input type="text" name="inumeroClasificacion" [(ngModel)]="book.numeroClasificacion" placeholder="Numero de clasificacion">
-        <input type="text" name="iOrden" [(ngModel)]="book.orden" placeholder="Orden">
-        <input type="text" name="iBib" [(ngModel)]="book.bib" placeholder="Bib">
-        <input type="text" name="iPrecio" [(ngModel)]="book.precio" placeholder="precio">
-        <input type="text" name="iProcedencia" [(ngModel)]="book.procedencia" placeholder="procedencia">
-        <input type="text" name="iObservaciones" [(ngModel)]="book.observaciones" placeholder="observaciones">
-        <!--<button (click)="popupOne.close()">Close</button>-->
-        <button (click)="AgregarLibro()">Agregar libro</button>
+        <table>
+          <tr>
+            <td>
+              <p>Titulo:</p>
+            </td>
+            <td>
+              <input type="text" name="ititulo" [(ngModel)]="book.titulo" placeholder="Titulo">
+            </td>
+            <td>
+              <p>Autor:</p>
+            </td>
+            <td>
+              <input type="text" name="iautor" [(ngModel)]="book.autor" placeholder="Autor">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Año:</p>
+            </td>
+            <td>
+              <input type="text" name="iano" [(ngModel)]="book.ano" placeholder="Año">
+            </td>
+            <td>
+              <p>Numero de inscripción:</p>
+            </td>
+            <td>
+              <input type="text" name="inInscripcion" [(ngModel)]="book.numeroInscripcion" placeholder="Numero de inscripcion">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Numero de clasificación:</p>
+            </td>
+            <td>
+              <input type="text" name="inumeroClasificacion" [(ngModel)]="book.numeroClasificacion" placeholder="Numero de clasificacion">
+            </td>
+            <td>
+              <p>Orden:</p>
+            </td>
+            <td>
+              <input type="text" name="iOrden" [(ngModel)]="book.orden" placeholder="Orden">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Bib:</p>
+            </td>
+            <td>
+              <input type="text" name="iBib" [(ngModel)]="book.bib" placeholder="Bib">
+            </td>
+            <td>
+              <p>Precio:</p>
+            </td>
+            <td>
+              <input type="text" name="iPrecio" [(ngModel)]="book.precio" placeholder="precio">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Procedencia:</p>
+            </td>
+            <td>
+              <input type="text" name="iProcedencia" [(ngModel)]="book.procedencia" placeholder="procedencia">
+            </td>
+            <td>
+              <p>Observaciones:</p>
+            </td>
+            <td>
+
+              <input type="text" name="iObservaciones" [(ngModel)]="book.observaciones" placeholder="observaciones">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button (click)="AgregarLibro()">Agregar libro</button>
+            </td>
+          </tr>
+        </table>
+      </ngx-smart-modal>
+      <ngx-smart-modal #myModal [identifier]="'myModalModificar'">
+        <h1>Modificar los campos que desee modificar</h1>
+        <table>
+          <tr>
+            <td>
+              <p>Titulo:</p>
+            </td>
+            <td>
+              <input type="text" name="ititulo" [(ngModel)]="book.titulo" placeholder="{{book.titulo}}">
+            </td>
+            <td>
+              <p>Autor:</p>
+            </td>
+            <td>
+              <input type="text" name="iautor" [(ngModel)]="book.autor" placeholder="{{book.autor}}">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Año:</p>
+            </td>
+            <td>
+              <input type="text" name="iano" [(ngModel)]="book.ano" placeholder="{{book.ano}}">
+            </td>
+            <td>
+              <p>Numero de inscripción:</p>
+            </td>
+            <td>
+              <input type="text" name="inInscripcion" [(ngModel)]="book.numeroInscripcion" placeholder="{{book.numeroInscripcion}}">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Numero de clasificación:</p>
+            </td>
+            <td>
+              <input type="text" name="inumeroClasificacion" [(ngModel)]="book.numeroClasificacion" placeholder="{{book.numeroClasificacion}}">
+            </td>
+            <td>
+              <p>Orden:</p>
+            </td>
+            <td>
+              <input type="text" name="iOrden" [(ngModel)]="book.orden" placeholder="{{book.orden}}">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Bib:</p>
+            </td>
+            <td>
+              <input type="text" name="iBib" [(ngModel)]="book.bib" placeholder="{{book.bib}}">
+            </td>
+            <td>
+              <p>Precio:</p>
+            </td>
+            <td>
+              <input type="text" name="iPrecio" [(ngModel)]="book.precio" placeholder="{{book.precio}}">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>Procedencia:</p>
+            </td>
+            <td>
+              <input type="text" name="iProcedencia" [(ngModel)]="book.procedencia" placeholder="{{book.procedencia}}">
+            </td>
+            <td>
+              <p>Observaciones:</p>
+            </td>
+            <td>
+              <input type="text" name="iObservaciones" [(ngModel)]="book.observaciones" placeholder="{{book.observaciones}}">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button (click)="ModificarLibro()">Modificar libro</button>
+            </td>
+          </tr>
+        </table>
       </ngx-smart-modal>
       <div class="table-responsive">
         <table class="table table-hover">
-            <thead>
-              <tr>
-                      <th><input type="text" name="titulo" [(ngModel)]="filter.titulo" placeholder="Titulo"></th>
-                      <th><input type="text" name="autor" [(ngModel)]="filter.autor" placeholder="Autor"></th>
-                      <th><input type="text" name="inscripcion" [(ngModel)]="filter.numeroInscripcion" placeholder="Numero de inscripcion"></th>
-                      <th><input type="text" name="clasificacion" [(ngModel)]="filter.numeroClasificacion" placeholder="Numero de clasificacion"></th>
-                      <th><input type="text" name="bib" [(ngModel)]="filter.bib" placeholder="Bib"></th>
-              </tr>
-              <tr>
-                  <td>
-                      <b>Titulo</b>
-                    </td>
-                    <td>
-                      <b>Autor</b>
-                    </td>
-                    <td>
-                      <b>Año</b>
-                    </td>
-                    <td>
-                      <b>Numero  de Clasificacion</b>
-                    </td>
-                    <td>
-                      <b>Numero de Inscripcion</b>
-                    </td>
-                    <td>
-                      <b>Precio</b>
-                    </td>
-                    <td>
-                      <b>Procedencia</b>
-                    </td>
-                    <td>
-                      <b>Bib</b>
-                    </td>
-              </tr>
-            </thead> 
-            <tbody>
-                <tr *ngFor="let book of books  | bookfilter:filter | paginate: { itemsPerPage:5 , currentPage: p }">
-                    <td>
-                      {{book.titulo}}
-                    </td>
-                    <td>
-                      {{book.autor}}
-                    </td>
-                    <td>
-                      {{book.ano}}
-                    </td>
-                    <td>
-                      {{book.numeroClasificacion}}
-                    </td>
-                    <td>
-                      {{book.numeroInscripcion}}
-                    </td>
-                    <td>
-                      {{book.precio}}
-                    </td>
-                    <td>
-                      {{book.procedencia}}
-                    </td>
-                    <td>
-                      {{book.bib}}
-                    </td>
-                  </tr>
-            </tbody>
+          <thead>
+            <tr>
+              <th>
+                <input type="text" name="titulo" [(ngModel)]="filter.titulo" placeholder="Titulo">
+              </th>
+              <th>
+                <input type="text" name="autor" [(ngModel)]="filter.autor" placeholder="Autor">
+              </th>
+              <th>
+                <input type="text" name="inscripcion" [(ngModel)]="filter.numeroInscripcion" placeholder="Numero de inscripcion">
+              </th>
+              <th>
+                <input type="text" name="clasificacion" [(ngModel)]="filter.numeroClasificacion" placeholder="Numero de clasificacion">
+              </th>
+              <th>
+                <input type="text" name="bib" [(ngModel)]="filter.bib" placeholder="Bib">
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <b>Titulo</b>
+              </td>
+              <td>
+                <b>Autor</b>
+              </td>
+              <td>
+                <b>Año</b>
+              </td>
+              <td>
+                <b>Numero de Clasificacion</b>
+              </td>
+              <td>
+                <b>Numero de Inscripcion</b>
+              </td>
+              <td>
+                <b>Precio</b>
+              </td>
+              <td>
+                <b>Procedencia</b>
+              </td>
+              <td>
+                <b>Bib</b>
+              </td>
+              <td>
+                <b>Modificar libro</b>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let book of books  | bookfilter:filter | paginate: { itemsPerPage:5 , currentPage: p }">
+              <td>
+                {{book.titulo}}
+              </td>
+              <td>
+                {{book.autor}}
+              </td>
+              <td>
+                {{book.ano}}
+              </td>
+              <td>
+                {{book.numeroClasificacion}}
+              </td>
+              <td>
+                {{book.numeroInscripcion}}
+              </td>
+              <td>
+                {{book.precio}}
+              </td>
+              <td>
+                {{book.procedencia}}
+              </td>
+              <td>
+                {{book.bib}}
+              </td>
+              <td>
+                <button (click)="ModificaBook(book)">Modificar libro</button>
+              </td>
+            </tr>
+          </tbody>
         </table>
         <pagination-controls (pageChange)="p = $event" responsive="true"></pagination-controls>
       </div>
     </div>
   </div>
-
-
-
- 
-   

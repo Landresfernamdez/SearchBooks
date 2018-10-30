@@ -1,3 +1,6 @@
+/*
+Tabla de usuarios del sistema debido a que van a existir administradoes y usuarios
+*/
 CREATE TABLE Usuarios 
   ( 
      id INT IDENTITY(1,1) PRIMARY KEY,
@@ -7,6 +10,9 @@ CREATE TABLE Usuarios
      apellido2   VARCHAR(20) , 
      contraseña VARCHAR(50) 
   );
+  /*
+  Es un sistema de manejo de libros por lo tanto se necesita una tabla que abstraiga los libros
+  */
   CREATE TABLE Libros(
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	titulo VARCHAR(200) ,
@@ -20,6 +26,7 @@ CREATE TABLE Usuarios
 	procedencia VARCHAR(50) ,
 	observaciones VARCHAR(200)
   );
+/*Funcion de agregar un libro a la base de datos*/
 CREATE PROCEDURE AgregarLibro @titulo AS VARCHAR(200), 
                               @autor AS VARCHAR(200), 
                               @ano  AS VARCHAR(50), 
@@ -75,6 +82,54 @@ CREATE PROCEDURE selectTodosLibros AS
 BEGIN 
 	SELECT * FROM Libros
 END
+
+/*Funcion para modificar un libro*/
+
+CREATE PROCEDURE ModificarLibro @titulo AS VARCHAR(200), 
+                              @autor AS VARCHAR(200), 
+                              @ano  AS VARCHAR(50), 
+                              @numeroInscripcion  AS VARCHAR(50), 
+                              @numeroClasificacion  AS VARCHAR(50), 
+                              @orden AS VARCHAR(50),
+							  @bib AS VARCHAR(50),
+							  @precio AS VARCHAR(50),
+							  @procedencia AS VARCHAR(50),
+							  @observaciones AS VARCHAR(200),
+							  @success	BIT	OUTPUT    
+AS 
+  BEGIN 
+      BEGIN Try 
+          UPDATE  Libros SET titulo= @titulo,
+                      autor=@autor,
+                       ano=@ano, 
+                       numeroClasificacion=@numeroClasificacion, 
+                       orden=@orden, 
+                       bib=@bib,
+					   precio=@precio,
+					   procedencia=@procedencia,
+					   observaciones=@observaciones where numeroInscripcion=@numeroInscripcion;
+		SET @success=1;
+		SELECT @success;
+      END try 
+      BEGIN Catch
+		SET @success=0;
+		SELECT @success; 
+      END Catch 
+  END 
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 SELECT * FROM Libros
