@@ -13,12 +13,10 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { BooksComponent } from '../../books/books.component';
 import { BooksService } from '../../books/books.service';
-import {OneModalComponent} from '../../components/modal/modal.component';
 //Library to do request to the server
 import { HttpHeaders, HttpClientModule } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { BookFilterPipe } from '../../books/book-filter';
-import { NgxSmartModalModule , NgxSmartModalService} from 'ngx-smart-modal';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
@@ -41,9 +39,9 @@ import {
     MatInputModule,
     MatTooltipModule,
     HttpClientModule,
-    NgxPaginationModule,
-    NgxSmartModalModule
+    NgxPaginationModule
   ],
+
   declarations: [
     DashboardComponent,
     UserProfileComponent,
@@ -54,11 +52,9 @@ import {
     NotificationsComponent,
     UpgradeComponent,
     BooksComponent,
-    BookFilterPipe,
-    OneModalComponent
+    BookFilterPipe
   ],
-  providers:[BooksService,
-    NgxSmartModalService],
+  providers:[BooksService],
     bootstrap:[BooksComponent]
 })
 

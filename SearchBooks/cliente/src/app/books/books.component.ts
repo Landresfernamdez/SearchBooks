@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxSmartModalService } from 'ngx-smart-modal';
 import * as XLSX from 'xlsx';
 type AOA = any[][];
 import { BooksService } from './books.service';
 import { Book } from './Book';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 @Component({
 	selector: 'app-books',
 	templateUrl: './books.component.html',
@@ -16,7 +14,8 @@ export class BooksComponent implements OnInit {
 	filter: Book = new Book();
 	book: Book = new Book();
 	closeResult: string;
-	constructor(private service: BooksService, public ngxSmartModalService: NgxSmartModalService) {
+	public items:string[]=['I','N'];
+	constructor(private service: BooksService) {
 		this.service.devuelveTodoslibros().subscribe(response =>
 			this.books = response)
 	}
@@ -45,13 +44,14 @@ export class BooksComponent implements OnInit {
 		reader.readAsBinaryString(target.files[0]);
 	}
 	AgregarLibro(): void {
-		console.log(this.book);
 		this.addBook(this.book);
 	}
 	ModificaBook(temporal) {
 		this.book.orden = temporal.orden;
 		this.book = temporal;
-		this.ngxSmartModalService.getModal('myModalModificar').open()
+	}
+	AgregaBook() {
+		this.book = new Book();
 	}
 	ModificarLibro() {
 		this.modifyBook(this.book);

@@ -10,4 +10,5 @@ export class Book{
     public procedencia:string;
     public observaciones:string;
     public success:Int32Array
+    public tipo:string
 }

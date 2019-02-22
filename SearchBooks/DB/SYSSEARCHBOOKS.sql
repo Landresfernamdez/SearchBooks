@@ -27,7 +27,7 @@ CREATE TABLE Usuarios
 	observaciones VARCHAR(200)
   );
 /*Funcion de agregar un libro a la base de datos*/
-CREATE PROCEDURE AgregarLibro @titulo AS VARCHAR(200), 
+ALTER PROCEDURE AgregarLibro @titulo AS VARCHAR(200), 
                               @autor AS VARCHAR(200), 
                               @ano  AS VARCHAR(50), 
                               @numeroInscripcion  AS VARCHAR(50), 
@@ -37,6 +37,7 @@ CREATE PROCEDURE AgregarLibro @titulo AS VARCHAR(200),
 							  @precio AS VARCHAR(50),
 							  @procedencia AS VARCHAR(50),
 							  @observaciones AS VARCHAR(200),
+							  @tipo AS CHAR,
 							  @success	BIT	OUTPUT    
 AS 
   BEGIN 
@@ -51,7 +52,7 @@ AS
                        bib,
 					   precio,
 					   procedencia,
-					   observaciones) 
+					   observaciones,tipo) 
           VALUES      (@titulo, 
                        @autor, 
                        @ano, 
@@ -61,7 +62,8 @@ AS
                        @bib,
 					   @precio,
 					   @procedencia,
-					   @observaciones); 
+					   @observaciones,
+					   @tipo); 
 		SET @success=1;
 		SELECT @success;
       END try 
@@ -85,7 +87,7 @@ END
 
 /*Funcion para modificar un libro*/
 
-CREATE PROCEDURE ModificarLibro @titulo AS VARCHAR(200), 
+ALTER PROCEDURE ModificarLibro @titulo AS VARCHAR(200), 
                               @autor AS VARCHAR(200), 
                               @ano  AS VARCHAR(50), 
                               @numeroInscripcion  AS VARCHAR(50), 
@@ -95,6 +97,7 @@ CREATE PROCEDURE ModificarLibro @titulo AS VARCHAR(200),
 							  @precio AS VARCHAR(50),
 							  @procedencia AS VARCHAR(50),
 							  @observaciones AS VARCHAR(200),
+							  @tipo AS CHAR,
 							  @success	BIT	OUTPUT    
 AS 
   BEGIN 
@@ -107,7 +110,7 @@ AS
                        bib=@bib,
 					   precio=@precio,
 					   procedencia=@procedencia,
-					   observaciones=@observaciones where numeroInscripcion=@numeroInscripcion;
+					   observaciones=@observaciones, tipo=@tipo where numeroInscripcion=@numeroInscripcion;
 		SET @success=1;
 		SELECT @success;
       END try 
@@ -118,6 +121,14 @@ AS
   END 
 GO
 
+
+ALTER TABLE Libros
+ADD tipo CHAR NOT NULL DEFAULT 'N'; /*N= Libro normal, I= Libro de inscripcion*/
+
+
+
+SELECT * FROM Libros where numeroInscripcion='SC000003'
+EXEC ModificarLibro  'Arboles de jardín','Pañella Bonastre Juan','1972','SC000003','634.97 P199A','NULL','51468','139','Compra','Descartado','1'
 
 
 
@@ -138,7 +149,6 @@ EXEC selectTodosLibros
 set IDENTITY_INSERT Libros ON
 
 EXEC selectUltimo
-SELECT * FROM Libros
 SELECT * FROM Usuarios
 EXEC AgregarLibro 'a','a','2','12','12','21','9','11','12','awda','1'
 
@@ -149,3 +159,6 @@ DBCC CHECKIDENT ('Libros', RESEED, 1)
 
 SELECT MAX(id) FROM Libros
 DROP TABLE Libros
+
+SELECT * FROM Libros
+DELETE FROM Libros WHERE id='6000' 

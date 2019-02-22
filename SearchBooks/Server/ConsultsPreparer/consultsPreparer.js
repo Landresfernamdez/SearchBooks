@@ -37,6 +37,7 @@ exports.insertarLibro = function insertarLibro(datos, callback) {
     request.addParameter('precio', TYPES.VarChar, datos.precio);
     request.addParameter('procedencia', TYPES.VarChar, datos.procedencia);
     request.addParameter('observaciones', TYPES.VarChar, datos.observaciones);
+    request.addParameter('tipo', TYPES.Char, datos.tipo);
     request.addOutputParameter('success', TYPES.Bit);
     sqlConection.callProcedure(request, function (res) {
         callback(res);
@@ -70,6 +71,7 @@ exports.modificarLibro = function modificarLibro(datos, callback) {
         request.addParameter('precio', TYPES.VarChar, datos.precio);
         request.addParameter('procedencia', TYPES.VarChar, datos.procedencia);
         request.addParameter('observaciones', TYPES.VarChar, datos.observaciones);
+        request.addParameter('tipo', TYPES.Char, datos.tipo);
         request.addOutputParameter('success', TYPES.Bit);
         sqlConection.callProcedure(request, function (res) {
             callback(res);
@@ -93,7 +95,6 @@ exports.ultimo = function ultimo(datos, callback) {
             })
         }
     });
-    console.log(datos);
     sqlConection.callProcedure(request, function (res) {
         callback(res);
     });
