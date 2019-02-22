@@ -9,12 +9,12 @@ export class BooksService {
   addBook(book) {
     console.log("Llego al servicio");
     console.log(book);
-    return this.http.post(this.Url + 'agregarLibros', book);
+    return this.http.post(this.Url + 'agregarLibros', book).toPromise();
   }
   modifyBook(book) {
     console.log("Llego al servicio");
     console.log(book);
-    return this.http.post(this.Url + 'modificarLibro', book);
+    return this.http.post(this.Url + 'modificarLibro', book).toPromise();
   }
   devuelveUltimo() {
     return this.http.get(this.Url + 'devuelveUltimo').toPromise();

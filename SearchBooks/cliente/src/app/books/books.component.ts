@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx';
 type AOA = any[][];
 import { BooksService } from './books.service';
 import { Book } from './Book';
+import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
 	selector: 'app-books',
 	templateUrl: './books.component.html',
@@ -15,7 +16,9 @@ export class BooksComponent implements OnInit {
 	book: Book = new Book();
 	closeResult: string;
 	public items:string[]=['I','N'];
-	constructor(private service: BooksService) {
+	public snackbar: MatSnackBar;
+	constructor(private service: BooksService,private snackBar: MatSnackBar) {
+		 this.snackbar=snackBar;
 		this.service.devuelveTodoslibros().subscribe(response =>
 			this.books = response)
 	}
@@ -45,6 +48,11 @@ export class BooksComponent implements OnInit {
 	}
 	AgregarLibro(): void {
 		this.addBook(this.book);
+	}
+	notificar(messaje){
+		this.snackbar.open(messaje, 'Undo', {
+			duration: 2000
+		  });
 	}
 	ModificaBook(temporal) {
 		this.book.orden = temporal.orden;
@@ -95,18 +103,24 @@ export class BooksComponent implements OnInit {
 
 	}
 	addBook = (newBook) => {
-		this.service.addBook(newBook).subscribe(response => this.books.push(newBook));
+		this.service.addBook(newBook).then(response => this.books.push(newBook))
+		.catch(error=>{
+			
+		});;
 	}
 	modifyBook = (newBook) => {
-		this.service.modifyBook(newBook).subscribe(
+		this.service.modifyBook(newBook).then(
 			response => {
 				for (var x = 0; x < this.books.length; x++) {
 					if(this.books[x].numeroInscripcion==newBook.numeroInscripcion){
 						this.books[x]=newBook;
 					}
 				}
+				this.notificar("La modificacion se realizo con exito");
 			}
-		);
+		).catch(error=>{
+
+		});
 	}
 	getLast() {
 		this.service.devuelveUltimo().then((data: Book) => {

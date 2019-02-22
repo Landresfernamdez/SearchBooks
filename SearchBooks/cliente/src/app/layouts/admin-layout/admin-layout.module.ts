@@ -17,6 +17,7 @@ import { BooksService } from '../../books/books.service';
 import { HttpHeaders, HttpClientModule } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { BookFilterPipe } from '../../books/book-filter';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
@@ -39,7 +40,8 @@ import {
     MatInputModule,
     MatTooltipModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatSnackBarModule
   ],
 
   declarations: [
