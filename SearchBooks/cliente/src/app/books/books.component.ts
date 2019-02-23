@@ -49,9 +49,11 @@ export class BooksComponent implements OnInit {
 	AgregarLibro(): void {
 		this.addBook(this.book);
 	}
-	notificar(messaje){
-		this.snackbar.open(messaje, 'Undo', {
-			duration: 2000
+	notificar(messaje,action){
+		this.snackbar.open(messaje,action, {
+			duration: 2000,
+			horizontalPosition:'right',
+			verticalPosition:'top'
 		  });
 	}
 	ModificaBook(temporal) {
@@ -95,17 +97,20 @@ export class BooksComponent implements OnInit {
 					this.addBook(libro);
 				}
 			}
-			alert("Se insertaron los registros con exito")
+			this.notificar("Se insertaron los registros con exito","exito");
 		} else {
-			console.log("Debe importar el excel primero");
+			this.notificar("Error, mala conexión","error");
 		}
 
 
 	}
 	addBook = (newBook) => {
-		this.service.addBook(newBook).then(response => this.books.push(newBook))
-		.catch(error=>{
+		this.service.addBook(newBook).then(response => {
+			this.books.push(newBook)
+			this.notificar("La modificacion se realizo con exito","exito");
 			
+		}).catch(error=>{
+			this.notificar("Error, mala conexión","error");
 		});;
 	}
 	modifyBook = (newBook) => {
@@ -116,10 +121,10 @@ export class BooksComponent implements OnInit {
 						this.books[x]=newBook;
 					}
 				}
-				this.notificar("La modificacion se realizo con exito");
+				this.notificar("La modificacion se realizo con exito","exito");
 			}
 		).catch(error=>{
-
+			this.notificar("Error, mala conexión","error");
 		});
 	}
 	getLast() {
