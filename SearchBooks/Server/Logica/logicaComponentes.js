@@ -28,8 +28,54 @@ exports.insertarLibros= function(datos, callback){
         }
     });
 };
+exports.insertarUsuarios= function(datos, callback){
+    consultsPreparer.insertarUsuario(datos, function(response) {
+        msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
+        if (response.success) {
+            callback({
+                success: true,
+                error: response.error,
+                title: "Se inserto con exito",
+                message: "Se inserto en la base de datos con exito",
+                data: response.data,
+                type: "success"
+            })
+        } else{
+            callback({
+                success: false,
+                message: msg,
+                title: "Error",
+                error: response.error,
+                type: "error"
+            })
+        }
+    });
+};
 exports.modificarLibros= function(datos, callback){
     consultsPreparer.modificarLibro(datos, function(response) {
+        msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
+        if (response.success) {
+            callback({
+                success: true,
+                error: response.error,
+                title: "Se inserto con exito",
+                message: "Se inserto en la base de datos con exito",
+                data: response.data,
+                type: "success"
+            })
+        } else{
+            callback({
+                success: false,
+                message: msg,
+                title: "Error",
+                error: response.error,
+                type: "error"
+            })
+        }
+    });
+};
+exports.modificarUsuarios= function(datos, callback){
+    consultsPreparer.modificarUsuario(datos, function(response) {
         msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
         if (response.success) {
             callback({
@@ -96,6 +142,32 @@ exports.todosLibros = function(datos, callback) {
         }
     });
 };
+
+
+exports.todosUsuarios = function(datos, callback) {
+    consultsPreparer.todosUsuarios(datos, function(response) {
+        msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
+        if (response.success){
+            callback({
+                success: true,
+                title: "Se obtuvo el ultimo con exito",
+                message: "Se obtuvo el ultimo elemento con exito",
+                data: response.data,
+                type: "success"
+            })
+        } else {
+            callback({
+                success: false,
+                message: msg,
+                title: "Error",
+                error: response.error,
+                type: "error"
+            })
+        }
+    });
+};
+
+
 /*
 // inserta componentes
 exports.login = function(datos, callback) {

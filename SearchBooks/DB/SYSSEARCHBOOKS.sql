@@ -126,23 +126,103 @@ ALTER TABLE Libros
 ADD tipo CHAR NOT NULL DEFAULT 'N'; /*N= Libro normal, I= Libro de inscripcion*/
 
 
+SELECT * FROM Usuarios
+/*Funcion de agregar un usuario a la base de datos*/
+ALTER PROCEDURE AgregarUsuario @cedula AS VARCHAR(200), 
+                              @nombre AS VARCHAR(200), 
+                              @apellido1  AS VARCHAR(50), 
+                              @apellido2  AS VARCHAR(50), 
+                              @contraseña  AS VARCHAR(50),
+							  @success	BIT	OUTPUT    
+AS 
+  BEGIN 
+      BEGIN Try 
+          INSERT INTO Usuarios 
+                      (nombre, 
+                       apellido1, 
+                       apellido2, 
+                       contraseña,
+					   cedula) 
+          VALUES      (@nombre, 
+                       @apellido1, 
+                       @apellido2, 
+                       @contraseña,
+					   @cedula); 
+		SET @success=1;
+		SELECT @success;
+      END try 
+      BEGIN Catch
+		SET @success=0;
+		SELECT @success; 
+      END Catch 
+  END 
+GO
+
+/*Funcion para modificar un usuario*/
+
+ALTER PROCEDURE ModificarUsuario @id AS INTEGER ,
+							  @cedula AS VARCHAR(200), 
+                              @nombre AS VARCHAR(200), 
+                              @apellido1  AS VARCHAR(50), 
+                              @apellido2  AS VARCHAR(50), 
+                              @contraseña  AS VARCHAR(50),
+							  @success	BIT	OUTPUT   
+AS 
+  BEGIN 
+      BEGIN Try 
+          UPDATE  Usuarios SET nombre= @nombre,
+                       apellido1=@apellido1, 
+                       apellido2=@apellido2, 
+                       contraseña=@contraseña ,cedula=@cedula where id=@id;
+		SET @success=1;
+		SELECT @success;
+      END try 
+      BEGIN Catch
+		SET @success=0;
+		SELECT @success; 
+      END Catch 
+  END 
+GO
+
+
+CREATE PROCEDURE selectTodosUsuarios AS 
+BEGIN 
+	SELECT * FROM Usuarios
+END
+
+/*Funcion para modificar un usuario*/
+
+CREATE PROCEDURE EliminarUsuario @id AS INTEGER ,
+							  @success	BIT	OUTPUT   
+AS 
+  BEGIN 
+      BEGIN Try 
+          DELETE  FROM  Usuarios  where id=@id;
+		SET @success=1;
+		SELECT @success;
+      END try 
+      BEGIN Catch
+		SET @success=0;
+		SELECT @success; 
+      END Catch 
+  END 
+GO
+
+
+
+
+SELECT * FROM Usuarios
+
+
+
+
+
+
+
+
 
 SELECT * FROM Libros where numeroInscripcion='SC000003'
 EXEC ModificarLibro  'Arboles de jardín','Pañella Bonastre Juan','1972','SC000003','634.97 P199A','NULL','51468','139','Compra','Descartado','1'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 SELECT * FROM Libros
 EXEC selectTodosLibros
 

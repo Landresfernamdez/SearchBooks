@@ -55,6 +55,11 @@ app.post('/agregarLibros',componenteCtrl.agregarLibros);
 app.get('/devuelveUltimo',componenteCtrl.obtenerUltimo);
 app.get('/todosLibros',componenteCtrl.todosLibros);
 app.post('/modificarLibro',componenteCtrl.modificarLibros);
+
+
+app.get('/todosUsuarios',componenteCtrl.todosUsuarios);
+app.post('/agregarUsuarios',componenteCtrl.agregarUsuarios);
+app.post('/modificarUsuarios',componenteCtrl.modificarUsuarios);
 /*
 //app.post('/movimiento', componenteCtrl.realizarMovimiento);
 //app.get('/selectComponentes', componenteCtrl.selectComponente);

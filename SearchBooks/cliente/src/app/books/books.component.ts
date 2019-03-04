@@ -19,8 +19,12 @@ export class BooksComponent implements OnInit {
 	public snackbar: MatSnackBar;
 	constructor(private service: BooksService,private snackBar: MatSnackBar) {
 		 this.snackbar=snackBar;
-		this.service.devuelveTodoslibros().subscribe(response =>
-			this.books = response)
+		 console.log("Prueba");
+		 console.log(this.books);
+		if(this.books==undefined){
+			this.service.devuelveTodoslibros().subscribe(response =>
+				this.books = response)
+		} 
 	}
 	ngOnInit() { }
 	data: AOA = [];

@@ -12,15 +12,17 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { BooksComponent } from '../../books/books.component';
+import {UsersComponent} from '../../users/users.component';
 import { BooksService } from '../../books/books.service';
+import { UsersService } from '../../users/users.service';
 //Library to do request to the server
 import { HttpHeaders, HttpClientModule } from '@angular/common/http';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { BookFilterPipe } from '../../books/book-filter';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    'Content-Type': 'application/json',
     'Authorization': 'my-auth-token'
   })
 };
@@ -54,10 +56,12 @@ import {
     NotificationsComponent,
     UpgradeComponent,
     BooksComponent,
+    UsersComponent,
     BookFilterPipe
   ],
-  providers:[BooksService],
-    bootstrap:[BooksComponent]
+  providers: [BooksService,
+    UsersService],
+  bootstrap: [BooksComponent]
 })
 
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }
