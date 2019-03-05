@@ -1,35 +1,77 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from './users.service';
 import { User } from './user';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-
   public users;
-	user: User = new User();
-  constructor(private service: UsersService) {
-    this.service.devuelveTodosUsuarios().subscribe(response =>{
+  user: User = new User();
+  snackbar: MatSnackBar;
+  constructor(private service: UsersService, private snackBar: MatSnackBar) {
+    this.snackbar = snackBar;
+    this.service.devuelveTodosUsuarios().subscribe(response => {
       this.users = response;
-      for(var x=0;x<this.users.length; x++){
-          this.users[x].clave=this.users[x].contraseña;
-          console.log(this.users[x]);
+      for (var x = 0; x < this.users.length; x++) {
+        this.users[x].clave = this.users[x].contraseña;
+        console.log(this.users[x]);
       }
     }
-      )
+    )
   }
-
   ngOnInit() {
   }
   AgregaUsuario() {
-		 this.service.addUser(this.user);
-	}
+    this.service.addUser(this.user).then(response => {
+      if(response.success){
+        this.users.push(this.user);
+        this.notificar("Se agrego con exito", "exito");
+      }else{
+        this.notificar("Error, no se pudo agregar", "error");
+      }
+    }).catch(error => {
+      this.notificar("Error, mala conexión", "error");
+    });
+  }
   ModificaUser(temporal) {
-		this.user=temporal;
+    this.user = temporal;
   }
   ModificarUsuario() {
-		this.service.modifyUser(this.user);
-	}
+    this.service.modifyUser(this.user).then(response => {
+      if(response.success){
+        this.notificar("Se modifico con exito", "exito");
+      }else{
+        this.notificar("Error, no se pudo modificar", "error");
+      }
+    }).catch(error => {
+      this.notificar("Error, mala conexión", "error");
+    });
+  }
+  EliminaUser(user) {
+    this.service.deleteUser(user).then(response => {
+      if(response.success){
+        for (var i = this.users.length - 1; i--;) {
+          if (this.users[i].id === user.id) {
+            this.users.splice(i, 1);
+          }
+        }
+        this.notificar("Se elimino con exito", "exito");
+      }else{
+        this.notificar("Error, no se pudo eliminar", "error");
+      }
+      
+    }).catch(error => {
+      this.notificar("Error, mala conexión", "error");
+    });
+  }
+  notificar(messaje, action) {
+    this.snackbar.open(messaje, action, {
+      duration: 2000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top'
+    });
+  }
 }

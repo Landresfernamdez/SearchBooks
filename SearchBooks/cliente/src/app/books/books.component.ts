@@ -115,7 +115,7 @@ export class BooksComponent implements OnInit {
 			
 		}).catch(error=>{
 			this.notificar("Error, mala conexión","error");
-		});;
+		});
 	}
 	modifyBook = (newBook) => {
 		this.service.modifyBook(newBook).then(

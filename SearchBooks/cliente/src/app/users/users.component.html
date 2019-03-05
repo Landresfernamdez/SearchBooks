@@ -180,6 +180,9 @@
               <td>
                 <b>Modificar Usuario</b>
               </td>
+              <td>
+                <b>Eliminar Usuario</b>
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -197,8 +200,13 @@
                 {{user.apellido2}}
               </td>
               <td>
-                <button type="button" class="btn btn-info" (click)="ModificaUser(user)" data-toggle="modal" data-target="#myModalmodificar">
+                <button type="button" class="btn btn-primary btn-info" (click)="ModificaUser(user)" data-toggle="modal" data-target="#myModalmodificar">
                   Modificar Usuario
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary btn-danger" (click)="EliminaUser(user)" data-toggle="modal">
+                  Eliminar Usuario
                 </button>
               </td>
             </tr>

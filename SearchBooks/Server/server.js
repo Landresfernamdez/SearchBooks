@@ -60,6 +60,7 @@ app.post('/modificarLibro',componenteCtrl.modificarLibros);
 app.get('/todosUsuarios',componenteCtrl.todosUsuarios);
 app.post('/agregarUsuarios',componenteCtrl.agregarUsuarios);
 app.post('/modificarUsuarios',componenteCtrl.modificarUsuarios);
+app.post('/eliminarUsuarios',componenteCtrl.eliminarUsuarios);
 /*
 //app.post('/movimiento', componenteCtrl.realizarMovimiento);
 //app.get('/selectComponentes', componenteCtrl.selectComponente);

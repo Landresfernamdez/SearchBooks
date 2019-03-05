@@ -118,6 +118,25 @@ exports.modificarLibro = function modificarLibro(datos, callback) {
             callback(res);
         });
     }
+
+    exports.eliminarUsuario = function eliminarUsuario(datos, callback) {
+        var request = new Request('EliminarUsuario', function (err) { // nombre de procedimiento en la base de datos
+            if (err) {
+                callback({
+                    success: false,
+                    error: request.error,
+                    title: "Error",
+                    message: "Sucedio un error en la inserción de los datos",
+                    type: "error"
+                })
+            }
+        });
+        request.addParameter('id', TYPES.Int, datos.id);
+        request.addOutputParameter('success', TYPES.Bit);
+        sqlConection.callProcedure(request, function (res) {
+            callback(res);
+        });
+    }
 /**
  * Retorna el ultimo elemento de la tabla de libros
  * @param {Recibe un json con atributos de las tablas} datos 
