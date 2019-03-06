@@ -126,6 +126,9 @@ ALTER TABLE Libros
 ADD tipo CHAR NOT NULL DEFAULT 'N'; /*N= Libro normal, I= Libro de inscripcion*/
 
 
+ALTER TABLE Usuarios
+ADD rol CHAR NOT NULL DEFAULT 'C'; /*C= Funcionario, A= Administrador*/
+
 SELECT * FROM Usuarios
 /*Funcion de agregar un usuario a la base de datos*/
 ALTER PROCEDURE AgregarUsuario @cedula AS VARCHAR(200), 
