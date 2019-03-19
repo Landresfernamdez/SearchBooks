@@ -21,7 +21,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/users', title: 'Usuarios',  icon:'person', class: '' },
  //   { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
-
+import {LoginService} from '../../login/login.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -30,7 +30,9 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   acceso:any;
-  constructor() { }
+  constructor(private service:LoginService) {
+
+   }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -42,10 +44,10 @@ export class SidebarComponent implements OnInit {
       return true;
   };
   validarCredenciales(elemento){
-    if(elemento.path=='/books'){
+    if(elemento.path=='/books' && (this.service.funcionario==true||this.service.administrador==true)){
       return true;
     }
-    if(elemento.path=='/users'){
+    if(elemento.path=='/users' && this.service.funcionario==true){
       return true;
     }
   }

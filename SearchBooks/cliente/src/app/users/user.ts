@@ -6,5 +6,5 @@ export class User{
     public clave:string;
     public success:Int32Array;
     public nombreusuario:string;
-    public rol:CharacterData
+    public rol:string
 }

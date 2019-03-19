@@ -172,6 +172,10 @@ exports.inicioSesion = function inicioSesion(datos, callback) {
             })
         }
     });
+    request.addParameter('nombreusuario', TYPES.VarChar, datos.nombreusuario);
+    request.addParameter('contraseña', TYPES.VarChar, datos.clave);
+    request.addParameter('rol', TYPES.VarChar, datos.rol);
+    request.addOutputParameter('success', TYPES.Bit);
     sqlConection.callProcedure(request, function (res) {
         callback(res);
     });
