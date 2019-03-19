@@ -8,6 +8,7 @@ declare interface RouteInfo {
     class: string;
 }
 //Routes of the sidebar
+
 export const ROUTES: RouteInfo[] = [
   // { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
   //  { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
@@ -28,7 +29,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-
+  acceso:any;
   constructor() { }
 
   ngOnInit() {
@@ -40,4 +41,12 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+  validarCredenciales(elemento){
+    if(elemento.path=='/books'){
+      return true;
+    }
+    if(elemento.path=='/users'){
+      return true;
+    }
+  }
 }

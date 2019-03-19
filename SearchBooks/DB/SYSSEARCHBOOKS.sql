@@ -8,7 +8,8 @@ CREATE TABLE Usuarios
      nombre      VARCHAR(20) , 
      apellido1   VARCHAR(20) , 
      apellido2   VARCHAR(20) , 
-     contraseña VARCHAR(50) 
+     contraseña VARCHAR(50) ,
+	 nombreusuario VARCHAR(50) UNIQUE NOT NULL
   );
   /*
   Es un sistema de manejo de libros por lo tanto se necesita una tabla que abstraiga los libros
@@ -129,13 +130,17 @@ ADD tipo CHAR NOT NULL DEFAULT 'N'; /*N= Libro normal, I= Libro de inscripcion*/
 ALTER TABLE Usuarios
 ADD rol CHAR NOT NULL DEFAULT 'C'; /*C= Funcionario, A= Administrador*/
 
-SELECT * FROM Usuarios
+ALTER TABLE Usuarios
+ADD nombreusuario VARCHAR(200) UNIQUE NOT NULL;
+
+SELECT * FROM Usuarios 
 /*Funcion de agregar un usuario a la base de datos*/
 ALTER PROCEDURE AgregarUsuario @cedula AS VARCHAR(200), 
                               @nombre AS VARCHAR(200), 
                               @apellido1  AS VARCHAR(50), 
                               @apellido2  AS VARCHAR(50), 
                               @contraseña  AS VARCHAR(50),
+							  @nombreUsuario AS VARCHAR(200),
 							  @success	BIT	OUTPUT    
 AS 
   BEGIN 
@@ -145,12 +150,14 @@ AS
                        apellido1, 
                        apellido2, 
                        contraseña,
-					   cedula) 
+					   cedula,
+					   nombreusuario) 
           VALUES      (@nombre, 
                        @apellido1, 
                        @apellido2, 
                        @contraseña,
-					   @cedula); 
+					   @cedula,
+					   @nombreUsuario); 
 		SET @success=1;
 		SELECT @success;
       END try 
@@ -169,6 +176,8 @@ ALTER PROCEDURE ModificarUsuario @id AS INTEGER ,
                               @apellido1  AS VARCHAR(50), 
                               @apellido2  AS VARCHAR(50), 
                               @contraseña  AS VARCHAR(50),
+							  @nombreusuario AS VARCHAR(200),
+							  @rol AS CHAR,
 							  @success	BIT	OUTPUT   
 AS 
   BEGIN 
@@ -176,7 +185,7 @@ AS
           UPDATE  Usuarios SET nombre= @nombre,
                        apellido1=@apellido1, 
                        apellido2=@apellido2, 
-                       contraseña=@contraseña ,cedula=@cedula where id=@id;
+                       contraseña=@contraseña ,cedula=@cedula , nombreusuario=@nombreusuario,rol=@rol where id=@id;
 		SET @success=1;
 		SELECT @success;
       END try 
@@ -211,8 +220,23 @@ AS
   END 
 GO
 
-
-
+CREATE PROCEDURE InicioSesionAdministrador @nombreusuario AS VARCHAR(200) ,
+							  @contraseña AS VARCHAR(50),
+							  @success	BIT	OUTPUT   
+AS 
+  BEGIN 
+         IF ((SELECT COUNT(*) FROM dbo.Usuarios AS U WHERE U.contraseña = @contraseña and U.nombreusuario=@nombreusuario) = 1) -- ya existe el usuario
+			BEGIN
+				SET @success = 1 -- exito
+				SELECT @success 
+			END;
+		ELSE
+			BEGIN			
+				SET @success = 0 -- error
+				SELECT @success
+			END;
+  END 
+GO
 
 SELECT * FROM Usuarios
 

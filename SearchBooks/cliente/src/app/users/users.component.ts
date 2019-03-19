@@ -15,6 +15,7 @@ export class UsersComponent implements OnInit {
     this.snackbar = snackBar;
     this.service.devuelveTodosUsuarios().subscribe(response => {
       this.users = response;
+      console.log(this.users);
       for (var x = 0; x < this.users.length; x++) {
         this.users[x].clave = this.users[x].contraseña;
       }

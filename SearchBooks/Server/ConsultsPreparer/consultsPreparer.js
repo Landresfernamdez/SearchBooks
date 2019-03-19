@@ -61,6 +61,7 @@ exports.insertarUsuario = function insertarUsuario(datos, callback) {
     request.addParameter('apellido1', TYPES.VarChar, datos.apellido1);
     request.addParameter('apellido2', TYPES.VarChar, datos.apellido2);
     request.addParameter('contraseña', TYPES.VarChar, datos.clave);
+    request.addParameter('nombreusuario', TYPES.VarChar, datos.nombreusuario);
     request.addOutputParameter('success', TYPES.Bit);
     sqlConection.callProcedure(request, function (res) {
         callback(res);
@@ -113,6 +114,8 @@ exports.modificarLibro = function modificarLibro(datos, callback) {
         request.addParameter('apellido1', TYPES.VarChar, datos.apellido1);
         request.addParameter('apellido2', TYPES.VarChar, datos.apellido2);
         request.addParameter('contraseña', TYPES.VarChar, datos.clave);
+        request.addParameter('rol', TYPES.VarChar, datos.rol);
+        request.addParameter('nombreusuario', TYPES.VarChar, datos.nombreusuario);
         request.addOutputParameter('success', TYPES.Bit);
         sqlConection.callProcedure(request, function (res) {
             callback(res);

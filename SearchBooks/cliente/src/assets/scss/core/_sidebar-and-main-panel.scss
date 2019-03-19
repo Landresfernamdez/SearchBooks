@@ -3,11 +3,42 @@
     top: 0;
     height: 100vh;
 }
+.header{
+    background: #140e39;
+    position: fixed;
+    height: 7%;
+    width: 100%
+}
+.container-btn-login{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+}
+.container-login-form{
+    top: 50%;
+    height: 75%;
+    width: 50%;
+    margin-left: 52%;
+    display: inline-block;
+}
+.btn-login{
+    position:relative;
+    margin-right: 0%;
+    background: gray;
+}
+.footer{
+    position:fixed;
+    bottom: 0%;
+    height: 7%;
+    width: 100%;
+    background:#140e39;
 
+}
 .sidebar {
     position: fixed;
-    top: 0;
-    bottom: 0;
+    top: 7%;
+    bottom: 7%;
     left: 0;
     z-index: 2;
     width: 260px;
@@ -47,10 +78,9 @@
         height: calc(100vh - 75px);
         overflow: auto;
         width: 260px;
-        z-index: 4;
+        z-index: 5;
 
         padding-bottom: 30px;
-
         .dropdown .dropdown-backdrop{
             display: none !important;
         }
@@ -221,7 +251,7 @@
         height: 100%;
         width: 100%;
         display: block;
-        top: 0;
+        top: 5;
         left: 0;
         background-size: cover;
         background-position: center center;
@@ -372,10 +402,11 @@
     position: relative;
     float: right;
     width: $sidebar-width;
+    top:7%;
     @include transition (0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1));
 
      .main-content{
-        margin-top: 70px;
+        margin-top: 5px;
         padding: 30px 15px;
         min-height: calc(100vh - 123px);
     }
@@ -390,7 +421,6 @@
 
     .header{
         margin-bottom: 30px;
-
         .title{
             margin-top: 10px;
             margin-bottom: 10px;
@@ -469,7 +499,6 @@
 
         .sidebar:hover{
             width: 260px;
-
             .logo{
                 a.logo-normal{
                     opacity: 1;

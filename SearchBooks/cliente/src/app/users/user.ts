@@ -5,4 +5,6 @@ export class User{
     public apellido2:string;
     public clave:string;
     public success:Int32Array;
+    public nombreusuario:string;
+    public rol:CharacterData
 }

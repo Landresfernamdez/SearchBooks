@@ -9,15 +9,18 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {BooksComponent} from '../../books/books.component';
 import {UsersComponent} from '../../users/users.component';
+import { LoginComponent } from '../../login/login.component';
+import { AutoGuard } from './autoguard.component';
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent },
-    { path: 'books',        component: BooksComponent },
-    { path: 'users',        component: UsersComponent },
-];
+     { path: 'dashboard', component: DashboardComponent },
+      { path: 'user-profile', component: UserProfileComponent },
+      { path: 'table-list', component: TableListComponent },
+      { path: 'typography', component: TypographyComponent },
+      { path: 'icons', component: IconsComponent },
+      { path: 'maps', component: MapsComponent },
+      { path: 'notifications', component: NotificationsComponent },
+      { path: 'upgrade', component: UpgradeComponent },
+      { path: 'books', component: BooksComponent, canActivate: [AutoGuard] },
+      { path: 'users', component: UsersComponent, canActivate: [AutoGuard] },
+      { path: 'login', component: LoginComponent}
+]

@@ -15,6 +15,7 @@ import { BooksComponent } from '../../books/books.component';
 import {UsersComponent} from '../../users/users.component';
 import { BooksService } from '../../books/books.service';
 import { UsersService } from '../../users/users.service';
+import  {LoginService} from '../../login/login.service';
 //Library to do request to the server
 import { HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -32,6 +33,8 @@ import {
   MatRippleModule,
   MatTooltipModule,
 } from '@angular/material';
+import { LoginComponent } from 'app/login/login.component';
+import { AutoGuard } from './autoguard.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -57,10 +60,11 @@ import {
     UpgradeComponent,
     BooksComponent,
     UsersComponent,
-    BookFilterPipe
+    BookFilterPipe,
+    LoginComponent
   ],
   providers: [BooksService,
-    UsersService],
+    UsersService,LoginService,AutoGuard],
   bootstrap: [BooksComponent]
 })
 
