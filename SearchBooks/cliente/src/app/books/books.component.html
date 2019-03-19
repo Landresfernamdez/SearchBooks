@@ -2,9 +2,9 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <input type="button" class="btn btn-dark" type="file" (change)="onFileChange($event)" multiple="false" />
-      <button type="button" class="btn btn-dark" (click)="addRegistersbooks()">Agregar libros cargados en excel</button>
-      <button type="button" class="btn btn-dark" (click)="AgregaBook()"data-toggle="modal" data-target="#myModalagregar">
+      <input type="button" class="btn btn-dark" type="file" (change)="onFileChange($event)" multiple="false" *ngIf="isAdministrator()"/>
+      <button type="button" class="btn btn-dark" (click)="addRegistersbooks()" *ngIf="isAdministrator()">Agregar libros cargados en excel</button>
+      <button type="button" class="btn btn-dark" (click)="AgregaBook()"data-toggle="modal" data-target="#myModalagregar" *ngIf="isAdministrator()">
         Agregar Libro
       </button>
       <div class="modal" id="myModalExito">
@@ -300,7 +300,7 @@
               <td>
                 <b>Bib</b>
               </td>
-              <td>
+              <td *ngIf="isAdministrator()">
                 <b>Modificar libro</b>
               </td>
               <td>
@@ -334,8 +334,8 @@
               <td>
                 {{book.bib}}
               </td>
-              <td>
-                <button type="button" class="btn btn-info" (click)="ModificaBook(book)" data-toggle="modal" data-target="#myModalmodificar">
+              <td *ngIf="isAdministrator()">
+                <button type="button" class="btn btn-info" (click)="ModificaBook(book)" data-toggle="modal" data-target="#myModalmodificar" *ngIf="isAdministrator()">
                   Modificar libro
                 </button>
               </td>

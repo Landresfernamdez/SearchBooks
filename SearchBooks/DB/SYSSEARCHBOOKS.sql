@@ -220,12 +220,13 @@ AS
   END 
 GO
 
-CREATE PROCEDURE InicioSesionAdministrador @nombreusuario AS VARCHAR(200) ,
+CREATE PROCEDURE InicioSesionUsuario @nombreusuario AS VARCHAR(200) ,
 							  @contraseña AS VARCHAR(50),
+							  @rol AS CHAR,
 							  @success	BIT	OUTPUT   
 AS 
   BEGIN 
-         IF ((SELECT COUNT(*) FROM dbo.Usuarios AS U WHERE U.contraseña = @contraseña and U.nombreusuario=@nombreusuario) = 1) -- ya existe el usuario
+         IF ((SELECT COUNT(*) FROM dbo.Usuarios AS U WHERE U.contraseña = @contraseña and U.nombreusuario=@nombreusuario and U.rol=@rol) = 1) -- ya existe el usuario
 			BEGIN
 				SET @success = 1 -- exito
 				SELECT @success 

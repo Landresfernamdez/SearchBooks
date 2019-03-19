@@ -4,6 +4,7 @@ type AOA = any[][];
 import { BooksService } from './books.service';
 import { Book } from './Book';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { LoginService } from 'app/login/login.service';
 @Component({
 	selector: 'app-books',
 	templateUrl: './books.component.html',
@@ -17,7 +18,7 @@ export class BooksComponent implements OnInit {
 	closeResult: string;
 	public items:string[]=['I','N'];
 	public snackbar: MatSnackBar;
-	constructor(private service: BooksService,private snackBar: MatSnackBar) {
+	constructor(private service: BooksService,private snackBar: MatSnackBar,private serviceauth:LoginService) {
 		 this.snackbar=snackBar;
 		 console.log("Prueba");
 		 console.log(this.books);
@@ -142,5 +143,12 @@ export class BooksComponent implements OnInit {
 			}
 		});
 	};
+	isAdministrator(){
+		if(this.serviceauth.administrador){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 }

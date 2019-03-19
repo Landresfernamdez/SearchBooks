@@ -35,6 +35,8 @@ import {
 } from '@angular/material';
 import { LoginComponent } from 'app/login/login.component';
 import { AutoGuard } from './autoguard.component';
+import { UsersAutoGuard } from './users.autoguard.component';
+import { AdminLayoutComponent } from './admin-layout.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -64,7 +66,7 @@ import { AutoGuard } from './autoguard.component';
     LoginComponent
   ],
   providers: [BooksService,
-    UsersService,LoginService,AutoGuard],
+    UsersService,LoginService,AutoGuard,UsersAutoGuard],
   bootstrap: [BooksComponent]
 })
 

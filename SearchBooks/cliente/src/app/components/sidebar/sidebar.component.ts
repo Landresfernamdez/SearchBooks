@@ -30,6 +30,7 @@ import {LoginService} from '../../login/login.service';
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   acceso:any;
+  seleccionado:any;
   constructor(private service:LoginService) {
 
    }
@@ -37,18 +38,11 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
-  isMobileMenu() {
-      if ($(window).width() > 991) {
+  isMobileMenu(){
+      if ($(window).width() > 991){
           return false;
       }
       return true;
   };
-  validarCredenciales(elemento){
-    if(elemento.path=='/books' && (this.service.funcionario==true||this.service.administrador==true)){
-      return true;
-    }
-    if(elemento.path=='/users' && this.service.funcionario==true){
-      return true;
-    }
-  }
+  
 }

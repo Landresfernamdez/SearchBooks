@@ -11,6 +11,8 @@ import {BooksComponent} from '../../books/books.component';
 import {UsersComponent} from '../../users/users.component';
 import { LoginComponent } from '../../login/login.component';
 import { AutoGuard } from './autoguard.component';
+import { UsersAutoGuard } from './users.autoguard.component';
+import { AdminLayoutComponent } from './admin-layout.component';
 export const AdminLayoutRoutes: Routes = [
      { path: 'dashboard', component: DashboardComponent },
       { path: 'user-profile', component: UserProfileComponent },
@@ -21,6 +23,6 @@ export const AdminLayoutRoutes: Routes = [
       { path: 'notifications', component: NotificationsComponent },
       { path: 'upgrade', component: UpgradeComponent },
       { path: 'books', component: BooksComponent, canActivate: [AutoGuard] },
-      { path: 'users', component: UsersComponent, canActivate: [AutoGuard] },
+      { path: 'users', component: UsersComponent, canActivate: [UsersAutoGuard] },
       { path: 'login', component: LoginComponent}
 ]

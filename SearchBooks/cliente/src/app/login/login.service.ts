@@ -17,6 +17,13 @@ export class LoginService {
       return true;
     }
   }
+  getStateLoginUsers(){
+    if(this.administrador==false){
+        return false
+    }else{
+      return true;
+    }
+  }
   login(user){
       return this.http.post(this.Url + 'iniciarSesion', user).toPromise();
   }
