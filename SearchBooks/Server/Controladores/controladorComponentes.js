@@ -35,6 +35,11 @@ exports.obtenerUltimo = function(rRequest, rResponse){
         rResponse.send(data);
     });
 };
+exports.inicioSesion = function(rRequest, rResponse){
+    controlador.inicioSesion(rRequest.body, function(data){
+        rResponse.send(data);
+    });
+};
 exports.todosLibros = function(rRequest, rResponse){
     controlador.todosLibros(function(data){
         rResponse.send(data.data);

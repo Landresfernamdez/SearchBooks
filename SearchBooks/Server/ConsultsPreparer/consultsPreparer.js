@@ -107,7 +107,6 @@ exports.modificarLibro = function modificarLibro(datos, callback) {
                 })
             }
         });
-        
         request.addParameter('id', TYPES.Int, datos.id);
         request.addParameter('nombre', TYPES.VarChar, datos.nombre);
         request.addParameter('cedula', TYPES.VarChar, datos.cedula);
@@ -147,6 +146,22 @@ exports.modificarLibro = function modificarLibro(datos, callback) {
  */
 exports.ultimo = function ultimo(datos, callback) {
     var request = new Request('selectUltimo', function (err) { // nombre de procedimiento en la base de datos
+        if (err) {
+            callback({
+                success: false,
+                error: request.error,
+                title: "Error",
+                message: "Sucedio un error obteniendo el utimo",
+                type: "error"
+            })
+        }
+    });
+    sqlConection.callProcedure(request, function (res) {
+        callback(res);
+    });
+}
+exports.inicioSesion = function inicioSesion(datos, callback) {
+    var request = new Request('InicioSesionUsuario', function (err) { // nombre de procedimiento en la base de datos
         if (err) {
             callback({
                 success: false,
