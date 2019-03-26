@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx';
 type AOA = any[][];
 import { BooksService } from './books.service';
 import { Book } from './Book';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'app/login/login.service';
 @Component({
 	selector: 'app-books',
@@ -16,16 +16,16 @@ export class BooksComponent implements OnInit {
 	filter: Book = new Book();
 	book: Book = new Book();
 	closeResult: string;
-	public items:string[]=['I','N'];
+	tipoFiltro: string;
+	public items: string[] = ['I', 'N'];
 	public snackbar: MatSnackBar;
-	constructor(private service: BooksService,private snackBar: MatSnackBar,private serviceauth:LoginService) {
-		 this.snackbar=snackBar;
-		 console.log("Prueba");
-		 console.log(this.books);
-		if(this.books==undefined){
+	constructor(private service: BooksService, private snackBar: MatSnackBar, private serviceauth: LoginService) {
+		this.snackbar = snackBar;
+		console.log(this.books);
+		if (this.books == undefined) {
 			this.service.devuelveTodoslibros().subscribe(response =>
 				this.books = response)
-		} 
+		}
 	}
 	ngOnInit() { }
 	data: AOA = [];
@@ -54,12 +54,12 @@ export class BooksComponent implements OnInit {
 	AgregarLibro(): void {
 		this.addBook(this.book);
 	}
-	notificar(messaje,action){
-		this.snackbar.open(messaje,action, {
+	notificar(messaje, action) {
+		this.snackbar.open(messaje, action, {
 			duration: 2000,
-			horizontalPosition:'right',
-			verticalPosition:'top'
-		  });
+			horizontalPosition: 'right',
+			verticalPosition: 'top'
+		});
 	}
 	ModificaBook(temporal) {
 		this.book.orden = temporal.orden;
@@ -92,19 +92,21 @@ export class BooksComponent implements OnInit {
 						ano: listaParametros[2],
 						numeroInscripcion: listaParametros[3],
 						numeroClasificacion: listaParametros[4],
-						orden: listaParametros[5],
-						bib: listaParametros[6],
-						precio: listaParametros[8],
-						procedencia: listaParametros[7],
-						observaciones: listaParametros[9],
+						coleccion: listaParametros[5],
+						orden: listaParametros[6],
+						bib: listaParametros[7],
+						procedencia: listaParametros[8],
+						precio: listaParametros[9],
+						formato: listaParametros[10],
+						observaciones: listaParametros[11],
 						succcess: 1
 					}
 					this.addBook(libro);
 				}
 			}
-			this.notificar("Se insertaron los registros con exito","exito");
+			this.notificar("Se insertaron los registros con exito", "exito");
 		} else {
-			this.notificar("Error, mala conexión","error");
+			this.notificar("Error, mala conexión", "error");
 		}
 
 
@@ -112,24 +114,24 @@ export class BooksComponent implements OnInit {
 	addBook = (newBook) => {
 		this.service.addBook(newBook).then(response => {
 			this.books.push(newBook)
-			this.notificar("La modificacion se realizo con exito","exito");
-			
-		}).catch(error=>{
-			this.notificar("Error, mala conexión","error");
+			this.notificar("La modificacion se realizo con exito", "exito");
+
+		}).catch(error => {
+			this.notificar("Error, mala conexión", "error");
 		});
 	}
 	modifyBook = (newBook) => {
 		this.service.modifyBook(newBook).then(
 			response => {
 				for (var x = 0; x < this.books.length; x++) {
-					if(this.books[x].numeroInscripcion==newBook.numeroInscripcion){
-						this.books[x]=newBook;
+					if (this.books[x].numeroInscripcion == newBook.numeroInscripcion) {
+						this.books[x] = newBook;
 					}
 				}
-				this.notificar("La modificacion se realizo con exito","exito");
+				this.notificar("La modificacion se realizo con exito", "exito");
 			}
-		).catch(error=>{
-			this.notificar("Error, mala conexión","error");
+		).catch(error => {
+			this.notificar("Error, mala conexión", "error");
 		});
 	}
 	getLast() {
@@ -143,10 +145,10 @@ export class BooksComponent implements OnInit {
 			}
 		});
 	};
-	isAdministrator(){
-		if(this.serviceauth.administrador){
+	isAdministrator() {
+		if (this.serviceauth.administrador) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}

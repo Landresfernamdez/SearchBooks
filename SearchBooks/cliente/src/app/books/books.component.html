@@ -1,257 +1,279 @@
-
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <input type="button" class="btn btn-dark" type="file" (change)="onFileChange($event)" multiple="false" *ngIf="isAdministrator()"/>
-      <button type="button" class="btn btn-dark" (click)="addRegistersbooks()" *ngIf="isAdministrator()">Agregar libros cargados en excel</button>
-      <button type="button" class="btn btn-dark" (click)="AgregaBook()"data-toggle="modal" data-target="#myModalagregar" *ngIf="isAdministrator()">
+      <input type="button" class="btn btn-dark" type="file" (change)="onFileChange($event)" multiple="false"
+        *ngIf="isAdministrator()" />
+      <button type="button" class="btn btn-dark" (click)="addRegistersbooks()" *ngIf="isAdministrator()">Agregar libros
+        cargados en excel</button>
+      <button type="button" class="btn btn-dark" (click)="AgregaBook()" data-toggle="modal"
+        data-target="#myModalagregar" *ngIf="isAdministrator()">
         Agregar Libro
       </button>
       <div class="modal" id="myModalExito">
         <div class="modal-dialog">
           <div class="modal-content">
-      
+
             <!-- Modal Header -->
             <div class="modal-header">
               <h4 class="modal-title">Modal Heading</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-      
+
             <!-- Modal body -->
             <div class="modal-body">
               <div class="alert alert-success">
                 <strong>Success!</strong> Indicates a successful or positive action.
               </div>
             </div>
-      
+
             <!-- Modal footer -->
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
-      
+
           </div>
         </div>
       </div>
 
 
-            <!-- The Modal  agregar-->
-            <div class="modal" id="myModalagregar">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-            
-                  <!-- Modal Header -->
-                  <div class="modal-header">
-                    <h4 class="modal-title">Modal Heading</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-            
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                    <h1>Llenar campos de libro a agregar</h1>
-                    <table>
-                      <tr>
-                        <td>
-                          <p>Titulo:</p>
-                        </td>
-                        <td>
-                          <input type="text" name="ititulo" [(ngModel)]="book.titulo" placeholder="Titulo">
-                        </td>
-                        <td>
-                          <p>Autor:</p>
-                        </td>
-                        <td>
-                          <input type="text" name="iautor" [(ngModel)]="book.autor" placeholder="Autor">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p>Año:</p>
-                        </td>
-                        <td>
-                          <input type="text" name="iano" [(ngModel)]="book.ano" placeholder="Año">
-                        </td>
-                        <td>
-                          <p>Numero de inscripción:</p>
-                        </td>
-                        <td>
-                          <input type="text" name="inInscripcion" [(ngModel)]="book.numeroInscripcion" placeholder="Numero de inscripcion">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p>Numero de clasificación:</p>
-                        </td>
-                        <td>
-                          <input type="text" name="inumeroClasificacion" [(ngModel)]="book.numeroClasificacion" placeholder="Numero de clasificacion">
-                        </td>
-                        <td>
-                          <p>Orden:</p>
-                        </td>
-                        <td>
-                          <input type="text" name="iOrden" [(ngModel)]="book.orden" placeholder="Orden">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p>Bib:</p>
-                        </td>
-                        <td>
-                          <input type="text" name="iBib" [(ngModel)]="book.bib" placeholder="Bib">
-                        </td>
-                        <td>
-                          <p>Precio:</p>
-                        </td>
-                        <td>
-                          <input type="text" name="iPrecio" [(ngModel)]="book.precio" placeholder="precio">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p>Procedencia:</p>
-                        </td>
-                        <td>
-                          <input type="text" name="iProcedencia" [(ngModel)]="book.procedencia" placeholder="procedencia">
-                        </td>
-                        <td>
-                          <p>Observaciones:</p>
-                        </td>
-                        <td>
+      <!-- The Modal  agregar-->
+      <div class="modal" id="myModalagregar">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
 
-                          <input type="text" name="iObservaciones" [(ngModel)]="book.observaciones" placeholder="observaciones">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                        <p>Tipo:</p>
-                        </td>
-                        <td>
-                          <input type="text" name="iTipo" [(ngModel)]="book.tipo" placeholder="Tipo,Normal=N,Inscripcion=I">
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-            
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    
-                    <button type="button" class="btn btn-success" (click)="AgregarLibro()" data-dismiss="modal">Agregar libro</button>
-                  </div>
-            
-                </div>
-              </div>
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Modal Heading</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
+            <!-- Modal body -->
+            <div class="modal-body">
+              <h1>Llenar campos de libro a agregar</h1>
+              <table>
+                <tr>
+                  <td>
+                    <p>Titulo:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="ititulo" [(ngModel)]="book.titulo" placeholder="Titulo">
+                  </td>
+                  <td>
+                    <p>Autor:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iautor" [(ngModel)]="book.autor" placeholder="Autor">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Año:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iano" [(ngModel)]="book.ano" placeholder="Año">
+                  </td>
+                  <td>
+                    <p>Numero de inscripción:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="inInscripcion" [(ngModel)]="book.numeroInscripcion"
+                      placeholder="Numero de inscripcion">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Numero de clasificación:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="inumeroClasificacion" [(ngModel)]="book.numeroClasificacion"
+                      placeholder="Numero de clasificacion">
+                  </td>
+                  <td>
+                    <p>Orden:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iOrden" [(ngModel)]="book.orden" placeholder="Orden">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Bib:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iBib" [(ngModel)]="book.bib" placeholder="Bib">
+                  </td>
+                  <td>
+                    <p>Precio:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iPrecio" [(ngModel)]="book.precio" placeholder="precio">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Procedencia:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iProcedencia" [(ngModel)]="book.procedencia" placeholder="procedencia">
+                  </td>
+                  <td>
+                    <p>Observaciones:</p>
+                  </td>
+                  <td>
 
-
-
-            <!-- The Modal  modificar-->
-        <div class="modal" id="myModalmodificar">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-        
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-        
-              <!-- Modal body -->
-              <div class="modal-body">
-                <h1>Modificar los campos que desee modificar</h1>
-        <table>
-          <tr>
-            <td>
-              <p>Titulo:</p>
-            </td>
-            <td>
-              <input type="text" name="ititulo" [(ngModel)]="book.titulo" placeholder="{{book.titulo}}">
-            </td>
-            <td>
-              <p>Autor:</p>
-            </td>
-            <td>
-              <input type="text" name="iautor" [(ngModel)]="book.autor" placeholder="{{book.autor}}">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Año:</p>
-            </td>
-            <td>
-              <input type="text" name="iano" [(ngModel)]="book.ano" placeholder="{{book.ano}}">
-            </td>
-            <td>
-              <p>Numero de inscripción:</p>
-            </td>
-            <td>
-              <input type="text" name="inInscripcion" [(ngModel)]="book.numeroInscripcion" placeholder="{{book.numeroInscripcion}}">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Numero de clasificación:</p>
-            </td>
-            <td>
-              <input type="text" name="inumeroClasificacion" [(ngModel)]="book.numeroClasificacion" placeholder="{{book.numeroClasificacion}}">
-            </td>
-            <td>
-              <p>Orden:</p>
-            </td>
-            <td>
-              <input type="text" name="iOrden" [(ngModel)]="book.orden" placeholder="{{book.orden}}">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Bib:</p>
-            </td>
-            <td>
-              <input type="text" name="iBib" [(ngModel)]="book.bib" placeholder="{{book.bib}}">
-            </td>
-            <td>
-              <p>Precio:</p>
-            </td>
-            <td>
-              <input type="text" name="iPrecio" [(ngModel)]="book.precio" placeholder="{{book.precio}}">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Procedencia:</p>
-            </td>
-            <td>
-              <input type="text" name="iProcedencia" [(ngModel)]="book.procedencia" placeholder="{{book.procedencia}}">
-            </td>
-            <td>
-              <p>Observaciones:</p>
-            </td>
-            <td>
-              <input type="text" name="iObservaciones" [(ngModel)]="book.observaciones" placeholder="{{book.observaciones}}">
-            </td>
-          </tr>
-          <tr>
-              <td>
-                  <p>Tipo:</p>
-                </td>
-                <td>
-                  <input type="text" name="iTipo" [(ngModel)]="book.tipo" placeholder="{{book.tipo}}">
-                </td>
-          </tr>
-        </table>
-              </div>
-        
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                
-                <button type="button" class="btn btn-success" (click)="ModificarLibro()" data-dismiss="modal">Modificar libro</button>
-                
-              </div>
-        
+                    <input type="text" name="iObservaciones" [(ngModel)]="book.observaciones"
+                      placeholder="observaciones">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Coleccion:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iColecciones" [(ngModel)]="book.coleccion">
+                  </td>
+                  <td>
+                    <p>Formato:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iFormato" [(ngModel)]="book.formato" >
+                  </td>
+                </tr>
+              </table>
             </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+              <button type="button" class="btn btn-success" (click)="AgregarLibro()" data-dismiss="modal">Agregar
+                libro</button>
+            </div>
+
           </div>
         </div>
+      </div>
+
+
+
+
+      <!-- The Modal  modificar-->
+      <div class="modal" id="myModalmodificar">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Modal Heading</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <h1>Modificar los campos que desee modificar</h1>
+              <table>
+                <tr>
+                  <td>
+                    <p>Titulo:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="ititulo" [(ngModel)]="book.titulo" placeholder="{{book.titulo}}">
+                  </td>
+                  <td>
+                    <p>Autor:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iautor" [(ngModel)]="book.autor" placeholder="{{book.autor}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Año:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iano" [(ngModel)]="book.ano" placeholder="{{book.ano}}">
+                  </td>
+                  <td>
+                    <p>Numero de inscripción:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="inInscripcion" [(ngModel)]="book.numeroInscripcion"
+                      placeholder="{{book.numeroInscripcion}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Numero de clasificación:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="inumeroClasificacion" [(ngModel)]="book.numeroClasificacion"
+                      placeholder="{{book.numeroClasificacion}}">
+                  </td>
+                  <td>
+                    <p>Orden:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iOrden" [(ngModel)]="book.orden" placeholder="{{book.orden}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Bib:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iBib" [(ngModel)]="book.bib" placeholder="{{book.bib}}">
+                  </td>
+                  <td>
+                    <p>Precio:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iPrecio" [(ngModel)]="book.precio" placeholder="{{book.precio}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Procedencia:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iProcedencia" [(ngModel)]="book.procedencia"
+                      placeholder="{{book.procedencia}}">
+                  </td>
+                  <td>
+                    <p>Observaciones:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iObservaciones" [(ngModel)]="book.observaciones"
+                      placeholder="{{book.observaciones}}">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Coleccion:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iColeccion" [(ngModel)]="book.coleccion" placeholder="{{book.coleccion}}">
+                  </td>
+
+                  <td>
+                    <p>Formato:</p>
+                  </td>
+                  <td>
+                    <input type="text" name="iFormato" [(ngModel)]="book.formato" placeholder="{{book.formato}}">
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success" (click)="ModificarLibro()" data-dismiss="modal">Modificar
+                libro</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
@@ -263,16 +285,27 @@
                 <input type="text" name="autor" [(ngModel)]="filter.autor" placeholder="Autor">
               </th>
               <th>
-                <input type="text" name="inscripcion" [(ngModel)]="filter.numeroInscripcion" placeholder="Numero de inscripcion">
+                <input type="text" name="inscripcion" [(ngModel)]="filter.numeroInscripcion"
+                  placeholder="Numero de inscripcion">
               </th>
               <th>
-                <input type="text" name="clasificacion" [(ngModel)]="filter.numeroClasificacion" placeholder="Numero de clasificacion">
+                <input type="text" name="clasificacion" [(ngModel)]="filter.numeroClasificacion"
+                  placeholder="Numero de clasificacion">
               </th>
               <th>
                 <input type="text" name="bib" [(ngModel)]="filter.bib" placeholder="Bib">
               </th>
               <th>
-                <input type="text" name="bib" [(ngModel)]="filter.tipo" placeholder="Tipo:N=Normal,I=Inscripcion">
+                <div class="form-label-group">
+                  <select class="browser-default custom-select" id="rolselected" name="rol"
+                    [(ngModel)]="filter.coleccion">
+                    <option selected value="General">General</option>
+                    <option value="Tesis">Tesis</option>
+                    <option value="Pasiva">Pasiva</option>
+                    <option value="Referencia">Referencia</option>
+                    <option value="">Ninguna</option>
+                  </select><label for="rolselected">Seleccione la coleccion</label>
+                </div>
               </th>
             </tr>
             <tr>
@@ -304,7 +337,10 @@
                 <b>Modificar libro</b>
               </td>
               <td>
-                <b>Tipo</b>
+                <b>Coleccion</b>
+              </td>
+              <td>
+                <b>Formato</b>
               </td>
             </tr>
           </thead>
@@ -335,12 +371,16 @@
                 {{book.bib}}
               </td>
               <td *ngIf="isAdministrator()">
-                <button type="button" class="btn btn-info" (click)="ModificaBook(book)" data-toggle="modal" data-target="#myModalmodificar" *ngIf="isAdministrator()">
+                <button type="button" class="btn btn-info" (click)="ModificaBook(book)" data-toggle="modal"
+                  data-target="#myModalmodificar" *ngIf="isAdministrator()">
                   Modificar libro
                 </button>
               </td>
               <td>
-                {{book.tipo}}
+                {{book.coleccion}}
+              </td>
+              <td>
+                {{book.formato}}
               </td>
             </tr>
           </tbody>
@@ -349,7 +389,3 @@
       </div>
     </div>
   </div>
-
-  
-  
-  

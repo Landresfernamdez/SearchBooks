@@ -9,7 +9,8 @@ CREATE TABLE Usuarios
      apellido1   VARCHAR(20) , 
      apellido2   VARCHAR(20) , 
      contraseña VARCHAR(50) ,
-	 nombreusuario VARCHAR(50) UNIQUE NOT NULL
+	 nombreusuario VARCHAR(50) UNIQUE NOT NULL,
+	 rol CHAR NOT NULL DEFAULT 'C',
   );
   /*
   Es un sistema de manejo de libros por lo tanto se necesita una tabla que abstraiga los libros
@@ -25,7 +26,9 @@ CREATE TABLE Usuarios
 	bib VARCHAR(50) ,
 	precio VARCHAR(50) ,
 	procedencia VARCHAR(50) ,
-	observaciones VARCHAR(200)
+	observaciones VARCHAR(200),
+	coleccion VARCHAR(50),
+	formato VARCHAR(50)
   );
 /*Funcion de agregar un libro a la base de datos*/
 ALTER PROCEDURE AgregarLibro @titulo AS VARCHAR(200), 
@@ -38,7 +41,8 @@ ALTER PROCEDURE AgregarLibro @titulo AS VARCHAR(200),
 							  @precio AS VARCHAR(50),
 							  @procedencia AS VARCHAR(50),
 							  @observaciones AS VARCHAR(200),
-							  @tipo AS CHAR,
+							  @formato AS VARCHAR(50),
+							  @coleccion AS VARCHAR(50),
 							  @success	BIT	OUTPUT    
 AS 
   BEGIN 
@@ -53,7 +57,7 @@ AS
                        bib,
 					   precio,
 					   procedencia,
-					   observaciones,tipo) 
+					   observaciones,coleccion,formato) 
           VALUES      (@titulo, 
                        @autor, 
                        @ano, 
@@ -64,7 +68,8 @@ AS
 					   @precio,
 					   @procedencia,
 					   @observaciones,
-					   @tipo); 
+					   @coleccion,
+					   @formato); 
 		SET @success=1;
 		SELECT @success;
       END try 
@@ -98,7 +103,8 @@ ALTER PROCEDURE ModificarLibro @titulo AS VARCHAR(200),
 							  @precio AS VARCHAR(50),
 							  @procedencia AS VARCHAR(50),
 							  @observaciones AS VARCHAR(200),
-							  @tipo AS CHAR,
+							  @coleccion AS VARCHAR(50),
+							  @formato AS VARCHAR(50), 
 							  @success	BIT	OUTPUT    
 AS 
   BEGIN 
@@ -111,7 +117,7 @@ AS
                        bib=@bib,
 					   precio=@precio,
 					   procedencia=@procedencia,
-					   observaciones=@observaciones, tipo=@tipo where numeroInscripcion=@numeroInscripcion;
+					   observaciones=@observaciones,coleccion=@coleccion,formato=@formato where numeroInscripcion=@numeroInscripcion;
 		SET @success=1;
 		SELECT @success;
       END try 
@@ -126,6 +132,12 @@ GO
 ALTER TABLE Libros
 ADD tipo CHAR NOT NULL DEFAULT 'N'; /*N= Libro normal, I= Libro de inscripcion*/
 
+ALTER TABLE Libros
+ADD coleccion VARCHAR(50) ;
+
+ALTER TABLE Libros
+ADD formato VARCHAR(50) ;
+
 
 ALTER TABLE Usuarios
 ADD rol CHAR NOT NULL DEFAULT 'C'; /*C= Funcionario, A= Administrador*/
@@ -133,7 +145,12 @@ ADD rol CHAR NOT NULL DEFAULT 'C'; /*C= Funcionario, A= Administrador*/
 ALTER TABLE Usuarios
 ADD nombreusuario VARCHAR(200) UNIQUE NOT NULL;
 
+ALTER TABLE Libros DROP COLUMN tipo;
+
+ALTER TABLE Libros ALTER COLUMN TIPO char  NULL;
+
 SELECT * FROM Usuarios 
+SELECT * FROM Libros
 /*Funcion de agregar un usuario a la base de datos*/
 ALTER PROCEDURE AgregarUsuario @cedula AS VARCHAR(200), 
                               @nombre AS VARCHAR(200), 

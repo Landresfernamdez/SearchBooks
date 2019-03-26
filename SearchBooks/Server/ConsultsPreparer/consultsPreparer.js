@@ -37,7 +37,8 @@ exports.insertarLibro = function insertarLibro(datos, callback) {
     request.addParameter('precio', TYPES.VarChar, datos.precio);
     request.addParameter('procedencia', TYPES.VarChar, datos.procedencia);
     request.addParameter('observaciones', TYPES.VarChar, datos.observaciones);
-    request.addParameter('tipo', TYPES.Char, datos.tipo);
+    request.addParameter('coleccion', TYPES.VarChar, datos.coleccion);
+    request.addParameter('formato', TYPES.VarChar, datos.formato);
     request.addOutputParameter('success', TYPES.Bit);
     sqlConection.callProcedure(request, function (res) {
         callback(res);
@@ -84,11 +85,18 @@ exports.modificarLibro = function modificarLibro(datos, callback) {
                 })
             }
         });
-        request.addParameter('nombre', TYPES.VarChar, datos.nombre);
-        request.addParameter('cedula', TYPES.VarChar, datos.cedula);
-        request.addParameter('apellido1', TYPES.VarChar, datos.apellido1);
-        request.addParameter('apellido2', TYPES.VarChar, datos.apellido2);
-        request.addParameter('contraseña', TYPES.VarChar, datos.contraseña);
+        request.addParameter('titulo', TYPES.VarChar, datos.titulo);
+        request.addParameter('autor', TYPES.VarChar, datos.autor);
+        request.addParameter('ano', TYPES.VarChar, datos.ano);
+        request.addParameter('numeroInscripcion', TYPES.VarChar, datos.numeroInscripcion);
+        request.addParameter('numeroClasificacion', TYPES.VarChar, datos.numeroClasificacion);
+        request.addParameter('orden', TYPES.VarChar, datos.orden);
+        request.addParameter('bib', TYPES.VarChar, datos.bib);
+        request.addParameter('precio', TYPES.VarChar, datos.precio);
+        request.addParameter('procedencia', TYPES.VarChar, datos.procedencia);
+        request.addParameter('observaciones', TYPES.VarChar, datos.observaciones);
+        request.addParameter('coleccion', TYPES.VarChar, datos.coleccion);
+        request.addParameter('formato', TYPES.VarChar, datos.formato);
         request.addOutputParameter('success', TYPES.Bit);
         sqlConection.callProcedure(request, function (res) {
             callback(res);
