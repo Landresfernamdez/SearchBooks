@@ -9,10 +9,12 @@
         data-target="#myModalagregar" *ngIf="isAdministrator()">
         Agregar Libro
       </button>
+
+
+      
       <div class="modal" id="myModalExito">
         <div class="modal-dialog">
           <div class="modal-content">
-
             <!-- Modal Header -->
             <div class="modal-header">
               <h4 class="modal-title">Modal Heading</h4>
@@ -136,7 +138,7 @@
                     <p>Formato:</p>
                   </td>
                   <td>
-                    <input type="text" name="iFormato" [(ngModel)]="book.formato" >
+                    <input type="text" name="iFormato" [(ngModel)]="book.formato">
                   </td>
                 </tr>
               </table>
@@ -296,6 +298,7 @@
                 <input type="text" name="bib" [(ngModel)]="filter.bib" placeholder="Bib">
               </th>
               <th>
+                <b>Seleccione la coleccion:</b>
                 <div class="form-label-group">
                   <select class="browser-default custom-select" id="rolselected" name="rol"
                     [(ngModel)]="filter.coleccion">
@@ -304,7 +307,7 @@
                     <option value="Pasiva">Pasiva</option>
                     <option value="Referencia">Referencia</option>
                     <option value="">Ninguna</option>
-                  </select><label for="rolselected">Seleccione la coleccion</label>
+                  </select>
                 </div>
               </th>
             </tr>
@@ -341,6 +344,9 @@
               </td>
               <td>
                 <b>Formato</b>
+              </td>
+              <td>
+                <b>Observaciones</b>
               </td>
             </tr>
           </thead>
@@ -381,6 +387,9 @@
               </td>
               <td>
                 {{book.formato}}
+              </td>
+              <td>
+                {{book.observaciones}}
               </td>
             </tr>
           </tbody>

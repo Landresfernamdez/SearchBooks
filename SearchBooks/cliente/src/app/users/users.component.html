@@ -4,6 +4,15 @@
       <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModalagregar">
         Agregar usuario
       </button>
+      <div class="modal fade bd-example-modal-sm" id="confirmacionEliminarUsuario"tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <button  class=".bg-success" (click)="EliminaUser()" data-dismiss="modal">
+                  <i class="material-icons">check_circle_outline</i>Confirmar</button>
+              <button  class=".bg-danger" data-dismiss="modal"><i class="material-icons">highlight_off</i>Cancelar</button>
+            </div>
+          </div>
+      </div>
       <div class="modal" id="myModalExito">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -231,8 +240,8 @@
                 </button>
               </td>
               <td>
-                <button type="button" class="btn btn-primary btn-danger" (click)="EliminaUser(user)"
-                  data-toggle="modal">
+                <button type="button" class="btn btn-primary btn-danger" 
+                  data-toggle="modal" (click)="ModificaUser(user)" data-target="#confirmacionEliminarUsuario">
                   Eliminar Usuario
                 </button>
               </td>

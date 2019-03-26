@@ -1,4 +1,5 @@
 export class User{
+    public id:Int32Array;
     public nombre:string;
     public cedula:string;
     public apellido1:string;

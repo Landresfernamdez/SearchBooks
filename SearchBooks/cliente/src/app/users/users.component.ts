@@ -42,10 +42,10 @@ export class UsersComponent implements OnInit {
       this.notificar("Error, mala conexión", "error");
     });
   }
-  EliminaUser(user){
-    this.service.deleteUser(user).then(response => {
+  EliminaUser(){
+    this.service.deleteUser(this.user).then(response => {
         for (var i = this.users.length - 1; i--;) {
-          if (this.users[i].id === user.id) {
+          if (this.users[i].id === this.user.id) {
             this.users.splice(i, 1);
           }
         }
