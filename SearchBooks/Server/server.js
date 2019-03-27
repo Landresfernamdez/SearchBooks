@@ -56,6 +56,7 @@ app.get('/devuelveUltimo',componenteCtrl.obtenerUltimo);
 app.get('/todosLibros',componenteCtrl.todosLibros);
 app.post('/modificarLibro',componenteCtrl.modificarLibros);
 
+app.post('/eliminarLibros',componenteCtrl.eliminarLibros);
 
 app.get('/todosUsuarios',componenteCtrl.todosUsuarios);
 app.post('/agregarUsuarios',componenteCtrl.agregarUsuarios);

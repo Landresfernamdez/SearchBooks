@@ -22,4 +22,7 @@ export class BooksService {
   devuelveTodoslibros() {
     return this.http.get(this.Url +'todosLibros');
   }
+  deleteBook(temporal) {
+    return this.http.post(this.Url + 'eliminarLibros', temporal).toPromise();
+  }
 }

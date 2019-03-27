@@ -1,17 +1,27 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
+
       <input type="button" class="btn btn-dark" type="file" (change)="onFileChange($event)" multiple="false"
         *ngIf="isAdministrator()" />
       <button type="button" class="btn btn-dark" (click)="addRegistersbooks()" *ngIf="isAdministrator()">Agregar libros
         cargados en excel</button>
       <button type="button" class="btn btn-dark" (click)="AgregaBook()" data-toggle="modal"
         data-target="#myModalagregar" *ngIf="isAdministrator()">
-        Agregar Libro
+        <i class="material-icons">add_circle</i> Agregar Libro
       </button>
       <button type="button" class="btn btn-dark" (click)="restartFilter()">
         <i class="material-icons">cached</i>Reiniciar busqueda
       </button>
+      <div class="modal fade bd-example-modal-sm" id="confirmacionEliminarLibro"tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <button  class=".bg-success" (click)="EliminaBook()" data-dismiss="modal">
+                  <i class="material-icons">check_circle_outline</i>Confirmar</button>
+              <button  class=".bg-danger" data-dismiss="modal"><i class="material-icons">highlight_off</i>Cancelar</button>
+            </div>
+          </div>
+      </div>
       <div class="modal" id="myModalExito">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -291,7 +301,6 @@
                 <input type="text" name="bib" [(ngModel)]="filter.bib" placeholder="Bib">
               </th>
               <th>
-                <b>Seleccione la coleccion:</b>
                 <div class="form-label-group">
                   <select class="browser-default custom-select" id="rolselected" name="rol"
                     [(ngModel)]="filter.coleccion">
@@ -341,6 +350,9 @@
               <td>
                 <b>Observaciones</b>
               </td>
+              <td *ngIf="isAdministrator()">
+                <b>Eliminar libro</b>
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -372,7 +384,7 @@
               <td *ngIf="isAdministrator()">
                 <button type="button" class="btn btn-info" (click)="ModificaBook(book)" data-toggle="modal"
                   data-target="#myModalmodificar" *ngIf="isAdministrator()">
-                  Modificar libro
+                  <i class="material-icons">create</i>Modificar libro
                 </button>
               </td>
               <td>
@@ -383,6 +395,12 @@
               </td>
               <td>
                 {{book.observaciones}}
+              </td>
+              <td *ngIf="isAdministrator()">
+                <button type="button" class="btn btn-danger" (click)="ModificaBook(book)" data-toggle="modal"
+                  data-target="#confirmacionEliminarLibro" *ngIf="isAdministrator()">
+                  <i class="material-icons">delete_forever</i> Eliminar libro
+                </button>
               </td>
             </tr>
           </tbody>

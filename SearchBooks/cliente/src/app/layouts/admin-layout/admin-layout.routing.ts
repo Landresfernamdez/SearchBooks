@@ -22,7 +22,7 @@ export const AdminLayoutRoutes: Routes = [
       { path: 'maps', component: MapsComponent },
       { path: 'notifications', component: NotificationsComponent },
       { path: 'upgrade', component: UpgradeComponent },
-      { path: 'books', component: BooksComponent, canActivate: [AutoGuard] },
-      { path: 'users', component: UsersComponent, canActivate: [UsersAutoGuard] },
+      { path: 'books', component: BooksComponent},//, canActivate: [AutoGuard] },
+      { path: 'users', component: UsersComponent},//, canActivate: [UsersAutoGuard] },
       { path: 'login', component: LoginComponent}
 ]

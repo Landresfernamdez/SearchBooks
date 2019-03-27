@@ -1,4 +1,5 @@
 export class Book{
+    public id:Int32Array;
     public titulo:string;
     public autor:string;
     public ano:string;

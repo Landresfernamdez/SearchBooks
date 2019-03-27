@@ -68,6 +68,20 @@ export class BooksComponent implements OnInit {
 		this.book.orden = temporal.orden;
 		this.book = temporal;
 	}
+	EliminaBook(){
+		this.service.deleteBook(this.book).then(response => {
+			console.log(response);
+			for (var i =0;i<this.books.length; i++) {
+			  if (this.books[i].id === this.book.id) {
+				this.books.splice(i,1);
+				console.log("Entro");
+			  }
+			}
+			this.notificar("Se elimino con exito", "exito");
+		}).catch(error => {
+		  this.notificar("Error, mala conexión", "error");
+		});
+	  }
 	AgregaBook() {
 		this.book = new Book();
 	}

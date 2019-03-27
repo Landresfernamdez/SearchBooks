@@ -30,6 +30,11 @@ exports.eliminarUsuarios = function(rRequest, rResponse){
         rResponse.send(data);
     });
 };
+exports.eliminarLibros = function(rRequest, rResponse){
+    controlador.eliminarLibros(rRequest.body, function(data){
+        rResponse.send(data);
+    });
+};
 exports.obtenerUltimo = function(rRequest, rResponse){
     controlador.devuelveUltimo(rRequest.body, function(data){
         rResponse.send(data);
