@@ -131,7 +131,7 @@ export class BooksComponent implements OnInit {
 	addBook = (newBook) => {
 		this.service.addBook(newBook).then(response => {
 			this.books.push(newBook)
-			this.notificar("La modificacion se realizo con exito", "exito");
+			this.notificar("Se insertaron los registros con exito", "exito");
 
 		}).catch(error => {
 			this.notificar("Error, mala conexión", "error");
