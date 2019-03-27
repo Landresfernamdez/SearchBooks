@@ -54,6 +54,9 @@ export class BooksComponent implements OnInit {
 	AgregarLibro(): void {
 		this.addBook(this.book);
 	}
+	restartFilter(){
+		this.filter= new Book();
+	}
 	notificar(messaje, action) {
 		this.snackbar.open(messaje, action, {
 			duration: 2000,

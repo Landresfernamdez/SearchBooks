@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
       this.notificar("Error, mala conexión", "error");
     });
   }
-  ModificaUser(temporal) {
+  ModificaUser(temporal){
     this.user = temporal;
   }
   ModificarUsuario() {
@@ -44,9 +44,10 @@ export class UsersComponent implements OnInit {
   }
   EliminaUser(){
     this.service.deleteUser(this.user).then(response => {
-        for (var i = this.users.length - 1; i--;) {
+        for (var i =0;i<this.users.length; i++) {
           if (this.users[i].id === this.user.id) {
-            this.users.splice(i, 1);
+            this.users.splice(i,1);
+            console.log("Entro");
           }
         }
         this.notificar("Se elimino con exito", "exito");
