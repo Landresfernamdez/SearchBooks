@@ -60,6 +60,7 @@ app.post('/eliminarLibros',componenteCtrl.eliminarLibros);
 
 app.get('/todosUsuarios',componenteCtrl.todosUsuarios);
 app.post('/agregarUsuarios',componenteCtrl.agregarUsuarios);
+app.post('/agregarUsuarioDepartamento',componenteCtrl.agregarUsuarioDepartamento);
 app.post('/modificarUsuarios',componenteCtrl.modificarUsuarios);
 app.post('/eliminarUsuarios',componenteCtrl.eliminarUsuarios);
 app.post('/iniciarSesion',componenteCtrl.inicioSesion);

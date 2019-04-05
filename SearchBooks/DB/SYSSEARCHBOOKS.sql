@@ -185,6 +185,29 @@ AS
   END 
 GO
 
+/*Agregar funcionario a departamentos de base de datos InfoTEC*/
+CREATE PROCEDURE AgregarfuncionarioDepartamento  
+                              @cedula VARCHAR(20),
+							  @idDpartamento VARCHAR(5),
+							  @success	BIT	OUTPUT    
+AS 
+  BEGIN 
+      BEGIN Try 
+          INSERT INTO Persona_departamentos 
+                      (IDPer, 
+                       codigoDep) 
+          VALUES      (@cedula, 
+                       @idDpartamento); 
+		SET @success=1;
+		SELECT @success;
+      END try 
+      BEGIN Catch
+		SET @success=0;
+		SELECT @success; 
+      END Catch 
+  END 
+GO
+
 /*Funcion para modificar un usuario*/
 
 ALTER PROCEDURE ModificarUsuario @id AS INTEGER ,
@@ -236,7 +259,21 @@ AS
       END Catch 
   END 
 GO
-
+CREATE PROCEDURE EliminarLibro @id AS INTEGER ,
+							  @success	BIT	OUTPUT   
+AS 
+  BEGIN 
+      BEGIN Try 
+          DELETE  FROM  Libros  where id=@id;
+		SET @success=1;
+		SELECT @success;
+      END try 
+      BEGIN Catch
+		SET @success=0;
+		SELECT @success; 
+      END Catch 
+  END 
+GO
 CREATE PROCEDURE InicioSesionUsuario @nombreusuario AS VARCHAR(200) ,
 							  @contraseña AS VARCHAR(50),
 							  @rol AS CHAR,
@@ -256,7 +293,7 @@ AS
   END 
 GO
 
-SELECT * FROM Usuarios
+SELECT * FROM Libros where numeroInscripcion='SC005000'
 
 
 

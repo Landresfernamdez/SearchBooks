@@ -1,6 +1,7 @@
 var Request = require('tedious').Request;
 var TYPES = require('tedious').TYPES;
 var sqlConection = require('../ConexionDBs/sqlConection.js');
+var sqlConectioninfoTEC = require('../ConexionDBs/sqkConectionInfoTEC.js');
 /*
 ===========================
 >  CRUD's de Componentes  <
@@ -46,7 +47,7 @@ exports.insertarLibro = function insertarLibro(datos, callback) {
 }
 
 exports.insertarUsuario = function insertarUsuario(datos, callback) {
-    var request = new Request('AgregarUsuario', function (err) { // nombre de procedimiento en la base de datos
+    var request = new Request('insertarFuncionarioPersona', function (err) { // nombre de procedimiento en la base de datos
         if (err) {
             callback({
                 success: false,
@@ -57,14 +58,41 @@ exports.insertarUsuario = function insertarUsuario(datos, callback) {
             })
         }
     });
+    request.addParameter('carne',TYPES.VarChar,'');
     request.addParameter('nombre', TYPES.VarChar, datos.nombre);
-    request.addParameter('cedula', TYPES.VarChar, datos.cedula);
+    request.addParameter('idPersona', TYPES.VarChar, datos.cedula);
     request.addParameter('apellido1', TYPES.VarChar, datos.apellido1);
     request.addParameter('apellido2', TYPES.VarChar, datos.apellido2);
-    request.addParameter('contraseña', TYPES.VarChar, datos.clave);
-    request.addParameter('nombreusuario', TYPES.VarChar, datos.nombreusuario);
+    request.addParameter('newpass', TYPES.VarChar, datos.clave);
+    request.addParameter('estadoCivil',TYPES.VarChar,'');
+    request.addParameter('fechaNacimiento',TYPES.VarChar,'');
+    request.addParameter('sexo',TYPES.Char,'');
+    request.addParameter('direccion',TYPES.VarChar,'');
+    request.addParameter('gradoAcademico',TYPES.VarChar,'');
+    request.addParameter('listaRoles',TYPES.VarChar,'');
+    request.addParameter('listaLicencias',TYPES.VarChar,'');
     request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function (res) {
+    sqlConectioninfoTEC.callProcedure(request, function (res) {
+        callback(res);
+    });
+}
+
+exports.insertarUsuarioDepartamento = function insertarUsuarioDepartamento(datos, callback) {
+    var request = new Request('AgregarfuncionarioDepartamento', function (err) { // nombre de procedimiento en la base de datos
+        if (err) {
+            callback({
+                success: false,
+                error: request.error,
+                title: "Error",
+                message: "Sucedio un error en la inserción de los datos",
+                type: "error"
+            })
+        }
+    });
+    request.addParameter('cedula',TYPES.VarChar,datos.cedula);
+    request.addParameter('idDepartamento', TYPES.VarChar, datos.iddepartamento);
+    request.addOutputParameter('success', TYPES.Bit);
+    sqlConectioninfoTEC.callProcedure(request, function (res) {
         callback(res);
     });
 }
@@ -104,7 +132,7 @@ exports.modificarLibro = function modificarLibro(datos, callback) {
 }
 
     exports.modificarUsuario = function modificarUsuario(datos, callback) {
-        var request = new Request('ModificarUsuario', function (err) { // nombre de procedimiento en la base de datos
+        var request = new Request('insertarFuncionarioPersona', function (err) { // nombre de procedimiento en la base de datos
             if (err) {
                 callback({
                     success: false,
@@ -115,16 +143,22 @@ exports.modificarLibro = function modificarLibro(datos, callback) {
                 })
             }
         });
-        request.addParameter('id', TYPES.Int, datos.id);
+        request.addParameter('carne',TYPES.VarChar,'');
         request.addParameter('nombre', TYPES.VarChar, datos.nombre);
-        request.addParameter('cedula', TYPES.VarChar, datos.cedula);
+        request.addParameter('idPersona', TYPES.VarChar, datos.cedula);
         request.addParameter('apellido1', TYPES.VarChar, datos.apellido1);
         request.addParameter('apellido2', TYPES.VarChar, datos.apellido2);
-        request.addParameter('contraseña', TYPES.VarChar, datos.clave);
-        request.addParameter('rol', TYPES.VarChar, datos.rol);
-        request.addParameter('nombreusuario', TYPES.VarChar, datos.nombreusuario);
+        request.addParameter('newpass', TYPES.VarChar, datos.clave);
+        request.addParameter('nombre', TYPES.VarChar, datos.nombreusuario);
+        request.addParameter('estadoCivil',TYPES.VarChar,'');
+        request.addParameter('fechaNacimiento',TYPES.VarChar,'');
+        request.addParameter('sexo',TYPES.Char,'');
+        request.addParameter('direccion',TYPES.VarChar,'');
+        request.addParameter('gradoAcademico',TYPES.VarChar,'');
+        request.addParameter('listaRoles',TYPES.VarChar,'');
+        request.addParameter('listaLicencias',TYPES.VarChar,'');
         request.addOutputParameter('success', TYPES.Bit);
-        sqlConection.callProcedure(request, function (res) {
+        sqlConectioninfoTEC.callProcedure(request, function (res) {
             callback(res);
         });
     }
@@ -141,9 +175,9 @@ exports.modificarLibro = function modificarLibro(datos, callback) {
                 })
             }
         });
-        request.addParameter('id', TYPES.Int, datos.id);
+        request.addParameter('idPersona', TYPES.VarChar, datos.IDPer);
         request.addOutputParameter('success', TYPES.Bit);
-        sqlConection.callProcedure(request, function (res) {
+        sqlConectioninfoTEC.callProcedure(request, function (res) {
             callback(res);
         });
     }
@@ -229,7 +263,7 @@ exports.todosLibros = function (callback) {
 }
 
 exports.todosUsuarios = function (callback) {
-    var query = "SELECT * FROM Usuarios";
+    var query = "SELECT * FROM Persona AS p INNER JOIN Persona_departamentos AS pd on pd.IDPer=p.ID AND pd.codigoDep='110'";
     var request = new Request(query, function (err) {
         if (err) {
             callback({
@@ -243,5 +277,5 @@ exports.todosUsuarios = function (callback) {
         }
 
     });
-    sqlConection.executeRequest(request, callback);
+    sqlConectioninfoTEC.executeRequest(request, callback);
 }

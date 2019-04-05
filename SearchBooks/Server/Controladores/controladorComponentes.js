@@ -15,6 +15,12 @@ exports.agregarUsuarios = function(rRequest, rResponse){
         rResponse.send(data);
     });
 };
+
+exports.agregarUsuarioDepartamento = function(rRequest, rResponse){
+    controlador.agregarUsuarioDepartamento(rRequest.body, function(data){
+        rResponse.send(data);
+    });
+};
 exports.modificarLibros = function(rRequest, rResponse){
     controlador.modificarLibros(rRequest.body, function(data){
         rResponse.send(data);

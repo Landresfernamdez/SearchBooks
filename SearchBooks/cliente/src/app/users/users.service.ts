@@ -9,6 +9,9 @@ export class UsersService {
   addUser(user) {
     return this.http.post(this.Url + 'agregarUsuarios', user).toPromise();
   }
+  addDeparmentUser(userdeparment){
+    return this.http.post(this.Url + 'agregarUsuarioDepartamento', userdeparment).toPromise();
+  }
   modifyUser(temporal) {
     return this.http.post(this.Url + 'modificarUsuarios', temporal).toPromise();
   }
