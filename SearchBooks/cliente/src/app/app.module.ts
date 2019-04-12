@@ -39,6 +39,10 @@ import {
   MatInputModule,
   MatRippleModule,
   MatTooltipModule,
+  MatSelect,
+  MatSelectModule,
+  MatFormFieldModule,
+  MatOptionModule,
 } from '@angular/material';
 import { AppRoutes } from './layouts/admin-layout/app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -46,6 +50,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
   imports: [
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     ComponentsModule,
     RouterModule.forRoot(AppRoutes),
@@ -56,7 +61,10 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     MatTooltipModule,
     HttpClientModule,
     NgxPaginationModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatOptionModule
   ],
   declarations: [
     AppComponent

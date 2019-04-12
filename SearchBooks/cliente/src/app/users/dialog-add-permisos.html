@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Asignación de permisos</h2>
+<mat-dialog-content class="mat-typography">
+        <table>
+                <tr>
+                  <td>
+                    <p>Nombre</p>
+                  </td>
+                  <td>
+                    <p>Permisos</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                        <mat-form-field>
+                                <mat-select placeholder="Usuarios">
+                                        <mat-option *ngFor="let user of users" [value]="user">{{user.nombre}}</mat-option>
+                                </mat-select>
+                        </mat-form-field>
+                  </td>
+                  <td>
+                      <mat-form-field>
+                          <mat-select placeholder="Usuarios" [formControl]="usersfc" multiple>
+                            <mat-option *ngFor="let user of users" [value]="user">{{user.nombre}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                  </td>
+                </tr>
+              </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions>

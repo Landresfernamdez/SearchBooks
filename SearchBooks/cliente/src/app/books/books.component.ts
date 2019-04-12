@@ -130,6 +130,7 @@ export class BooksComponent implements OnInit {
 	}
 	addBook = (newBook) => {
 		this.service.addBook(newBook).then(response => {
+			console.log(response)
 			this.books.push(newBook)
 			this.notificar("Se insertaron los registros con exito", "exito");
 
@@ -163,11 +164,12 @@ export class BooksComponent implements OnInit {
 		});
 	};
 	isAdministrator() {
-		if (this.serviceauth.administrador) {
+		/*if (this.serviceauth.administrador) {
 			return true;
 		} else {
 			return false;
-		}
+		}*/
+		return true;
 	}
 
 }

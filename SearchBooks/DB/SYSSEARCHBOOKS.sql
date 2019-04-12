@@ -15,7 +15,7 @@ CREATE TABLE Usuarios
   /*
   Es un sistema de manejo de libros por lo tanto se necesita una tabla que abstraiga los libros
   */
-  CREATE TABLE Libros(
+  CREATE TABLE LIBROS(
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	titulo VARCHAR(200) ,
 	autor VARCHAR(200) ,
@@ -28,10 +28,11 @@ CREATE TABLE Usuarios
 	procedencia VARCHAR(50) ,
 	observaciones VARCHAR(200),
 	coleccion VARCHAR(50),
-	formato VARCHAR(50)
+	formato VARCHAR(50),
+	tipo CHAR
   );
 /*Funcion de agregar un libro a la base de datos*/
-ALTER PROCEDURE AgregarLibro @titulo AS VARCHAR(200), 
+CREATE PROCEDURE AgregarLibro @titulo AS VARCHAR(200), 
                               @autor AS VARCHAR(200), 
                               @ano  AS VARCHAR(50), 
                               @numeroInscripcion  AS VARCHAR(50), 
@@ -47,7 +48,7 @@ ALTER PROCEDURE AgregarLibro @titulo AS VARCHAR(200),
 AS 
   BEGIN 
       BEGIN Try 
-          INSERT INTO Libros 
+          INSERT INTO LIBROS 
                       (titulo, 
                        autor, 
                        ano, 
@@ -88,12 +89,12 @@ END
 
 CREATE PROCEDURE selectTodosLibros AS 
 BEGIN 
-	SELECT * FROM Libros
+	SELECT * FROM LIBROS
 END
 
 /*Funcion para modificar un libro*/
 
-ALTER PROCEDURE ModificarLibro @titulo AS VARCHAR(200), 
+CREATE PROCEDURE ModificarLibro @titulo AS VARCHAR(200), 
                               @autor AS VARCHAR(200), 
                               @ano  AS VARCHAR(50), 
                               @numeroInscripcion  AS VARCHAR(50), 
@@ -109,7 +110,7 @@ ALTER PROCEDURE ModificarLibro @titulo AS VARCHAR(200),
 AS 
   BEGIN 
       BEGIN Try 
-          UPDATE  Libros SET titulo= @titulo,
+          UPDATE  LIBROS SET titulo= @titulo,
                       autor=@autor,
                        ano=@ano, 
                        numeroClasificacion=@numeroClasificacion, 
@@ -129,28 +130,8 @@ AS
 GO
 
 
-ALTER TABLE Libros
-ADD tipo CHAR NOT NULL DEFAULT 'N'; /*N= Libro normal, I= Libro de inscripcion*/
-
-ALTER TABLE Libros
-ADD coleccion VARCHAR(50) ;
-
-ALTER TABLE Libros
-ADD formato VARCHAR(50) ;
 
 
-ALTER TABLE Usuarios
-ADD rol CHAR NOT NULL DEFAULT 'C'; /*C= Funcionario, A= Administrador*/
-
-ALTER TABLE Usuarios
-ADD nombreusuario VARCHAR(200) UNIQUE NOT NULL;
-
-ALTER TABLE Libros DROP COLUMN tipo;
-
-ALTER TABLE Libros ALTER COLUMN TIPO char  NULL;
-
-SELECT * FROM Usuarios 
-SELECT * FROM Libros
 /*Funcion de agregar un usuario a la base de datos*/
 ALTER PROCEDURE AgregarUsuario @cedula AS VARCHAR(200), 
                               @nombre AS VARCHAR(200), 
@@ -264,7 +245,7 @@ CREATE PROCEDURE EliminarLibro @id AS INTEGER ,
 AS 
   BEGIN 
       BEGIN Try 
-          DELETE  FROM  Libros  where id=@id;
+          DELETE  FROM  LIBROS  where id=@id;
 		SET @success=1;
 		SELECT @success;
       END try 
@@ -293,16 +274,13 @@ AS
   END 
 GO
 
-SELECT * FROM Libros where numeroInscripcion='SC005000'
 
 
 
 
 
 
-
-
-
+/*Test 
 SELECT * FROM Libros where numeroInscripcion='SC000003'
 EXEC ModificarLibro  'Arboles de jardín','Pañella Bonastre Juan','1972','SC000003','634.97 P199A','NULL','51468','139','Compra','Descartado','1'
 SELECT * FROM Libros
@@ -323,4 +301,4 @@ SELECT MAX(id) FROM Libros
 DROP TABLE Libros
 
 SELECT * FROM Libros
-DELETE FROM Libros WHERE id='6000' 
+DELETE FROM Libros WHERE id='6000' */

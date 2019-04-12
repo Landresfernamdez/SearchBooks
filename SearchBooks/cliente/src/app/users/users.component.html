@@ -1,17 +1,17 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModalagregar">
-          <i class="material-icons">person_add</i> Agregar usuario
-      </button>
-      <div class="modal fade bd-example-modal-sm" id="confirmacionEliminarUsuario"tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-              <button  class=".bg-success" (click)="EliminaUser()" data-dismiss="modal">
-                  <i class="material-icons">check_circle_outline</i>Confirmar</button>
-              <button  class=".bg-danger" data-dismiss="modal"><i class="material-icons">highlight_off</i>Cancelar</button>
-            </div>
+        <button mat-button (click)="openDialogPermisos()"><i class="material-icons">person_add</i> Asignar permiso</button>
+      
+      <div class="modal fade bd-example-modal-sm" id="confirmacionEliminarUsuario" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <button class=".bg-success" (click)="EliminaUser()" data-dismiss="modal">
+              <i class="material-icons">check_circle_outline</i>Confirmar</button>
+            <button class=".bg-danger" data-dismiss="modal"><i class="material-icons">highlight_off</i>Cancelar</button>
           </div>
+        </div>
       </div>
       <div class="modal" id="myModalExito">
         <div class="modal-dialog">
@@ -38,162 +38,6 @@
         </div>
       </div>
 
-      <!-- The Modal  agregar-->
-      <div class="modal" id="myModalagregar">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Modal Heading</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-              <h1>Llenar campos de usuario a agregar</h1>
-              <table>
-                <tr>
-                  <td>
-                    <p>Nombre:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="inombre" [(ngModel)]="user.nombre" placeholder="Nombre">
-                  </td>
-                  <td>
-                    <p>Cedula:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="icedula" [(ngModel)]="user.cedula" placeholder="Cedula">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>Primer apellido:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="iapellido1" [(ngModel)]="user.apellido1" placeholder="Primer apellido">
-                  </td>
-                  <td>
-                    <p>Segundo apellido:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="iapellido2" [(ngModel)]="user.apellido2" placeholder="Segundo apellido">
-                  </td>
-
-                </tr>
-                <tr>
-                  <td>
-                    <p>Contraseña:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="icontraseña" [(ngModel)]="user.clave" placeholder="Contraseña">
-                  </td>
-                  <td>
-                    <p>Nombre de usuario:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="inombreusuario" [(ngModel)]="user.nombreusuario"
-                      placeholder="Nombre de usuario">
-                  </td>
-                </tr>
-              </table>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-
-              <button type="button" class="btn btn-success" (click)="AgregaUsuario()" data-dismiss="modal">Agregar
-                usuario</button>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- The Modal  agregar-->
-      <div class="modal" id="myModalmodificar">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Modal Heading</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-              <h1>Llenar campos de usuario a agregar</h1>
-              <table>
-                <tr>
-                  <td>
-                    <p>Nombre:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="inombre" [(ngModel)]="user.nombre" placeholder="Nombre">
-                  </td>
-                  <td>
-                    <p>Cedula:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="icedula" [(ngModel)]="user.cedula" placeholder="Cedula">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>Primer apellido:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="iapellido1" [(ngModel)]="user.apellido1" placeholder="Primer apellido">
-                  </td>
-                  <td>
-                    <p>Segundo apellido:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="iapellido2" [(ngModel)]="user.apellido2" placeholder="Segundo apellido">
-                  </td>
-
-                </tr>
-                <tr>
-                  <td>
-                    <p>Contraseña:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="icontraseña" [(ngModel)]="user.clave" placeholder="Contraseña">
-                  </td>
-                  <td>
-                    <p>Rol de usuario:</p>
-                  </td>
-                  <td>
-                    <input type="text" name="icontraseña" [(ngModel)]="user.rol"
-                      placeholder="C:Funcionario, A:Administrador">
-                  </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Nombre del usuario:</p>
-                      </td>
-                      <td>
-                        <input type="text" name="inombreusuario" [(ngModel)]="user.nombreusuario"
-                          placeholder="Nombre del usuario">
-                      </td>
-                </tr>
-              </table>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-
-              <button type="button" class="btn btn-success" (click)="ModificarUsuario()" data-dismiss="modal">Modificar
-                usuario</button>
-            </div>
-
-          </div>
-        </div>
-      </div>
 
       <div class="table-responsive">
         <table class="table table-hover">
@@ -211,12 +55,6 @@
               <td>
                 <b>Segundo apellido</b>
               </td>
-              <td>
-                <b>Modificar Usuario</b>
-              </td>
-              <td>
-                <b>Eliminar Usuario</b>
-              </td>
             </tr>
           </thead>
           <tbody>
@@ -225,25 +63,13 @@
                 {{user.nombre}}
               </td>
               <td>
-                {{user.cedula}}
+                {{user.idPersona}}
               </td>
               <td>
                 {{user.apellido1}}
               </td>
               <td>
                 {{user.apellido2}}
-              </td>
-              <td>
-                <button type="button" class="btn btn-primary btn-info" (click)="ModificaUser(user)" data-toggle="modal"
-                  data-target="#myModalmodificar">
-                  <i class="material-icons">create</i>Modificar Usuario
-                </button>
-              </td>
-              <td>
-                <button type="button" class="btn btn-primary btn-danger" 
-                  data-toggle="modal" (click)="ModificaUser(user)" data-target="#confirmacionEliminarUsuario">
-                  <i class="material-icons">delete_forever</i>Eliminar Usuario
-                </button>
               </td>
             </tr>
           </tbody>

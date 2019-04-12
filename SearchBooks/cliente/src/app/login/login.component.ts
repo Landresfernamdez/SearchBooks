@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
             this.service.administrador=true;
           }
           this.router.navigate(['/main']);
-          this.notificar("Bienvenido " +this.user.nombreusuario, "exito");
+          this.notificar("Bienvenido " +this.user.nombre, "exito");
       }
       else{
         this.notificar("Error, credenciales incorrectas", "error");

@@ -3,22 +3,25 @@ import { UsersService } from './users.service';
 import { User } from './user';
 import { UserD } from './userdeparment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {FormControl} from '@angular/forms';
+import {MatDialog} from '@angular/material';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
+  usersfc = new FormControl();
   public users;
   user: User = new User();
   snackbar: MatSnackBar;
-  constructor(private service: UsersService, private snackBar: MatSnackBar) {
+  constructor(private service: UsersService, private snackBar: MatSnackBar,public dialog: MatDialog) {
     this.snackbar = snackBar;
     this.service.devuelveTodosUsuarios().subscribe(response => {
       this.users = response;
       console.log(this.users);
       for (var x = 0; x < this.users.length; x++) {
-        this.users[x].clave = this.users[x].contraseña;
+        this.users[x].pass = this.users[x].pass;
       }
     }
     )
@@ -26,12 +29,15 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
   }
   AgregaUsuario() {
+    this.user.listaRoles=this.user.rol;
+    console.log(this.user)
     this.service.addUser(this.user).then(response => {
         this.users.push(this.user);
         var userdeparment=new UserD();
-        userdeparment.cedula=this.user.cedula;
+        userdeparment.cedula=this.user.IDPer;
         userdeparment.iddepartamento="110";
         console.log(response)
+
         this.service.addDeparmentUser(userdeparment).then(response=>{
             this.notificar("Se agrego con exito", "exito");
         }).catch(error => {
@@ -45,6 +51,7 @@ export class UsersComponent implements OnInit {
     this.user = temporal;
   }
   ModificarUsuario() {
+    this.user.listaRoles=this.user.rol;
     this.service.modifyUser(this.user).then(response => {
         this.notificar("Se modifico con exito", "exito");
     }).catch(error => {
@@ -52,10 +59,10 @@ export class UsersComponent implements OnInit {
     });
   }
   EliminaUser(){
+    console.log("Prueba:",this.user)
     this.service.deleteUser(this.user).then(response => {
-      console.log(response)
         for (var i =0;i<this.users.length; i++) {
-          if (this.users[i].id === this.user.id) {
+          if (this.users[i].idPersona == this.user.IDPer) {
             this.users.splice(i,1);
           }
         }
@@ -71,4 +78,34 @@ export class UsersComponent implements OnInit {
       verticalPosition: 'top'
     });
   }
+  openDialogPermisos() {
+    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+}
+@Component({
+  selector: 'dialog-add-permisos',
+  templateUrl: 'dialog-add-permisos.html',
+})
+export class DialogContentExampleDialog {
+  usersfc = new FormControl();
+  public users;
+  user: User = new User();
+  snackbar: MatSnackBar;
+  constructor(private service: UsersService, private snackBar: MatSnackBar,public dialog: MatDialog) {
+    this.snackbar = snackBar;
+    this.service.devuelveTodosUsuarios().subscribe(response => {
+      this.users = response;
+      console.log(this.users);
+      for (var x = 0; x < this.users.length; x++) {
+        this.users[x].pass = this.users[x].pass;
+      }
+    }
+    )
+  }
+
+
 }

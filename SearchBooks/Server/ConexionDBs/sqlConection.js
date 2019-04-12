@@ -6,11 +6,11 @@ var Connection = require('tedious').Connection; // libreria necesaria para conec
 =====================================================================
 */
 var config = { // cambia cuando se monte en el servidor
-    userName:'sa',
-    password:'12345',
-    server: 'localhost', // direccion del servidor
+    userName:'InventarioTec',
+    password:'1nv3nt@r10',
+    server: '172.19.32.10', // direccion del servidor
     options: {
-        database: 'Books',
+        database:'BiblioscTEC',
         driver: 'SQL Server Native Client 11.0',
         port: 1433,
         rowCollectionOnDone: true

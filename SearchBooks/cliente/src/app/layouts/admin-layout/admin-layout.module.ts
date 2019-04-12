@@ -16,6 +16,7 @@ import {UsersComponent} from '../../users/users.component';
 import { BooksService } from '../../books/books.service';
 import { UsersService } from '../../users/users.service';
 import  {LoginService} from '../../login/login.service';
+import {DialogContentExampleDialog} from '../../users/users.component'
 //Library to do request to the server
 import { HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -32,6 +33,10 @@ import {
   MatInputModule,
   MatRippleModule,
   MatTooltipModule,
+  MatSelectModule,
+  MatFormFieldModule,
+  MatOptionModule,
+  MatDialogModule,
 } from '@angular/material';
 import { LoginComponent } from 'app/login/login.component';
 import { AutoGuard } from './autoguard.component';
@@ -48,7 +53,12 @@ import { AdminLayoutComponent } from './admin-layout.component';
     MatTooltipModule,
     HttpClientModule,
     NgxPaginationModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    ReactiveFormsModule,
+    MatDialogModule
   ],
 
   declarations: [
@@ -63,11 +73,13 @@ import { AdminLayoutComponent } from './admin-layout.component';
     BooksComponent,
     UsersComponent,
     BookFilterPipe,
-    LoginComponent
+    LoginComponent,
+    DialogContentExampleDialog
   ],
   providers: [BooksService,
-    UsersService,LoginService,AutoGuard,UsersAutoGuard],
-  bootstrap: [BooksComponent]
+  UsersService,LoginService,AutoGuard,UsersAutoGuard],
+  bootstrap: [BooksComponent,UsersComponent],
+  entryComponents: [UsersComponent, DialogContentExampleDialog],
 })
 
 export class AdminLayoutModule { }
