@@ -79,6 +79,28 @@ exports.insertarUsuario = function insertarUsuario(datos, callback) {
     });
 }
 
+exports.asignarPermisos = function asignarPermisos(datos, callback) {
+    var request = new Request('asignarPermiso', function (err) { // nombre de procedimiento en la base de datos
+        if (err) {
+            callback({
+                success: false,
+                error: request.error,
+                title: "Error",
+                message: "Sucedio un error en la inserción de los datos",
+                type: "error"
+            })
+        }
+    });
+    request.addParameter('NOMBRE_ENCARGADO', TYPES.VarChar,datos.nombre);
+    request.addParameter('ID_APLICACION', TYPES.VarChar, datos.id_app);
+    request.addParameter('ROL', TYPES.VarChar, datos.rol);
+    request.addParameter('FECHA_ASIGNACION', TYPES.VarChar, datos.fechaAsignacion);
+    request.addParameter('FECHA_VENCIMIENTO', TYPES.VarChar, datos.fechaVencimiento); 
+    request.addOutputParameter('success', TYPES.Bit);
+    sqlConectioninfoTEC.callProcedure(request, function (res) {
+        callback(res);
+    });
+}
 exports.insertarUsuarioDepartamento = function insertarUsuarioDepartamento(datos, callback) {
     var request = new Request('AgregarfuncionarioDepartamento', function (err) { // nombre de procedimiento en la base de datos
         if (err) {

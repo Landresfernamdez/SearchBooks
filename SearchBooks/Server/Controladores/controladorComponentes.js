@@ -16,6 +16,11 @@ exports.agregarUsuarios = function(rRequest, rResponse){
     });
 };
 
+exports.asignarPermisos = function(rRequest, rResponse){
+    controlador.asignarPermisos(rRequest.body, function(data){
+        rResponse.send(data);
+    });
+};
 exports.agregarUsuarioDepartamento = function(rRequest, rResponse){
     controlador.agregarUsuarioDepartamento(rRequest.body, function(data){
         rResponse.send(data);
