@@ -93,10 +93,13 @@ export class UsersComponent implements OnInit {
 export class DialogContentExampleDialog {
   usersfc = new FormControl();
   public users;
+  public roles;
+  public aplicaciones;//Lista de aplicaciones de las que el usuario no tiene permisos aun
   user: User = new User();
   snackbar: MatSnackBar;
   constructor(private service: UsersService, private snackBar: MatSnackBar,public dialog: MatDialog) {
     this.snackbar = snackBar;
+    this.roles=["Encargado","Administrador"]
     this.service.devuelveTodosUsuarios().subscribe(response => {
       this.users = response;
       console.log(this.users);
@@ -105,6 +108,14 @@ export class DialogContentExampleDialog {
       }
     }
     )
+    this.service.devuelveAplicacionesQusuarionotienepermiso({nombre:"Andres Fernández"}).then(
+			response => {
+        console.log(response)
+				this.aplicaciones=response
+			}
+		).catch(error => {
+			
+		});
   }
 
 

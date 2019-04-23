@@ -66,6 +66,8 @@ app.post('/eliminarUsuarios',componenteCtrl.eliminarUsuarios);
 app.post('/iniciarSesion',componenteCtrl.inicioSesion);
 
 app.post('/asignarPermiso',componenteCtrl.asignarPermisos);
+
+app.post('/aplicacionesSinpermiso',componenteCtrl.aplicacionesSinpermiso);
 /*
 //app.post('/movimiento', componenteCtrl.realizarMovimiento);
 //app.get('/selectComponentes', componenteCtrl.selectComponente);

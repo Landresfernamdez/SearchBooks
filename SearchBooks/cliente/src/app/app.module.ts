@@ -6,14 +6,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { TableListComponent } from './table-list/table-list.component';
-import { TypographyComponent } from './typography/typography.component';
-import { IconsComponent } from './icons/icons.component';
-import { MapsComponent } from './maps/maps.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
 import { BooksComponent } from './books/books.component';
 import { LoginComponent } from './login/login.component';
 import {UsersComponent} from './users/users.component';
@@ -43,6 +35,7 @@ import {
   MatSelectModule,
   MatFormFieldModule,
   MatOptionModule,
+  MatDatepickerModule,MatNativeDateModule,
 } from '@angular/material';
 import { AppRoutes } from './layouts/admin-layout/app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -64,7 +57,9 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     MatSnackBarModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatOptionModule
+    MatOptionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     AppComponent

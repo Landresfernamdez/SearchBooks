@@ -277,9 +277,49 @@ GO
 
 
 
+/*Con base de datos BiblioscTEC*/
+ALTER PROCEDURE asignarPermiso @NOMBRE_ENCARGADO AS NCHAR(50), 
+                              @ID_APLICACION  INT, 
+                              @ROL  BIT, 
+                              @FECHA_ASIGNACION  AS VARCHAR(50),
+							  @FECHA_VENCIMIENTO AS VARCHAR(50),
+							  @success	BIT	OUTPUT   
+AS 
+   BEGIN Try 
+		DECLARE @ID_ENCARGADO INT;
+		IF ((SELECT COUNT(*) FROM ENCARGADOS WHERE @NOMBRE_ENCARGADO=NOM_ENCARGADO)=0)
+			BEGIN
+				INSERT INTO ENCARGADOS(NOM_ENCARGADO,ESTADO)VALUES(@NOMBRE_ENCARGADO,'1')
+				SET @ID_ENCARGADO=SCOPE_IDENTITY()
+				INSERT INTO PERMISOS_APPS(ID_ENCARGADO,ID_APLICACION,ROL,FECHA_ASIGNACION,FECHA_VENCIMIENTO,ESTADO)
+				VALUES(@ID_ENCARGADO,@ID_APLICACION,@ROL,@FECHA_ASIGNACION,@FECHA_VENCIMIENTO,'1')
+				SET @success=1;
+				SELECT @success;
+			END
+		ELSE 
+			BEGIN
+				SET @ID_ENCARGADO=(SELECT ID_ENCARGADO FROM ENCARGADO WHERE @NOMBRE_ENCARGADO=NOM_ENCARGADO)
+				INSERT INTO PERMISOS_APPS(ID_ENCARGADO,ID_APLICACION,ROL,FECHA_ASIGNACION,FECHA_VENCIMIENTO,ESTADO)
+				VALUES(@ID_ENCARGADO,@ID_APLICACION,@ROL,@FECHA_ASIGNACION,@FECHA_VENCIMIENTO,'1')
+				SET @success=1;
+				SELECT @success;
+			END
+   END try 
+   BEGIN Catch
+	SET @success=0;
+	SELECT @success; 
+   END Catch 
+GO
 
 
+INSERT INTO APLICACIONES(NOM_APLICACION,ID_APLICACION,DESCRIPCION)VALUES('Buscador de libros','1','Sistema para gestionar los libros de inscripción de la Biblioteca')
+																		,('Cubiculos','2','Sistema de manejo de cubiculos de la biblioteca')
 
+EXEC asignarPermiso 'Andres Fernández','1','1','2019-03-04','2020-03-04','1'
+
+
+SELECT * FROM PERMISOS_APPS
+SELECT * FROM ENCARGADOS
 /*Test 
 SELECT * FROM Libros where numeroInscripcion='SC000003'
 EXEC ModificarLibro  'Arboles de jardín','Pañella Bonastre Juan','1972','SC000003','634.97 P199A','NULL','51468','139','Compra','Descartado','1'

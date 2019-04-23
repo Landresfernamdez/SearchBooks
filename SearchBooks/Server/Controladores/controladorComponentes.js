@@ -21,6 +21,12 @@ exports.asignarPermisos = function(rRequest, rResponse){
         rResponse.send(data);
     });
 };
+exports.aplicacionesSinpermiso = function(rRequest, rResponse){
+    controlador.aplicacionesSinpermiso(rRequest.body, function(data){
+        rResponse.send(data);
+    });
+};
+
 exports.agregarUsuarioDepartamento = function(rRequest, rResponse){
     controlador.agregarUsuarioDepartamento(rRequest.body, function(data){
         rResponse.send(data);

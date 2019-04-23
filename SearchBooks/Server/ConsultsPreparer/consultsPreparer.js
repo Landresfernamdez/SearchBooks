@@ -2,6 +2,7 @@ var Request = require('tedious').Request;
 var TYPES = require('tedious').TYPES;
 var sqlConection = require('../ConexionDBs/sqlConection.js');
 var sqlConectioninfoTEC = require('../ConexionDBs/sqkConectionInfoTEC.js');
+var sqlConectioniBiblioscTEC = require('../ConexionDBs/sqlConnectionBiblioSC.js');
 /*
 ===========================
 >  CRUD's de Componentes  <
@@ -98,6 +99,24 @@ exports.asignarPermisos = function asignarPermisos(datos, callback) {
     request.addParameter('FECHA_VENCIMIENTO', TYPES.VarChar, datos.fechaVencimiento); 
     request.addOutputParameter('success', TYPES.Bit);
     sqlConectioninfoTEC.callProcedure(request, function (res) {
+        callback(res);
+    });
+}
+
+exports.aplicacionesSinpermiso = function aplicacionesSinpermiso(datos, callback) {
+    var request = new Request('aplicacionesSinpermiso', function (err) { // nombre de procedimiento en la base de datos
+        if (err) {
+            callback({
+                success: false,
+                error: request.error,
+                title: "Error",
+                message: "Sucedio un error en la inserción de los datos",
+                type: "error"
+            })
+        }
+    });
+    request.addParameter('NOMBRE_ENCARGADO', TYPES.VarChar,datos.nombre);
+    sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
         callback(res);
     });
 }

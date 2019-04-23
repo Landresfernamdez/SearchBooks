@@ -21,6 +21,9 @@ export class UsersService {
   devuelveTodosUsuarios() {
     return this.http.get(this.Url + 'todosUsuarios');
   }
+  devuelveAplicacionesQusuarionotienepermiso(usuario){
+     return this.http.post(this.Url + 'aplicacionesSinpermiso',usuario).toPromise();
+  }
   
 
 }
