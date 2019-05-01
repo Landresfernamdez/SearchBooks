@@ -103,9 +103,28 @@ exports.asignarPermisos = function asignarPermisos(datos, callback) {
     });
 }
 
-exports.aplicacionesSinpermiso = function aplicacionesSinpermiso(datos, callback) {
-    var request = new Request('aplicacionesSinpermiso', function (err) { // nombre de procedimiento en la base de datos
+exports.todasAplicaciones = function todasAplicaciones(datos, callback) {
+    var query='SELECT NOM_APLICACION FROM APLICACIONES'
+    var request = new Request(query, function (err) { // nombre de procedimiento en la base de datos
         if (err) {
+            console.log("Entro")
+            console.log(err)
+            callback({
+                success: false,
+                error: request.error,
+                title: "Error",
+                message: "Sucedio un error en la inserción de los datos",
+                type: "error"
+            })
+        }
+    });
+    sqlConectioniBiblioscTEC.executeRequest(request, callback);
+}
+exports.obtieneIDencargado = function obtieneIDencargado(datos, callback) {
+    var request = new Request('obtieneIDencargado', function (err) { // nombre de procedimiento en la base de datos
+        if (err) {
+            console.log("Entro")
+            console.log(err)
             callback({
                 success: false,
                 error: request.error,
@@ -117,9 +136,49 @@ exports.aplicacionesSinpermiso = function aplicacionesSinpermiso(datos, callback
     });
     request.addParameter('NOMBRE_ENCARGADO', TYPES.VarChar,datos.nombre);
     sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
-        callback(res);
-    });
+            callback(res);
+        });
 }
+exports.esEncargado = function esEncargado(datos, callback) {
+    var request = new Request('tienepermisosEncargado', function (err) { // nombre de procedimiento en la base de datos
+        if (err) {
+            console.log("Entro")
+            console.log(err)
+            callback({
+                success: false,
+                error: request.error,
+                title: "Error",
+                message: "Sucedio un error en la inserción de los datos",
+                type: "error"
+            })
+        }
+    });
+    request.addParameter('NOMBRE_ENCARGADO', TYPES.VarChar,datos.nombre);
+    request.addOutputParameter('success', TYPES.Bit);
+    sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
+            callback(res);
+        });
+}
+exports.aplicacionesSinpermiso = function aplicacionesSinpermiso(datos, callback) {
+    var query='SELECT NOM_APLICACION FROM APLICACIONES AS A INNER JOIN PERMISOS_APPS AS PA ON PA.ID_ENCARGADO!= @ID_ENCARGADO OR PA.ID_APLICACION!=A.ID_APLICACION'
+    var request = new Request(query, function (err) { // nombre de procedimiento en la base de datos
+        if (err) {
+            console.log("Entro")
+            console.log(err)
+            callback({
+                success: false,
+                error: request.error,
+                title: "Error",
+                message: "Sucedio un error en la inserción de los datos",
+                type: "error"
+            })
+        }
+    });
+    request.addParameter('ID_ENCARGADO', TYPES.INT,datos.id_encargado);
+    sqlConectioniBiblioscTEC.executeRequest(request, callback);
+}
+
+
 exports.insertarUsuarioDepartamento = function insertarUsuarioDepartamento(datos, callback) {
     var request = new Request('AgregarfuncionarioDepartamento', function (err) { // nombre de procedimiento en la base de datos
         if (err) {

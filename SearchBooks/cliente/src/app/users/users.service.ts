@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import "rxjs/add/operator/map";
+interface UserPostResponse {
+  success: boolean,
+  data:Object
+}
 @Injectable()
 export class UsersService {
   Url: string = 'http://localhost:8080/';
@@ -21,9 +25,15 @@ export class UsersService {
   devuelveTodosUsuarios() {
     return this.http.get(this.Url + 'todosUsuarios');
   }
-  devuelveAplicacionesQusuarionotienepermiso(usuario){
-     return this.http.post(this.Url + 'aplicacionesSinpermiso',usuario).toPromise();
+  //Funcional
+  devuelvetodasAplicaciones(){
+     return this.http.get<UserPostResponse>(this.Url + 'todasAplicaciones');
   }
-  
-
+  obtieneIDencargado(usuario){
+    return this.http.post(this.Url + 'obtieneIDencargado',usuario).toPromise();
+  }
+  //Aplicaciones que un usuario no tiene permisos
+  tienepermisosEncargado(usuario){
+    return this.http.post<UserPostResponse>(this.Url + 'tienepermisosEncargado',usuario).toPromise();
+  }
 }

@@ -98,8 +98,54 @@ exports.asignarPermisos= function(datos, callback){
         }
     });
 };
-exports.aplicacionesSinpermiso= function(datos, callback){
-    consultsPreparer.aplicacionesSinpermiso(datos, function(response) {
+exports.todasAplicaciones= function(datos, callback){
+    consultsPreparer.todasAplicaciones(datos, function(response) {
+        msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
+        if (response.success) {
+            callback({
+                success: true,
+                error: response.error,
+                title: "Se inserto con exito",
+                message: "Se inserto en la base de datos con exito",
+                data: response.data,
+                type: "success"
+            })
+        } else{
+            callback({
+                success: false,
+                message: msg,
+                title: "Error",
+                error: response.error,
+                type: "error"
+            })
+        }
+    });
+};
+exports.tienepermisosEncargado= function(datos, callback){
+    consultsPreparer.esEncargado(datos, function(response) {
+        msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
+        if (response.success) {
+            callback({
+                success: true,
+                error: response.error,
+                title: "Aplicaciones",
+                message: "Se recuperaron las aplicaciones con exito",
+                data: response.data,
+                type: "success"
+            })
+        } else{
+            callback({
+                success: false,
+                message: msg,
+                title: "Error",
+                error: response.error,
+                type: "error"
+            })
+        }
+    });
+};
+exports.obtieneIDencargado= function(datos, callback){
+    consultsPreparer.obtieneIDencargado(datos, function(response) {
         msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
         if (response.success) {
             callback({

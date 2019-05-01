@@ -12,7 +12,7 @@
     <tr>
       <td>
         <mat-form-field>
-          <mat-select placeholder="Usuarios">
+          <mat-select placeholder="Usuarios" (selectionChange)="obtieneAplicaciones()">
             <mat-option *ngFor="let user of users" [value]="user" >{{user.nombre}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -20,7 +20,7 @@
       <td>
         <mat-form-field>
           <mat-select placeholder="Aplicaciones" [formControl]="usersfc" multiple>
-            <mat-option *ngFor="let app of aplicaciones" [value]="app">{{app}}</mat-option>
+            <mat-option *ngFor="let app of aplicaciones" [value]="app">{{app.NOM_APLICACION}}</mat-option>
           </mat-select>
         </mat-form-field>
       </td>

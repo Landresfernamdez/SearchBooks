@@ -108,15 +108,26 @@ export class DialogContentExampleDialog {
       }
     }
     )
-    this.service.devuelveAplicacionesQusuarionotienepermiso({nombre:"Andres Fernández"}).then(
-			response => {
-        console.log(response)
-				this.aplicaciones=response
+   
+  }
+  obtieneAplicaciones(){
+    this.service.tienepermisosEncargado({nombre:"Andres Fernaández"}).then(
+			Response => {
+        console.log(Response)
+        if(Response.success){//Devolver solo las aplicaciones  de las cuales el usuario aun no tiene permisos
+            
+        }else{//Devolver todas las aplicaciones
+          console.log("El usuario no existe")
+          this.service.devuelvetodasAplicaciones().subscribe(response => {
+            this.aplicaciones = response.data;
+            console.log(response)
+            
+          })
+        }
 			}
-		).catch(error => {
-			
+		).catch(e => {
+      console.log(e)
+			console.log("Entro a error")
 		});
   }
-
-
 }
