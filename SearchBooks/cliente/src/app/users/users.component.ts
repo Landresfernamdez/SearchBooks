@@ -5,6 +5,7 @@ import { UserD } from './userdeparment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {FormControl} from '@angular/forms';
 import {MatDialog} from '@angular/material';
+import { ResponseOptions } from '@angular/http';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -30,14 +31,11 @@ export class UsersComponent implements OnInit {
   }
   AgregaUsuario() {
     this.user.listaRoles=this.user.rol;
-    console.log(this.user)
     this.service.addUser(this.user).then(response => {
         this.users.push(this.user);
         var userdeparment=new UserD();
         userdeparment.cedula=this.user.IDPer;
         userdeparment.iddepartamento="110";
-        console.log(response)
-
         this.service.addDeparmentUser(userdeparment).then(response=>{
             this.notificar("Se agrego con exito", "exito");
         }).catch(error => {
@@ -59,7 +57,6 @@ export class UsersComponent implements OnInit {
     });
   }
   EliminaUser(){
-    console.log("Prueba:",this.user)
     this.service.deleteUser(this.user).then(response => {
         for (var i =0;i<this.users.length; i++) {
           if (this.users[i].idPersona == this.user.IDPer) {
@@ -80,7 +77,6 @@ export class UsersComponent implements OnInit {
   }
   openDialogPermisos() {
     const dialogRef = this.dialog.open(DialogContentExampleDialog);
-
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
@@ -95,39 +91,62 @@ export class DialogContentExampleDialog {
   public users;
   public roles;
   public aplicaciones;//Lista de aplicaciones de las que el usuario no tiene permisos aun
-  user: User = new User();
+  user:string;
   snackbar: MatSnackBar;
+  listaAplicaciones=[];
+  fechaInicio:Date=new Date();
+  fechaFinal:Date=new Date();
   constructor(private service: UsersService, private snackBar: MatSnackBar,public dialog: MatDialog) {
     this.snackbar = snackBar;
-    this.roles=["Encargado","Administrador"]
-    this.service.devuelveTodosUsuarios().subscribe(response => {
+    this.roles=["Encargado","Administrador"];
+    //Aun no hay datos de InfoTEC
+    /*this.service.devuelveTodosUsuarios().subscribe(response => {
       this.users = response;
       console.log(this.users);
       for (var x = 0; x < this.users.length; x++) {
         this.users[x].pass = this.users[x].pass;
       }
     }
-    )
-   
+    )*/
+    this.users=[{nombre:"Andres Fernández"},{nombre:"Ramiro"}]
   }
   obtieneAplicaciones(){
-    this.service.tienepermisosEncargado({nombre:"Andres Fernaández"}).then(
+    this.service.tienepermisosEncargado({nombre:this.user}).then(
 			Response => {
-        console.log(Response)
         if(Response.success){//Devolver solo las aplicaciones  de las cuales el usuario aun no tiene permisos
-            
+            this.aplicaciones=Response.data;
         }else{//Devolver todas las aplicaciones
-          console.log("El usuario no existe")
-          this.service.devuelvetodasAplicaciones().subscribe(response => {
-            this.aplicaciones = response.data;
-            console.log(response)
-            
-          })
+            console.log("El usuario no existe")
         }
 			}
 		).catch(e => {
-      console.log(e)
-			console.log("Entro a error")
+        console.log(e)
 		});
+  }
+  verlista(){
+    console.log(this.listaAplicaciones)
+  }
+  notificar(messaje,action){
+    this.snackbar.open(messaje, action, {
+      duration: 2000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top'
+    });
+  }
+  changeFormat(fecha){
+    var year = this.fechaInicio.getFullYear();
+    var month= ("0" + (this.fechaInicio.getMonth()+1)).slice(-2);
+    var date = ("0" + this.fechaInicio.getDate()).slice(-2);
+    var result=year+"-"+month+"-"+date;
+    return result;
+  }
+  insertarPermiso(){
+    var fechaI=this.changeFormat(this.fechaInicio);
+    var fechaF=this.changeFormat(this.fechaFinal);
+    this.service.asignarPermiso({fechaInicio:fechaI,fechaFinal:fechaF,aplicaciones:this.listaAplicaciones}).then(Response=>{
+
+    }).catch(e=>{
+      console.log(e)
+    })
   }
 }

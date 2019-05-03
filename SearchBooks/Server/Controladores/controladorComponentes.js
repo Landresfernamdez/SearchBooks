@@ -21,18 +21,8 @@ exports.asignarPermisos = function(rRequest, rResponse){
         rResponse.send(data);
     });
 };
-exports.todasAplicaciones = function(rRequest, rResponse){
-    controlador.todasAplicaciones(rRequest.body, function(data){
-        rResponse.send(data);
-    });
-};
 exports.tienepermisosEncargado = function(rRequest, rResponse){
     controlador.tienepermisosEncargado(rRequest.body, function(data){
-        rResponse.send(data);
-    });
-};
-exports.obtieneIDencargado = function(rRequest, rResponse){
-    controlador.obtieneIDencargado(rRequest.body, function(data){
         rResponse.send(data);
     });
 };

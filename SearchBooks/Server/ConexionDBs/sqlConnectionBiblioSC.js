@@ -115,7 +115,6 @@ exports.callProcedure = function callProcedure(request, callback) {
         'use strict';
         var res = [],
         connection = new Connection(config);
-    
         connection.on('connect', function(err) {
             if (err) {
                 callback({
@@ -160,6 +159,26 @@ exports.callProcedure = function callProcedure(request, callback) {
                         error:400
                     });
                 };
+            });
+                /**
+             * estos dos tipos de evento done se usan ya que hay ocaciones en la que se captura el evento doneProc o el done luego de ejecutar una consulta
+             */        
+            request.on('done', function (rowCount, more, rows) { // si el tipo de exito es done llena callback
+                console.log(res);
+                callback({
+                    success: true,
+                    data: res,
+                    error: 200
+                }); 
+            });
+
+            request.on('doneProc', function (rowCount, more, rows) { // si el tipo de exito es doneProc llena callback
+                console.log(res);
+                callback({
+                    success: true,
+                    data: res,
+                    error: 200
+                }); 
             });
             connection.callProcedure(request);
         });

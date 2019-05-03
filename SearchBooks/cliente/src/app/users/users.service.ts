@@ -25,15 +25,12 @@ export class UsersService {
   devuelveTodosUsuarios() {
     return this.http.get(this.Url + 'todosUsuarios');
   }
-  //Funcional
-  devuelvetodasAplicaciones(){
-     return this.http.get<UserPostResponse>(this.Url + 'todasAplicaciones');
-  }
-  obtieneIDencargado(usuario){
-    return this.http.post(this.Url + 'obtieneIDencargado',usuario).toPromise();
-  }
   //Aplicaciones que un usuario no tiene permisos
   tienepermisosEncargado(usuario){
     return this.http.post<UserPostResponse>(this.Url + 'tienepermisosEncargado',usuario).toPromise();
   }
+  asignarPermiso(usuario){
+    return this.http.post<UserPostResponse>(this.Url + 'asignarPermiso',usuario).toPromise();
+  }
+
 }

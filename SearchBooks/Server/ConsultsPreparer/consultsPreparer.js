@@ -93,7 +93,7 @@ exports.asignarPermisos = function asignarPermisos(datos, callback) {
         }
     });
     request.addParameter('NOMBRE_ENCARGADO', TYPES.VarChar,datos.nombre);
-    request.addParameter('ID_APLICACION', TYPES.VarChar, datos.id_app);
+    request.addParameter('NOMBRE_APLICACION', TYPES.VarChar, datos.id_app);
     request.addParameter('ROL', TYPES.VarChar, datos.rol);
     request.addParameter('FECHA_ASIGNACION', TYPES.VarChar, datos.fechaAsignacion);
     request.addParameter('FECHA_VENCIMIENTO', TYPES.VarChar, datos.fechaVencimiento); 
@@ -101,43 +101,6 @@ exports.asignarPermisos = function asignarPermisos(datos, callback) {
     sqlConectioninfoTEC.callProcedure(request, function (res) {
         callback(res);
     });
-}
-
-exports.todasAplicaciones = function todasAplicaciones(datos, callback) {
-    var query='SELECT NOM_APLICACION FROM APLICACIONES'
-    var request = new Request(query, function (err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            console.log("Entro")
-            console.log(err)
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    sqlConectioniBiblioscTEC.executeRequest(request, callback);
-}
-exports.obtieneIDencargado = function obtieneIDencargado(datos, callback) {
-    var request = new Request('obtieneIDencargado', function (err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            console.log("Entro")
-            console.log(err)
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    request.addParameter('NOMBRE_ENCARGADO', TYPES.VarChar,datos.nombre);
-    sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
-            callback(res);
-        });
 }
 exports.esEncargado = function esEncargado(datos, callback) {
     var request = new Request('tienepermisosEncargado', function (err) { // nombre de procedimiento en la base de datos
@@ -154,31 +117,10 @@ exports.esEncargado = function esEncargado(datos, callback) {
         }
     });
     request.addParameter('NOMBRE_ENCARGADO', TYPES.VarChar,datos.nombre);
-    request.addOutputParameter('success', TYPES.Bit);
     sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
             callback(res);
         });
 }
-exports.aplicacionesSinpermiso = function aplicacionesSinpermiso(datos, callback) {
-    var query='SELECT NOM_APLICACION FROM APLICACIONES AS A INNER JOIN PERMISOS_APPS AS PA ON PA.ID_ENCARGADO!= @ID_ENCARGADO OR PA.ID_APLICACION!=A.ID_APLICACION'
-    var request = new Request(query, function (err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            console.log("Entro")
-            console.log(err)
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    request.addParameter('ID_ENCARGADO', TYPES.INT,datos.id_encargado);
-    sqlConectioniBiblioscTEC.executeRequest(request, callback);
-}
-
-
 exports.insertarUsuarioDepartamento = function insertarUsuarioDepartamento(datos, callback) {
     var request = new Request('AgregarfuncionarioDepartamento', function (err) { // nombre de procedimiento en la base de datos
         if (err) {
@@ -363,7 +305,7 @@ exports.todosLibros = function (callback) {
 }
 
 exports.todosUsuarios = function (callback) {
-    var query = "SELECT ps.idRol,dpd.nombre,dpd.pass,dpd.IDPer,dpd.fechaNacimiento,dpd.carne,dpd.apellido1,dpd.apellido2,dpd.estadoCivil,dpd.sexo,dpd.direccion,dpd.gradoAcademico,dpd.correo FROM Persona_Rol as ps INNER JOIN (SELECT * FROM Persona AS p INNER JOIN Persona_departamentos AS pd on pd.IDPer=p.ID AND pd.codigoDep='110') AS dpd ON ps.idPersona=dpd.IDPer ";
+    var query = "SELECT ps.idRol,dpd.nombre,dpd.pass,dpd.IDPer,dpd.fechaNacimiento,dpd.carne,dpd.apellido1,dpd.apellido2,dpd.estadoCivil,dpd.sexo,dpd.direccion,dpd.gradoAcademico,dpd.correo FROM Persona_Rol as ps INNER JOIN (SELECT * FROM Persona AS p INNER JOIN Persona_departamentos AS pd on pd.IDPer=p.ID AND pd.codigoDep='110') AS dpd ON ps.idPersona=dpd.IDPer";
     var request = new Request(query, function (err) {
         if (err) {
             callback({

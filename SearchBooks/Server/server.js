@@ -67,10 +67,9 @@ app.post('/iniciarSesion',componenteCtrl.inicioSesion);
 
 app.post('/asignarPermiso',componenteCtrl.asignarPermisos);
 
-app.get('/todasAplicaciones',componenteCtrl.todasAplicaciones);
 
 app.post('/tienepermisosEncargado',componenteCtrl.tienepermisosEncargado);
-app.post('/obtieneIDencargado',componenteCtrl.obtieneIDencargado);
+
 
 
 /*
