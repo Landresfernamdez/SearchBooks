@@ -93,12 +93,12 @@ exports.asignarPermisos = function asignarPermisos(datos, callback) {
         }
     });
     request.addParameter('NOMBRE_ENCARGADO', TYPES.VarChar,datos.nombre);
-    request.addParameter('NOMBRE_APLICACION', TYPES.VarChar, datos.id_app);
+    request.addParameter('NOMBRE_APLICACION', TYPES.VarChar, datos.nombre_app);
     request.addParameter('ROL', TYPES.VarChar, datos.rol);
     request.addParameter('FECHA_ASIGNACION', TYPES.VarChar, datos.fechaAsignacion);
     request.addParameter('FECHA_VENCIMIENTO', TYPES.VarChar, datos.fechaVencimiento); 
     request.addOutputParameter('success', TYPES.Bit);
-    sqlConectioninfoTEC.callProcedure(request, function (res) {
+    sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
         callback(res);
     });
 }
@@ -117,7 +117,7 @@ exports.esEncargado = function esEncargado(datos, callback) {
         }
     });
     request.addParameter('NOMBRE_ENCARGADO', TYPES.VarChar,datos.nombre);
-    sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
+    sqlConectioniBiblioscTEC.callProcedureDone(request, function (res) {
             callback(res);
         });
 }

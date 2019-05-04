@@ -1,10 +1,10 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersService } from './users.service';
 import { User } from './user';
 import { UserD } from './userdeparment';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {FormControl} from '@angular/forms';
-import {MatDialog} from '@angular/material';
+import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import { ResponseOptions } from '@angular/http';
 @Component({
   selector: 'app-users',
@@ -16,7 +16,7 @@ export class UsersComponent implements OnInit {
   public users;
   user: User = new User();
   snackbar: MatSnackBar;
-  constructor(private service: UsersService, private snackBar: MatSnackBar,public dialog: MatDialog) {
+  constructor(private service: UsersService, private snackBar: MatSnackBar, public dialog: MatDialog) {
     this.snackbar = snackBar;
     this.service.devuelveTodosUsuarios().subscribe(response => {
       this.users = response;
@@ -30,45 +30,45 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
   }
   AgregaUsuario() {
-    this.user.listaRoles=this.user.rol;
+    this.user.listaRoles = this.user.rol;
     this.service.addUser(this.user).then(response => {
-        this.users.push(this.user);
-        var userdeparment=new UserD();
-        userdeparment.cedula=this.user.IDPer;
-        userdeparment.iddepartamento="110";
-        this.service.addDeparmentUser(userdeparment).then(response=>{
-            this.notificar("Se agrego con exito", "exito");
-        }).catch(error => {
-            this.notificar("Error, mala conexión", "error");
-        });
+      this.users.push(this.user);
+      var userdeparment = new UserD();
+      userdeparment.cedula = this.user.IDPer;
+      userdeparment.iddepartamento = "110";
+      this.service.addDeparmentUser(userdeparment).then(response => {
+        this.notificar("Se agrego con exito", "exito");
+      }).catch(error => {
+        this.notificar("Error, mala conexión", "error");
+      });
     }).catch(error => {
       this.notificar("Error, mala conexión", "error");
     });
   }
-  ModificaUser(temporal){
+  ModificaUser(temporal) {
     this.user = temporal;
   }
   ModificarUsuario() {
-    this.user.listaRoles=this.user.rol;
+    this.user.listaRoles = this.user.rol;
     this.service.modifyUser(this.user).then(response => {
-        this.notificar("Se modifico con exito", "exito");
+      this.notificar("Se modifico con exito", "exito");
     }).catch(error => {
       this.notificar("Error, mala conexión", "error");
     });
   }
-  EliminaUser(){
+  EliminaUser() {
     this.service.deleteUser(this.user).then(response => {
-        for (var i =0;i<this.users.length; i++) {
-          if (this.users[i].idPersona == this.user.IDPer) {
-            this.users.splice(i,1);
-          }
+      for (var i = 0; i < this.users.length; i++) {
+        if (this.users[i].idPersona == this.user.IDPer) {
+          this.users.splice(i, 1);
         }
-        this.notificar("Se elimino con exito", "exito");
+      }
+      this.notificar("Se elimino con exito", "exito");
     }).catch(error => {
       this.notificar("Error, mala conexión", "error");
     });
   }
-  notificar(messaje,action){
+  notificar(messaje, action) {
     this.snackbar.open(messaje, action, {
       duration: 2000,
       horizontalPosition: 'right',
@@ -91,14 +91,15 @@ export class DialogContentExampleDialog {
   public users;
   public roles;
   public aplicaciones;//Lista de aplicaciones de las que el usuario no tiene permisos aun
-  user:string;
+  user: string;
   snackbar: MatSnackBar;
-  listaAplicaciones=[];
-  fechaInicio:Date=new Date();
-  fechaFinal:Date=new Date();
-  constructor(private service: UsersService, private snackBar: MatSnackBar,public dialog: MatDialog) {
+  listaAplicaciones = [];
+  fechaInicio: Date = new Date();
+  fechaFinal: Date = new Date();
+  rol:Int32Array;
+  constructor(private service: UsersService, private snackBar: MatSnackBar, public dialog: MatDialog) {
     this.snackbar = snackBar;
-    this.roles=["Encargado","Administrador"];
+    this.roles = [ {tipo:"Administrador",valor:0},{tipo:"Encargado",valor:1},{tipo:"Asistente",valor:2}];
     //Aun no hay datos de InfoTEC
     /*this.service.devuelveTodosUsuarios().subscribe(response => {
       this.users = response;
@@ -108,45 +109,56 @@ export class DialogContentExampleDialog {
       }
     }
     )*/
-    this.users=[{nombre:"Andres Fernández"},{nombre:"Ramiro"}]
+    this.users = [{ nombre: "Andres Fernández" }, { nombre: "Ramiro" }]
   }
-  obtieneAplicaciones(){
-    this.service.tienepermisosEncargado({nombre:this.user}).then(
-			Response => {
-        if(Response.success){//Devolver solo las aplicaciones  de las cuales el usuario aun no tiene permisos
-            this.aplicaciones=Response.data;
-        }else{//Devolver todas las aplicaciones
-            console.log("El usuario no existe")
+  obtieneAplicaciones() {
+    this.service.tienepermisosEncargado({ nombre: this.user }).then(
+      Response => {
+        if (Response.success) {//Devolver solo las aplicaciones  de las cuales el usuario aun no tiene permisos
+          this.aplicaciones = Response.data;
+        } else {//Devolver todas las aplicaciones
+          console.log("El usuario no existe")
         }
-			}
-		).catch(e => {
-        console.log(e)
-		});
+      }
+    ).catch(e => {
+      console.log(e)
+    });
   }
-  verlista(){
+  verlista() {
     console.log(this.listaAplicaciones)
   }
-  notificar(messaje,action){
+  notificar(messaje, action) {
     this.snackbar.open(messaje, action, {
       duration: 2000,
       horizontalPosition: 'right',
       verticalPosition: 'top'
     });
   }
-  changeFormat(fecha){
+  changeFormat(fecha) {
     var year = this.fechaInicio.getFullYear();
-    var month= ("0" + (this.fechaInicio.getMonth()+1)).slice(-2);
+    var month = ("0" + (this.fechaInicio.getMonth() + 1)).slice(-2);
     var date = ("0" + this.fechaInicio.getDate()).slice(-2);
-    var result=year+"-"+month+"-"+date;
+    var result = year + "-" + month + "-" + date;
     return result;
   }
-  insertarPermiso(){
-    var fechaI=this.changeFormat(this.fechaInicio);
-    var fechaF=this.changeFormat(this.fechaFinal);
-    this.service.asignarPermiso({fechaInicio:fechaI,fechaFinal:fechaF,aplicaciones:this.listaAplicaciones}).then(Response=>{
-
-    }).catch(e=>{
-      console.log(e)
+  insertarPermiso() {
+    var fechaI = this.changeFormat(this.fechaInicio);
+    var fechaF = this.changeFormat(this.fechaFinal);
+    this.listaAplicaciones.map((app) => {
+        console.log({ fechaAsignacion: fechaI, fechaVencimiento: fechaF, nombre_app: app.NOM_APLICACION, nombre: this.user,rol:this.rol })
+        this.service.asignarPermiso({ fechaAsignacion: fechaI, fechaVencimiento: fechaF, nombre_app: app.NOM_APLICACION, nombre: this.user,rol:this.rol }).then(Response => {
+            if(Response.success){
+              console.log("Asigno permiso")
+              console.log(app)
+            }else{
+              console.log(Response)
+              console.log("error")
+              console.log(app)
+            }
+        }).catch(e => {
+          console.log(e)
+        })
     })
+    
   }
 }

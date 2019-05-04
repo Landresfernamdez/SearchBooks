@@ -160,6 +160,70 @@ exports.callProcedure = function callProcedure(request, callback) {
                     });
                 };
             });
+            connection.callProcedure(request);
+        });
+    } catch (error) {
+        console.log(error);
+    }    
+};
+
+
+/**
+ * Ejecuta un procedimiento almacenado en la base de datos SQL Server.
+ *
+ * @param {Request} request
+ * @param {function} callback
+ */
+exports.callProcedureDone = function callProcedure(request, callback) {
+    try {
+        'use strict';
+        var res = [],
+        connection = new Connection(config);
+        connection.on('connect', function(err) {
+            if (err) {
+                callback({
+                    success: false,
+                    data: err.message,
+                    error: SIN_CONEXION
+                });
+            }
+            /**
+             * llena la lista res de objetos tipo JSON con los datos retornados de la base de datos
+             */
+            request.on('row', function(columns) {
+                var row = {};
+                columns.forEach(function(column) {
+                    if (column.value === null) {
+                        console.log('NULL recibido');
+                    } else {
+                        if (column.metadata.colName.length === 0)
+                            row["success"] = column.value;
+                        else
+                            row[column.metadata.colName] = column.value;
+                    }
+                });
+                res.push(row);
+            });
+            /**
+             * evento que captura la respuesta de lo ocurrido en la base de datos
+             */
+            request.on('returnValue', function(parameterName, value, metadata) {
+                connection.close();
+                console.log(res);
+                if (parameterName === 'success' && (value === 1 || value === true)) {
+                    callback({
+                        success: true,
+                        data: res,
+                        error:200
+                    });
+                } else {
+                    callback({
+                        success: false,
+                        data: [],
+                        error:400
+                    });
+                };
+            });
                 /**
              * estos dos tipos de evento done se usan ya que hay ocaciones en la que se captura el evento doneProc o el done luego de ejecutar una consulta
              */        
