@@ -21,6 +21,12 @@ exports.asignarPermisos = function(rRequest, rResponse){
         rResponse.send(data);
     });
 };
+
+exports.cambiarEstadoUsuario = function(rRequest, rResponse){
+    controlador.cambiarEstadoUsuario(rRequest.body, function(data){
+        rResponse.send(data);
+    });
+};
 exports.tienepermisosEncargado = function(rRequest, rResponse){
     controlador.tienepermisosEncargado(rRequest.body, function(data){
         rResponse.send(data);
@@ -69,6 +75,12 @@ exports.todosLibros = function(rRequest, rResponse){
 };
 exports.todosUsuarios = function(rRequest, rResponse){
     controlador.todosUsuarios(function(data){
+        rResponse.send(data.data);
+    });
+};
+exports.todosUsuariosRegistrados = function(rRequest, rResponse){
+    console.log("ntro a controlador")
+    controlador.todosUsuariosRegistrados(function(data){
         rResponse.send(data.data);
     });
 };

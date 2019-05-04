@@ -98,6 +98,30 @@ exports.asignarPermisos= function(datos, callback){
         }
     });
 };
+
+exports.cambiarEstadoUsuario= function(datos, callback){
+    consultsPreparer.cambiarEstadoUsuario(datos, function(response) {
+        msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
+        if (response.success) {
+            callback({
+                success: true,
+                error: response.error,
+                title: "Se inserto con exito",
+                message: "Se inserto en la base de datos con exito",
+                data: response.data,
+                type: "success"
+            })
+        } else{
+            callback({
+                success: false,
+                message: msg,
+                title: "Error",
+                error: response.error,
+                type: "error"
+            })
+        }
+    });
+};
 exports.tienepermisosEncargado= function(datos, callback){
     consultsPreparer.esEncargado(datos, function(response) {
         msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
@@ -283,8 +307,6 @@ exports.todosLibros = function(datos, callback) {
         }
     });
 };
-
-
 exports.todosUsuarios = function(datos, callback) {
     consultsPreparer.todosUsuarios(datos, function(response) {
         msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
@@ -307,8 +329,29 @@ exports.todosUsuarios = function(datos, callback) {
         }
     });
 };
-
-
+exports.todosUsuariosRegistrados = function(datos, callback) {
+    console.log("Entro a logica")
+    consultsPreparer.todosUsuariosRegistrados(datos, function(response) {
+        msg = (response.error == 1) ? "Error de conexión" : "Credenciales incorrectas";
+        if (response.success){
+            callback({
+                success: true,
+                title: "Se obtuvo el ultimo con exito",
+                message: "Se obtuvo el ultimo elemento con exito",
+                data: response.data,
+                type: "success"
+            })
+        } else {
+            callback({
+                success: false,
+                message: msg,
+                title: "Error",
+                error: response.error,
+                type: "error"
+            })
+        }
+    });
+};
 /*
 // inserta componentes
 exports.login = function(datos, callback) {

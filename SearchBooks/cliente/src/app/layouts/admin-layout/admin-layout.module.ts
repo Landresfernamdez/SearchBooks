@@ -31,6 +31,7 @@ import {
   MatDialogModule,
   MatDatepickerModule,
   MatDatepickerToggle,
+  MatCheckboxModule,
 } from '@angular/material';
 import { LoginComponent } from 'app/login/login.component';
 import { AutoGuard } from './autoguard.component';
@@ -54,6 +55,7 @@ import { AdminLayoutComponent } from './admin-layout.component';
     ReactiveFormsModule,
     MatDialogModule,
     MatDatepickerModule,
+    MatCheckboxModule
   ],
 
   declarations: [

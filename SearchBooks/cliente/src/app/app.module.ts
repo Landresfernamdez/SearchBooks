@@ -35,7 +35,7 @@ import {
   MatSelectModule,
   MatFormFieldModule,
   MatOptionModule,
-  MatDatepickerModule,MatNativeDateModule,
+  MatDatepickerModule,MatNativeDateModule,MatCheckboxModule,
 } from '@angular/material';
 import { AppRoutes } from './layouts/admin-layout/app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -59,7 +59,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     MatFormFieldModule,
     MatOptionModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule
   ],
   declarations: [
     AppComponent

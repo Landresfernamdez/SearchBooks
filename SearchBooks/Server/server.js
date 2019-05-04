@@ -55,36 +55,17 @@ app.post('/agregarLibros',componenteCtrl.agregarLibros);
 app.get('/devuelveUltimo',componenteCtrl.obtenerUltimo);
 app.get('/todosLibros',componenteCtrl.todosLibros);
 app.post('/modificarLibro',componenteCtrl.modificarLibros);
-
 app.post('/eliminarLibros',componenteCtrl.eliminarLibros);
 
+
 app.get('/todosUsuarios',componenteCtrl.todosUsuarios);
-app.post('/agregarUsuarios',componenteCtrl.agregarUsuarios);
-app.post('/agregarUsuarioDepartamento',componenteCtrl.agregarUsuarioDepartamento);
-app.post('/modificarUsuarios',componenteCtrl.modificarUsuarios);
-app.post('/eliminarUsuarios',componenteCtrl.eliminarUsuarios);
+app.get('/todosUsuariosR',componenteCtrl.todosUsuariosRegistrados);
+
 app.post('/iniciarSesion',componenteCtrl.inicioSesion);
-
 app.post('/asignarPermiso',componenteCtrl.asignarPermisos);
-
+app.post('/cambiarEstadoUsuario',componenteCtrl.cambiarEstadoUsuario);
 
 app.post('/tienepermisosEncargado',componenteCtrl.tienepermisosEncargado);
-
-
-
-/*
-//app.post('/movimiento', componenteCtrl.realizarMovimiento);
-//app.get('/selectComponentes', componenteCtrl.selectComponente);
-//app.post('/deleteComponente', componenteCtrl.deleteComponente);
-//app.post('/Login',componenteCtrl.login);
-//app.post('/validaCorreo',componenteCtrl.validaCorreo);
-//app.post('/insertarUsuario',componenteCtrl.insertarUsuario);
-//app.post('/agregarSesion',componenteCtrl.insertarSesion);
-//app.get('/selectSesionesJuegoDisponibles', componenteCtrl.selectSesionesJuegoDisponibles);
-//app.post('/putUsuarioasesiondeJuego',componenteCtrl.insertarUsuarioSesion);
-//app.post('/misSesiones',componenteCtrl.misSesiones);
-//app.post('/detallesSesion',componenteCtrl.detalles);
-//app.post('/partidaActual',componenteCtrl.partidaActual);
 /*
 ======================================================================================
 >  Pone el servidor en escucha de peticiones, lo levanta en el puerto especificado.  <

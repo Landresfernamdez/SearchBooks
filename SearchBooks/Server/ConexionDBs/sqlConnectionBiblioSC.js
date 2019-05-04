@@ -34,7 +34,7 @@ connection.on('connect', function(err) {
  * @param {fuest} request
  * @param {function} callback
  */
-exports.executeRequest = function executeRequest(request, callback) {
+exports.executeRequest = function (request, callback) {
     'use strict';
     var res = [],
         connection = new Connection(config);
@@ -63,7 +63,9 @@ exports.executeRequest = function executeRequest(request, callback) {
 
         request.on('returnValue', function(parameterName, value, metadata) {
             connection.close();
+            console.log("return value")
             console.log(res);
+            
             if (parameterName === 'success' && (value === 1 || value === true)) {
                 console.log(res);
                 callback({
@@ -84,7 +86,10 @@ exports.executeRequest = function executeRequest(request, callback) {
          * estos dos tipos de evento done se usan ya que hay ocaciones en la que se captura el evento doneProc o el done luego de ejecutar una consulta
          */        
         request.on('done', function (rowCount, more, rows) { // si el tipo de exito es done llena callback
+            
+            console.log("Done")
             console.log(res);
+            
             callback({
                 success: true,
                 data: res,
@@ -93,6 +98,7 @@ exports.executeRequest = function executeRequest(request, callback) {
         });
 
         request.on('doneProc', function (rowCount, more, rows) { // si el tipo de exito es doneProc llena callback
+            console.log("Doneproc")
             console.log(res);
             callback({
                 success: true,

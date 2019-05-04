@@ -43,41 +43,10 @@ exports.insertarLibro = function insertarLibro(datos, callback) {
     request.addParameter('formato', TYPES.VarChar, datos.formato);
     request.addOutputParameter('success', TYPES.Bit);
     setTimeout(() => {
-        sqlConection.callProcedure(request, function (res) {
+        sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
             callback(res);
         });
     }, 5000);
-}
-
-exports.insertarUsuario = function insertarUsuario(datos, callback) {
-    var request = new Request('insertarFuncionarioPersona', function (err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    request.addParameter('carne', TYPES.VarChar, '');
-    request.addParameter('nombre', TYPES.VarChar, datos.nombre);
-    request.addParameter('idPersona', TYPES.VarChar, datos.idPersona);
-    request.addParameter('apellido1', TYPES.VarChar, datos.apellido1);
-    request.addParameter('apellido2', TYPES.VarChar, datos.apellido2);
-    request.addParameter('newpass', TYPES.VarChar, datos.pass);
-    request.addParameter('estadoCivil', TYPES.VarChar, '');
-    request.addParameter('fechaNacimiento', TYPES.VarChar, '');
-    request.addParameter('sexo', TYPES.Char, '');
-    request.addParameter('direccion', TYPES.VarChar, '');
-    request.addParameter('gradoAcademico', TYPES.VarChar, '');
-    request.addParameter('listaRoles', TYPES.VarChar, datos.listaRoles);
-    request.addParameter('listaLicencias', TYPES.VarChar, '');
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConectioninfoTEC.callProcedure(request, function (res) {
-        callback(res);
-    });
 }
 
 exports.asignarPermisos = function asignarPermisos(datos, callback) {
@@ -102,6 +71,26 @@ exports.asignarPermisos = function asignarPermisos(datos, callback) {
         callback(res);
     });
 }
+
+exports.cambiarEstadoUsuario = function cambiarEstadoUsuario(datos, callback) {
+    var request = new Request('cambiarEstadoUsuario', function (err) { // nombre de procedimiento en la base de datos
+        if (err) {
+            callback({
+                success: false,
+                error: request.error,
+                title: "Error",
+                message: "Sucedio un error en la inserción de los datos",
+                type: "error"
+            })
+        }
+    });
+    request.addParameter('ID_ENCARGADO', TYPES.VarChar,datos.id_encargado);
+    request.addParameter('ESTADO', TYPES.VarChar, datos.estado);
+    request.addOutputParameter('success', TYPES.Bit);
+    sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
+        callback(res);
+    });
+}
 exports.esEncargado = function esEncargado(datos, callback) {
     var request = new Request('tienepermisosEncargado', function (err) { // nombre de procedimiento en la base de datos
         if (err) {
@@ -120,25 +109,6 @@ exports.esEncargado = function esEncargado(datos, callback) {
     sqlConectioniBiblioscTEC.callProcedureDone(request, function (res) {
             callback(res);
         });
-}
-exports.insertarUsuarioDepartamento = function insertarUsuarioDepartamento(datos, callback) {
-    var request = new Request('AgregarfuncionarioDepartamento', function (err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    request.addParameter('cedula', TYPES.VarChar, datos.cedula);
-    request.addParameter('idDepartamento', TYPES.VarChar, datos.iddepartamento);
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConectioninfoTEC.callProcedure(request, function (res) {
-        callback(res);
-    });
 }
 /**
  * Función de modificar libro en la base de datos
@@ -170,56 +140,7 @@ exports.modificarLibro = function modificarLibro(datos, callback) {
     request.addParameter('coleccion', TYPES.VarChar, datos.coleccion);
     request.addParameter('formato', TYPES.VarChar, datos.formato);
     request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function (res) {
-        callback(res);
-    });
-}
-
-exports.modificarUsuario = function modificarUsuario(datos, callback) {
-    var request = new Request('insertarFuncionarioPersona', function (err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    request.addParameter('carne', TYPES.VarChar, '');
-    request.addParameter('nombre', TYPES.VarChar, datos.nombre);
-    request.addParameter('idPersona', TYPES.VarChar, datos.idPersona);
-    request.addParameter('apellido1', TYPES.VarChar, datos.apellido1);
-    request.addParameter('apellido2', TYPES.VarChar, datos.apellido2);
-    request.addParameter('newpass', TYPES.VarChar, datos.pass);
-    request.addParameter('estadoCivil', TYPES.VarChar, '');
-    request.addParameter('fechaNacimiento', TYPES.VarChar, '');
-    request.addParameter('sexo', TYPES.Char, '');
-    request.addParameter('direccion', TYPES.VarChar, '');
-    request.addParameter('gradoAcademico', TYPES.VarChar, '');
-    request.addParameter('listaRoles', TYPES.VarChar, datos.listaRoles);
-    request.addParameter('listaLicencias', TYPES.VarChar, '');
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConectioninfoTEC.callProcedure(request, function (res) {
-        callback(res);
-    });
-}
-exports.eliminarUsuario = function eliminarUsuario(datos, callback) {
-    var request = new Request('EliminarUsuario', function (err) { // nombre de procedimiento en la base de datos
-        if (err) {
-            callback({
-                success: false,
-                error: request.error,
-                title: "Error",
-                message: "Sucedio un error en la inserción de los datos",
-                type: "error"
-            })
-        }
-    });
-    request.addParameter('idPersona', TYPES.VarChar, datos.IDPer);
-    request.addOutputParameter('success', TYPES.Bit);
-    sqlConectioninfoTEC.callProcedure(request, function (res) {
+    sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
         callback(res);
     });
 }
@@ -237,7 +158,7 @@ exports.eliminarLibro = function eliminarLibros(datos, callback) {
     });
     request.addParameter('id', TYPES.Int, datos.id);
     request.addOutputParameter('success', TYPES.Bit);
-    sqlConection.callProcedure(request, function (res) {
+    sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
         callback(res);
     });
 }
@@ -258,7 +179,7 @@ exports.ultimo = function ultimo(datos, callback) {
             })
         }
     });
-    sqlConection.callProcedure(request, function (res) {
+    sqlConectioniBiblioscTEC.callProcedure(request, function (res) {
         callback(res);
     });
 }
@@ -287,7 +208,7 @@ exports.inicioSesion = function inicioSesion(datos, callback) {
  * @param {Retorna el resultado de la peticion} callback 
  */
 exports.todosLibros = function (callback) {
-    var query = "SELECT * FROM Libros where titulo!='NULL'";
+    var query = "SELECT * FROM Libros";
     var request = new Request(query, function (err) {
         if (err) {
             callback({
@@ -301,7 +222,7 @@ exports.todosLibros = function (callback) {
         }
 
     });
-    sqlConection.executeRequest(request, callback);
+    sqlConectioniBiblioscTEC.executeRequest(request, callback);
 }
 
 exports.todosUsuarios = function (callback) {
@@ -320,4 +241,22 @@ exports.todosUsuarios = function (callback) {
 
     });
     sqlConectioninfoTEC.executeRequest(request, callback);
+}
+exports.todosUsuariosRegistrados = function (callback) {
+    
+    console.log("Entro a prueba")
+    var query = "SELECT * FROM ENCARGADOS";
+    var request = new Request(query, function (err) {
+        if (err) {
+            callback({
+                success: false,
+                data: err,
+                error: request.error,
+                title: "Error",
+                message: "Error obteniendo los datos. Revise su conexión",
+                type: "error"
+            });
+        }
+    });
+    sqlConectioniBiblioscTEC.executeRequest(request, callback);
 }

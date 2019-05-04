@@ -18,16 +18,44 @@ export class UsersComponent implements OnInit {
   snackbar: MatSnackBar;
   constructor(private service: UsersService, private snackBar: MatSnackBar, public dialog: MatDialog) {
     this.snackbar = snackBar;
-    this.service.devuelveTodosUsuarios().subscribe(response => {
+    /*this.service.devuelveTodosUsuarios().subscribe(response => {
       this.users = response;
       console.log(this.users);
       for (var x = 0; x < this.users.length; x++) {
         this.users[x].pass = this.users[x].pass;
       }
     }
+    
+    )*/
+    this.service.devuelveTodosUsuariosRegistrados().subscribe(response => {
+      console.log(response)
+      this.users = response
+    }
     )
   }
   ngOnInit() {
+  }
+  showOptions(user) {
+    var estado;
+    if(user.ESTADO){
+      estado="1";
+    }else{
+      estado="0";
+    }
+    this.service.cambiarEstadoUsuario({ id_encargado: user.ID_ENCARGADO, estado: estado}).then(Response => {
+      if (Response.success) {
+        if(estado=="1"){
+          this.notificar("Se activo el usuario con exito", "exito");
+        }else{
+          this.notificar("Se inactivo el usuario con exito", "exito");
+        }
+      } else {
+        console.log(Response)
+        this.notificar("Error, mala conexión", "error");
+      }
+    }).catch(e => {
+      console.log(e)
+    })
   }
   AgregaUsuario() {
     this.user.listaRoles = this.user.rol;
@@ -89,6 +117,7 @@ export class UsersComponent implements OnInit {
 export class DialogContentExampleDialog {
   usersfc = new FormControl();
   public users;
+  public usuariosRegistrados;
   public roles;
   public aplicaciones;//Lista de aplicaciones de las que el usuario no tiene permisos aun
   user: string;
@@ -96,10 +125,10 @@ export class DialogContentExampleDialog {
   listaAplicaciones = [];
   fechaInicio: Date = new Date();
   fechaFinal: Date = new Date();
-  rol:Int32Array;
+  rol: Int32Array;
   constructor(private service: UsersService, private snackBar: MatSnackBar, public dialog: MatDialog) {
     this.snackbar = snackBar;
-    this.roles = [ {tipo:"Administrador",valor:0},{tipo:"Encargado",valor:1},{tipo:"Asistente",valor:2}];
+    this.roles = [{ tipo: "Administrador", valor: 0 }, { tipo: "Encargado", valor: 1 }, { tipo: "Asistente", valor: 2 }];
     //Aun no hay datos de InfoTEC
     /*this.service.devuelveTodosUsuarios().subscribe(response => {
       this.users = response;
@@ -110,7 +139,10 @@ export class DialogContentExampleDialog {
     }
     )*/
     this.users = [{ nombre: "Andres Fernández" }, { nombre: "Ramiro" }]
+    console.log("Entro")
+
   }
+
   obtieneAplicaciones() {
     this.service.tienepermisosEncargado({ nombre: this.user }).then(
       Response => {
@@ -145,20 +177,20 @@ export class DialogContentExampleDialog {
     var fechaI = this.changeFormat(this.fechaInicio);
     var fechaF = this.changeFormat(this.fechaFinal);
     this.listaAplicaciones.map((app) => {
-        console.log({ fechaAsignacion: fechaI, fechaVencimiento: fechaF, nombre_app: app.NOM_APLICACION, nombre: this.user,rol:this.rol })
-        this.service.asignarPermiso({ fechaAsignacion: fechaI, fechaVencimiento: fechaF, nombre_app: app.NOM_APLICACION, nombre: this.user,rol:this.rol }).then(Response => {
-            if(Response.success){
-              console.log("Asigno permiso")
-              console.log(app)
-            }else{
-              console.log(Response)
-              console.log("error")
-              console.log(app)
-            }
-        }).catch(e => {
-          console.log(e)
-        })
+      console.log({ fechaAsignacion: fechaI, fechaVencimiento: fechaF, nombre_app: app.NOM_APLICACION, nombre: this.user, rol: this.rol })
+      this.service.asignarPermiso({ fechaAsignacion: fechaI, fechaVencimiento: fechaF, nombre_app: app.NOM_APLICACION, nombre: this.user, rol: this.rol }).then(Response => {
+        if (Response.success) {
+          console.log("Asigno permiso")
+          console.log(app)
+        } else {
+          console.log(Response)
+          console.log("error")
+          console.log(app)
+        }
+      }).catch(e => {
+        console.log(e)
+      })
     })
-    
+
   }
 }

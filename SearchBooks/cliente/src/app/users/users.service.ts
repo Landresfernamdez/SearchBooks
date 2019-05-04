@@ -25,12 +25,18 @@ export class UsersService {
   devuelveTodosUsuarios() {
     return this.http.get(this.Url + 'todosUsuarios');
   }
+  devuelveTodosUsuariosRegistrados() {
+    return this.http.get(this.Url + 'todosUsuariosR');
+  }
   //Aplicaciones que un usuario no tiene permisos
   tienepermisosEncargado(usuario){
     return this.http.post<UserPostResponse>(this.Url + 'tienepermisosEncargado',usuario).toPromise();
   }
   asignarPermiso(usuario){
     return this.http.post<UserPostResponse>(this.Url + 'asignarPermiso',usuario).toPromise();
+  }
+  cambiarEstadoUsuario(usuario){
+    return this.http.post<UserPostResponse>(this.Url + 'cambiarEstadoUsuario',usuario).toPromise();
   }
 
 }

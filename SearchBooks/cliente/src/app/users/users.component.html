@@ -1,8 +1,9 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-        <button mat-button (click)="openDialogPermisos()"><i class="material-icons">person_add</i> Asignar permiso</button>
-      
+      <button mat-button (click)="openDialogPermisos()"><i class="material-icons">person_add</i> Asignar
+        permiso</button>
+
       <div class="modal fade bd-example-modal-sm" id="confirmacionEliminarUsuario" tabindex="-1" role="dialog"
         aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
@@ -47,29 +48,20 @@
                 <b>Nombre</b>
               </td>
               <td>
-                <b>Cedula</b>
-              </td>
-              <td>
-                <b>Primer apellido</b>
-              </td>
-              <td>
-                <b>Segundo apellido</b>
+                <b>Estado</b>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let user of users  | paginate: { itemsPerPage:5 , currentPage: p }">
               <td>
-                {{user.nombre}}
+                {{user.NOM_ENCARGADO}}
               </td>
               <td>
-                {{user.idPersona}}
-              </td>
-              <td>
-                {{user.apellido1}}
-              </td>
-              <td>
-                {{user.apellido2}}
+                <mat-checkbox class="example-margin" [(ngModel)]="user.ESTADO"
+                (change)="showOptions(user)" 
+                >  
+                </mat-checkbox>
               </td>
             </tr>
           </tbody>
