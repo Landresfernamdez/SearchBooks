@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Asignación de permisos</h2>
+<mat-dialog-content class="mat-typography">
+  <table>
+    <tr>
+      <td>
+        <p>Nombre</p>
+      </td>
+      <td>
+        <p>Permisos</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-select placeholder="Usuarios" (selectionChange)="obtieneAplicaciones()" [(ngModel)]="user">
+            <mat-option *ngFor="let usuario of users" [value]="usuario.nombre">{{usuario.nombre}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-select placeholder="Aplicaciones" [formControl]="usersfc" (selectionChange)="verlista()" [(ngModel)]="listaAplicaciones" multiple>
+            <mat-option *ngFor="let app of aplicaciones" [value]="app" >{{app.NOM_APLICACION}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field class="example-full-width">
+          <input [(ngModel)]="fechaInicio" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Fecha de Asignación">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="example-full-width">
+          <input [(ngModel)]="fechaFinal" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" placeholder="Fecha de vencimiento">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-select placeholder="Rol" [(ngModel)]="rol">
+            <mat-option *ngFor="let rol of roles" [value]="rol.valor">{{rol.tipo}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="insertarPermiso()">Enviar</button>
+</mat-dialog-actions>

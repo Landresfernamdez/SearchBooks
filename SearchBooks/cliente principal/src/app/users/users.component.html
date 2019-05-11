@@ -1,0 +1,58 @@
+<div class="main-content">
+  <div class="container-fluid">
+    
+      <button mat-button (click)="openDialogPermisos()"><i class="material-icons">person_add</i> Asignar
+        permiso</button>
+    <div class="row">
+
+      <div class="modal fade bd-example-modal-sm" id="confirmacionEliminarUsuario" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <button class=".bg-success" (click)="EliminaUser()" data-dismiss="modal">
+              <i class="material-icons">check_circle_outline</i>Confirmar</button>
+            <button class=".bg-danger" data-dismiss="modal"><i class="material-icons">highlight_off</i>Cancelar</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal" id="myModalExito">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Modal Heading</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="alert alert-success">
+                <strong>Success!</strong> Indicates a successful or positive action.
+              </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div *ngFor="let item of tiles">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <img mat-card-avatar src="{{item.icon}}">
+            <mat-card-title>Shiba Inu</mat-card-title>
+            <mat-card-subtitle>{{item.text}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+          </mat-card-content>
+          <mat-card-actions>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
