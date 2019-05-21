@@ -5,9 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import {UsersComponent} from '../../users/users.component';
 import { UsersService } from '../../users/users.service';
-import {DialogContentExampleDialog} from '../../users/users.component'
+import {DialogContentExampleDialog} from '../../users/dialog-content/dialog.component'
+import {CookiesmanagementService} from '../../users/cookies-management/cookiesmanagement.service'
 //Library to do request to the server
-import { HttpHeaders, HttpClientModule } from '@angular/common/http';
+import { HttpHeaders, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 const httpOptions = {
@@ -34,6 +35,7 @@ import {
 import { AutoGuard } from './autoguard.component';
 import { UsersAutoGuard } from './users.autoguard.component';
 import { AdminLayoutComponent } from './admin-layout.component';
+import { DataTokenInterceptor } from 'app/users/data-token-interceptor/data-token-interceptor.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -56,12 +58,11 @@ import { AdminLayoutComponent } from './admin-layout.component';
     MatCardModule,
     MatGridListModule
   ],
-
   declarations: [
     UsersComponent,
     DialogContentExampleDialog
   ],
-  providers: [UsersService,AutoGuard,UsersAutoGuard],
+  providers: [UsersService,AutoGuard,UsersAutoGuard,CookiesmanagementService,{provide:HTTP_INTERCEPTORS,useClass:DataTokenInterceptor,multi:true}],
   bootstrap: [UsersComponent],
   entryComponents: [UsersComponent, DialogContentExampleDialog],
 })

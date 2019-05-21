@@ -9,6 +9,7 @@ interface UserPostResponse {
 export class UsersService {
   Url: string = 'http://localhost:8080/';
   constructor(private http: HttpClient) {
+    
   }
   addUser(user) {
     return this.http.post(this.Url + 'agregarUsuarios', user).toPromise();

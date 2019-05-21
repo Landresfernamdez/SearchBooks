@@ -25,7 +25,6 @@ export class UsersComponent implements OnInit {
         this.users[x].pass = this.users[x].pass;
       }
     }
-    
     )*/
     this.service.devuelveTodosUsuariosRegistrados().subscribe(response => {
       console.log(response)
